@@ -3,11 +3,10 @@ package com.farm.farm.entity;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+@Entity
+@Table(name ="f_produccion")
 public class produccion_entity {
 
     @Id
@@ -49,4 +48,18 @@ public class produccion_entity {
     @Setter
     private String estado;
 
+
+
+    @ManyToOne
+    @JoinColumn (name = "id_insumos", insertable = false, updatable = false)
+    private insumos_entity insumos;
+    @ManyToOne
+    @JoinColumn (name = "dni", insertable = false, updatable = false)
+    private user_entity u_dni;
+    @ManyToOne
+    @JoinColumn (name = "id_labor", insertable = false, updatable = false)
+    private laboractividad_entity labor;
+    @ManyToOne
+    @JoinColumn (name = "id_lote", insertable = false, updatable = false)
+    private lote_entity lote;
 }

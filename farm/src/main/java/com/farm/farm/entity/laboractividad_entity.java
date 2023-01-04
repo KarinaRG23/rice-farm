@@ -1,11 +1,14 @@
 package com.farm.farm.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
+@Table(name ="f_labor_actividad")
 public class laboractividad_entity {
 
     @Id
@@ -25,6 +28,17 @@ public class laboractividad_entity {
 
     @Getter
     @Setter
-    private Integer DNI;
+    private Integer dni;
+
+    @OneToMany(mappedBy = "labor")
+    @Setter@Getter
+    @JsonIgnore
+    private List<produccion_entity> labor;
+
+    @ManyToOne
+    @JoinColumn (name = "dni", insertable = false, updatable = false)
+    private user_entity user;
+
+
 
 }
