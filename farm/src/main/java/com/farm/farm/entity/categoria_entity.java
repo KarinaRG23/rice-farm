@@ -19,6 +19,7 @@ public class categoria_entity {
     private Integer idcategoria;
     @Getter
     @Setter
+<<<<<<< HEAD
     private String nombre;
     @Getter
     @Setter
@@ -35,6 +36,10 @@ public class categoria_entity {
     @Getter
     @Setter
     private Integer status;
+=======
+    @Column(length = 128)
+    private String nombre_cat;
+>>>>>>> 460330df7bee96b5fb3d9b1ee178feb16635d53f
 
     @OneToMany(mappedBy = "cat")
     @Setter@Getter
