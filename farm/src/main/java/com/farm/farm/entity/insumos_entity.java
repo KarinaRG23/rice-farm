@@ -18,21 +18,27 @@ public class insumos_entity {
 
     @Getter
     @Setter
+    @Column(length = 128)
     private String nombre_insumo;
     @Getter
     @Setter
+    @Column(length = 128)
     private String descripcion;
     @Getter
     @Setter
+    @Column(length = 128)
     private String costo;
     @Getter
     @Setter
+    @Column(length = 128)
     private String fecha_registro;
     @Getter
     @Setter
+    @Column(length = 128)
     private String cantidad;
 
     @Getter
     @Setter
+    @Column(length = 128)
     private Integer id_sub_cat;
 }

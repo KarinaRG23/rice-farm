@@ -17,6 +17,7 @@ public class categoria_entity {
     private Integer id_categoria;
     @Getter
     @Setter
+    @Column(length = 128)
     private String nombre_cat;
 
 }
