@@ -315,11 +315,7 @@
 							}
 
 							$infoOrden = $this->getPedido($request_pedido);
-							// $dataEmailOrden = array('asunto' => "Se ha creado la orden No.".$request_pedido,
-							// 						'email' => $_SESSION['userData']['email_user'], 
-							// 						'emailCopia' => EMAIL_PEDIDOS,
-							// 						'pedido' => $infoOrden );
-							// sendEmail($dataEmailOrden,"email_notificacion_orden");
+						
 
 							$orden = openssl_encrypt($request_pedido, METHODENCRIPT, KEY);
 							$transaccion = openssl_encrypt($idtransaccionpaypal, METHODENCRIPT, KEY);
@@ -333,68 +329,12 @@
 							session_regenerate_id(true);
 						}
 					
-					// else{ //Pago con PayPal
-					// 	$jsonPaypal = $_POST['datapay'];
-					// 	$objPaypal = json_decode($jsonPaypal);
-					// 	$status = "Aprobado";
-					// 	if(is_object($objPaypal)){
-					// 		$datospaypal = $jsonPaypal;
-					// 		$idtransaccionpaypal = $objPaypal->purchase_units[0]->payments->captures[0]->id;
-					// 		if($objPaypal->status == "COMPLETED"){
-					// 			$totalPaypal = formatMoney($objPaypal->purchase_units[0]->amount->value);
-					// 			if($monto == $totalPaypal){
-					// 				$status = "Completo";
-					// 			}
-					// 			//Crear pedido
-					// 			$request_pedido = $this->insertPedido($idtransaccionpaypal, 
-					// 												$datospaypal, 
-					// 												$personaid,
-					// 												$costo_envio,
-					// 												$monto, 
-					// 												$tipopagoid,
-					// 												$direccionenvio, 
-					// 												$status);
-					// 			if($request_pedido > 0 ){
-					// 				//Insertamos detalle
-					// 				foreach ($_SESSION['arrCarrito'] as $producto) {
-					// 					$productoid = $producto['idproducto'];
-					// 					$precio = $producto['precio'];
-					// 					$cantidad = $producto['cantidad'];
-					// 					$this->insertDetalle($request_pedido,$productoid,$precio,$cantidad);
-					// 				}
-					// 				$infoOrden = $this->getPedido($request_pedido);
-					// 				$dataEmailOrden = array('asunto' => "Se ha creado la orden No.".$request_pedido,
-					// 								'email' => $_SESSION['userData']['email_user'], 
-					// 								'emailCopia' => EMAIL_PEDIDOS,
-					// 								'pedido' => $infoOrden );
-
-					// 				sendEmail($dataEmailOrden,"email_notificacion_orden");
-
-					// 				$orden = openssl_encrypt($request_pedido, METHODENCRIPT, KEY);
-					// 				$transaccion = openssl_encrypt($idtransaccionpaypal, METHODENCRIPT, KEY);
-					// 				$arrResponse = array("status" => true, 
-					// 								"orden" => $orden, 
-					// 								"transaccion" =>$transaccion,
-					// 								"msg" => 'Pedido realizado'
-					// 							);
-					// 				$_SESSION['dataorden'] = $arrResponse;
-					// 				unset($_SESSION['arrCarrito']);
-					// 				session_regenerate_id(true);
-					// 			}else{
-					// 				$arrResponse = array("status" => false, "msg" => 'No es posible procesar el pedido.');
-					// 			}
-					// 		}else{
-					// 			$arrResponse = array("status" => false, "msg" => 'No es posible completar el pago con PayPal.');
-					// 		}
-					// 	}else{
-					// 		$arrResponse = array("status" => false, "msg" => 'Hubo un error en la transacción.');
-					// 	}
-					// }
+					
 				}else{
-					$arrResponse = array("status" => false, "msg" => 'No es posible procesar el pedido.');
+					$arrResponse = array("status" => false, "msg" => 'No es posible procesar la venta.');
 				}
 			}else{
-				$arrResponse = array("status" => false, "msg" => 'No es posible procesar el pedido.');
+				$arrResponse = array("status" => false, "msg" => 'No es posible procesar la venta.');
 			}
 
 			echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
@@ -408,8 +348,8 @@
 				$dataorden = $_SESSION['dataorden'];
 				$idpedido = openssl_decrypt($dataorden['orden'], METHODENCRIPT, KEY);
 				$transaccion = openssl_decrypt($dataorden['transaccion'], METHODENCRIPT, KEY);
-				$data['page_tag'] = "Confirmar Pedido";
-				$data['page_title'] = "Confirmar Pedido";
+				$data['page_tag'] = "Confirmar Venta";
+				$data['page_title'] = "Confirmar Venta";
 				$data['page_name'] = "confirmarpedido";
 				$data['orden'] = $idpedido;
 				$data['transaccion'] = $transaccion;

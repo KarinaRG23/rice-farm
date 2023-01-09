@@ -8,17 +8,17 @@
         </div>
       </div>
       <ul class="app-menu">
-        <li>
+        <!--<li>
             <a class="app-menu__item" href="<?= base_url(); ?>" target="_blank">
                 <i class="app-menu__icon fa fas fa-globe" aria-hidden="true"></i>
                 <span class="app-menu__label">Ver sitio web</span>
             </a>
-        </li>
+        </li>-->
         <?php if(!empty($_SESSION['permisos'][1]['r'])){ ?>
         <li>
             <a class="app-menu__item" href="<?= base_url(); ?>/dashboard">
                 <i class="app-menu__icon fa fa-dashboard"></i>
-                <span class="app-menu__label">Dashboard</span>
+                <span class="app-menu__label">Reportes</span>
             </a>
         </li>
         <?php } ?>
@@ -43,11 +43,35 @@
             </a>
         </li>
         <?php } ?>
+        <?php if(!empty($_SESSION['permisos'][2]['r'])){ ?>
+        <li>
+            <a class="app-menu__item" href="">
+                <i class="app-menu__icon fa fa-file-alt" aria-hidden="true"></i>
+                <span class="app-menu__label">Lotes</span>
+            </a>
+        </li>
+        <?php } ?>
+        <?php if(!empty($_SESSION['permisos'][2]['r'])){ ?>
+        <li>
+            <a class="app-menu__item" href="">
+                <i class="app-menu__icon fa fa-file-alt" aria-hidden="true"></i>
+                <span class="app-menu__label">Labores</span>
+            </a>
+        </li>
+        <?php } ?>
+        <?php if(!empty($_SESSION['permisos'][2]['r'])){ ?>
+        <li>
+            <a class="app-menu__item" href="">
+                <i class="app-menu__icon fa fa-file-alt" aria-hidden="true"></i>
+                <span class="app-menu__label">Producción</span>
+            </a>
+        </li>
+        <?php } ?>
         <?php if(!empty($_SESSION['permisos'][4]['r']) || !empty($_SESSION['permisos'][6]['r'])){ ?>
         <li class="treeview">
             <a class="app-menu__item" href="#" data-toggle="treeview">
                 <i class="app-menu__icon fa fa-archive" aria-hidden="true"></i>
-                <span class="app-menu__label">Tienda</span>
+                <span class="app-menu__label">Insumos</span>
                 <i class="treeview-indicator fa fa-angle-right"></i>
             </a>
             <ul class="treeview-menu">
@@ -59,29 +83,13 @@
                 <?php } ?>
             </ul>
         </li>
-        <?php } ?>
-        <?php if(!empty($_SESSION['permisos'][2]['r'])){ ?>
-        <li>
-            <a class="app-menu__item" href="<?= base_url(); ?>/distribucion">
-                <i class="app-menu__icon fa fa-motorcycle" aria-hidden="true"></i>
-                <span class="app-menu__label">Distribución</span>
-            </a>
-        </li>
+        
          <?php } ?>
          <?php if(!empty($_SESSION['permisos'][5]['r'])){ ?>
         <li>
             <a class="app-menu__item" href="<?= base_url(); ?>/pedidos">
                 <i class="app-menu__icon fa fa-shopping-cart" aria-hidden="true"></i>
-                <span class="app-menu__label">Pedidos</span>
-            </a>
-        </li>
-         <?php } ?>
-
-        <?php if(!empty($_SESSION['permisos'][MSUSCRIPTORES]['r'])){ ?>
-        <li>
-            <a class="app-menu__item" href="<?= base_url(); ?>/suscriptores">
-                <i class="app-menu__icon fas fa-user-tie" aria-hidden="true"></i>
-                <span class="app-menu__label">Suscriptores</span>
+                <span class="app-menu__label">Ventas</span>
             </a>
         </li>
          <?php } ?>
@@ -110,5 +118,7 @@
                 <span class="app-menu__label">Logout</span>
             </a>
         </li>
+        
+        
       </ul>
     </aside>

@@ -1,5 +1,5 @@
 <?php 
-	class PedidosModel extends Mysql
+	class VentasModel extends Mysql
 	{
 		private $objCategoria;
 		public function __construct()
