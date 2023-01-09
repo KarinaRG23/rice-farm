@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
+@Table(name="contacto")
 public class contacto_entity {
 
     @Id
@@ -29,14 +30,14 @@ public class contacto_entity {
     private String ip;
     @Getter
     @Setter
-    private String dispocitivo;
+    private String dispositivo;
     @Getter
     @Setter
     private String useragent;
 
     @Getter
     @Setter
-    private Timestamp datacreated;
+    private Timestamp datecreated;
 
 
 

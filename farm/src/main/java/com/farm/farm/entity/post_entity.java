@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
+@Table(name="post")
 public class post_entity {
     @Id
     @Getter

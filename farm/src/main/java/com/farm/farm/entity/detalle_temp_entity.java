@@ -7,6 +7,7 @@ import org.hibernate.id.IntegralDataTypeHolder;
 import javax.persistence.*;
 
 @Entity
+@Table(name="detalle_temp")
 public class detalle_temp_entity {
 
     @Id

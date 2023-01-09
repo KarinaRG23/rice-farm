@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
+@Table(name="categoria")
 public class categoria_entity {
 
     @Id
@@ -19,7 +20,6 @@ public class categoria_entity {
     private Integer idcategoria;
     @Getter
     @Setter
-<<<<<<< HEAD
     private String nombre;
     @Getter
     @Setter
@@ -29,17 +29,13 @@ public class categoria_entity {
     private String portada;
     @Getter
     @Setter
-    private Timestamp datacreated;
+    private String datecreated;
     @Getter
     @Setter
     private String ruta;
     @Getter
     @Setter
     private Integer status;
-=======
-    @Column(length = 128)
-    private String nombre_cat;
->>>>>>> 460330df7bee96b5fb3d9b1ee178feb16635d53f
 
     @OneToMany(mappedBy = "cat")
     @Setter@Getter

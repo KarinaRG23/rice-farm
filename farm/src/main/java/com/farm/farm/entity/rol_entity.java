@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name="rol")
 public class rol_entity {
 
     @Id

@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name="tipopago")
 public class tipodepago_entity {
 
     @Id

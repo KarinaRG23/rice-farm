@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
+@Table(name="pedido")
 public class pedido_entity {
 
     @Id
