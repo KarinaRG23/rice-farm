@@ -6,6 +6,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
+@Table(name ="f_prod_fac")
 public class prodfac_entity {
 
     @Id
@@ -36,5 +37,13 @@ public class prodfac_entity {
     @Getter
     @Setter
     private Integer id_venta;
+
+    @ManyToOne
+    @JoinColumn (name = "id_venta", insertable = false, updatable = false)
+    private venta_entity venta;
+
+    @ManyToOne
+    @JoinColumn (name = "id_lote", insertable = false, updatable = false)
+    private lote_entity lote;
 
 }

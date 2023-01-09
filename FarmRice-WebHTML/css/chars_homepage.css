@@ -1,0 +1,15 @@
+.container-elements-page{
+    padding: 10px;
+    margin: 0 auto;
+}
+.container-chars{
+    display: flex;
+    margin: 1%;
+}
+.container-char-linear{
+    margin: 1%;
+    padding: 1%;
+    border-radius: 20px;
+    border: 1px solid rgb(178, 174, 174);
+    box-shadow: 1px 1px 1px 1px;
+}

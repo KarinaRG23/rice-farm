@@ -1,0 +1,54 @@
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "bootstrap";
+//import "bootstrap/dist/css/bootstrap.min.css";
+//import "bootstrap/dist/js/bootstrap.min.js";
+import "./css/main_login.css";
+import rice from "./img/rice.png";
+import account from "./img/account.png";
+import password from "./img/password.png";
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
+function Formulario() {
+    return <div>
+        <div className="container">
+            <div className="container-elements">
+                <div className="container-image">
+                    <img src={rice} alt="Logo sobre el cultivo de arroz" id="logo_page" />
+                    <h5>Hacienda "La Esperanza"</h5>
+                    <h5>Inicio de sesion</h5>
+                </div>
+                <div className="container-form">
+                    <form>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="account basic-addon1">
+                                    <img src={account} alt="Logo sobre el cultivo de arroz" id="icon_account" />
+                                </span>
+                            </div>
+                            <input type="text" class="form-control" id="input_usuario" aria-describedby="emailHelp" placeholder="Usuario" />
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="password basic-addon1">
+                                    <img src={password} alt="Logo sobre el cultivo de arroz" id="icon_password" />
+                                </span>
+                            </div>
+                            <input type="password" class="form-control" id="input_password" placeholder="Contraseña" />
+                        </div>
+                        <br />
+                        <div className="container-button">
+                            <button type="submit" class="btn btn-primary" id="submit" onClick={this.onClick}>Ingresar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+root.render(<div>
+    <Formulario />
+</div>)
