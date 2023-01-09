@@ -8,19 +8,18 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name ="f_labor_actividad")
-public class laboractividad_entity {
+public class modulo_entity {
 
     @Id
     @Getter
     @Setter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true)
-    private Integer id_labor;
+    private Integer idmodulo;
 
     @Getter
     @Setter
-    private String nombre_labor;
+    private String titulo;
 
     @Getter
     @Setter
@@ -28,17 +27,11 @@ public class laboractividad_entity {
 
     @Getter
     @Setter
-    private Integer dni;
+    private Integer status;
 
-    @OneToMany(mappedBy = "labor")
+    @OneToMany(mappedBy = "modu")
     @Setter@Getter
     @JsonIgnore
-    private List<produccion_entity> labor;
-
-    @ManyToOne
-    @JoinColumn (name = "dni", insertable = false, updatable = false)
-    private user_entity user;
-
-
+    private List<permisos_entity> perm;
 
 }

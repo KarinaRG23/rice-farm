@@ -1,45 +1,43 @@
 package com.farm.farm.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.List;
 
 @Entity
-public class categoria_entity {
+public class contacto_entity {
 
     @Id
     @Getter
     @Setter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true)
-    private Integer idcategoria;
+    private Integer id;
     @Getter
     @Setter
     private String nombre;
     @Getter
     @Setter
-    private String descripcion;
+    private String email;
     @Getter
     @Setter
-    private String portada;
+    private String mensaje;
+    @Getter
+    @Setter
+    private String ip;
+    @Getter
+    @Setter
+    private String dispocitivo;
+    @Getter
+    @Setter
+    private String useragent;
+
     @Getter
     @Setter
     private Timestamp datacreated;
-    @Getter
-    @Setter
-    private String ruta;
-    @Getter
-    @Setter
-    private Integer status;
 
-    @OneToMany(mappedBy = "cat")
-    @Setter@Getter
-    @JsonIgnore
-    private List<producto_entity> prod;
 
 
 }
