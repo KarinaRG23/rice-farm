@@ -1,13 +1,12 @@
 <?php 
-	const BASE_URL = "http://localhost:8080/tienda_virtual";
-	//const BASE_URL = "https://avilupe.com/tiendavirtual";
+	const BASE_URL = "http://localhost:8080/hacienda_esperanza";
 
 	//Zona horaria
 	date_default_timezone_set('America/Guayaquil');
 
 	//Datos de conexión a Base de Datos
 	const DB_HOST = "localhost";
-	const DB_NAME = "db_tiendavirtual";
+	const DB_NAME = "hacienda_esperanza";
 	const DB_USER = "root";
 	const DB_PASSWORD = "";
 	const DB_CHARSET = "utf8";
@@ -34,7 +33,7 @@
 	//const SECRET = "";
 
 	//Datos envio de correo
-	const NOMBRE_REMITENTE = "Tienda Virtual Avicola";
+	const NOMBRE_REMITENTE = 'Hacienda "La esperanza"';
 	const EMAIL_REMITENTE = "haciendalaesperanza@gmail.com";
 	const NOMBRE_EMPESA = 'Hacienda "La esperanza"';
 	const WEB_EMPRESA = 'Hacienda "La esperanza"';

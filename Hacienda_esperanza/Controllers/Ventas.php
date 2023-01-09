@@ -1,6 +1,6 @@
 <?php 
 require_once("Models/TTipoPago.php"); 
-class Pedidos extends Controllers{
+class Ventas extends Controllers{
 	use TTipoPago;
 	public function __construct()
 	{
@@ -21,7 +21,7 @@ class Pedidos extends Controllers{
 		}
 		$data['page_tag'] = "Ventas";
 		$data['page_title'] = "VENTAS <small>Hacienda La Esperanza</small>";
-		$data['page_name'] = "pedidos";
+		$data['page_name'] = "ventas";
 		$data['page_functions_js'] = "functions_pedidos.js";
 		$this->views->getView($this,"pedidos",$data);
 	}
@@ -49,12 +49,12 @@ class Pedidos extends Controllers{
 				
 				if($_SESSION['permisosMod']['r']){
 					
-					$btnView .= ' <a title="Ver Detalle" href="'.base_url().'/pedidos/orden/'.$arrData[$i]['idpedido'].'" target="_blanck" class="btn btn-info btn-sm"> <i class="far fa-eye"></i> </a>
+					$btnView .= ' <a title="Ver Detalle" href="'.base_url().'/Ventas/orden/'.$arrData[$i]['idpedido'].'" target="_blanck" class="btn btn-info btn-sm"> <i class="far fa-eye"></i> </a>
 
 						<a title="Generar PDF" href="'.base_url().'/factura/generarFactura/'.$arrData[$i]['idpedido'].'" target="_blanck" class="btn btn-danger btn-sm"> <i class="fas fa-file-pdf"></i> </a> ';
 
 					if($arrData[$i]['idtipopago'] == 1){
-						$btnView .= '<a title="Ver Transacción" href="'.base_url().'/pedidos/transaccion/'.$arrData[$i]['idtransaccionpaypal'].'" target="_blanck" class="btn btn-info btn-sm"> <i class="fa fa-paypal" aria-hidden="true"></i> </a> ';
+						$btnView .= '<a title="Ver Transacción" href="'.base_url().'/Ventas/transaccion/'.$arrData[$i]['idtransaccionpaypal'].'" target="_blanck" class="btn btn-info btn-sm"> <i class="fa fa-paypal" aria-hidden="true"></i> </a> ';
 					}else{
 						// $btnView .= '<button class="btn btn-secondary btn-sm" disabled=""><i class="fa fa-paypal" aria-hidden="true"></i></button> ';
 					}
@@ -71,7 +71,7 @@ class Pedidos extends Controllers{
 
 	public function orden($idpedido){
 		if(!is_numeric($idpedido)){
-			header("Location:".base_url().'/pedidos');
+			header("Location:".base_url().'/Ventas');
 		}
 		if(empty($_SESSION['permisosMod']['r'])){
 			header("Location:".base_url().'/dashboard');
@@ -83,7 +83,7 @@ class Pedidos extends Controllers{
 		
 		$data['page_tag'] = "Venta - Hacienda La Esperanza";
 		$data['page_title'] = "VENTA <small>Hacienda La Esperanza</small>";
-		$data['page_name'] = "pedido";
+		$data['page_name'] = "ventas";
 		$data['arrPedido'] = $this->model->selectPedido($idpedido,$idpersona);
 		$this->views->getView($this,"orden",$data);
 	}
