@@ -8,34 +8,35 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name ="f_venta")
-public class venta_entity {
+public class rol_entity {
 
     @Id
     @Getter
     @Setter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true)
-    private Integer id_venta;
+    private Integer idrol;
 
     @Getter
     @Setter
-    private String fecha_venta;
-    @Getter
-    @Setter
-    private String cliente;
-    @Getter
-    @Setter
-    private String direccion;
-    @Getter
-    @Setter
-    private String telefono;
+    private String nombrerol;
 
-    @OneToMany(mappedBy = "venta")
+    @Getter
+    @Setter
+    private String descripcion;
+
+    @Getter
+    @Setter
+    private Integer status;
+
+    @OneToMany(mappedBy = "rol")
     @Setter@Getter
     @JsonIgnore
-    private List<prodfac_entity> prodfac;
+    private List<persona_entity> per;
 
-
+    @OneToMany(mappedBy = "rol")
+    @Setter@Getter
+    @JsonIgnore
+    private List<permisos_entity> rol;
 
 }

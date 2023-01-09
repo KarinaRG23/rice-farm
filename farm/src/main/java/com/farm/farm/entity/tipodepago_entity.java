@@ -8,22 +8,27 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name ="f_rol_usuario")
-public class roluser_entity {
+public class tipodepago_entity {
 
     @Id
     @Getter
     @Setter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true)
-    private Integer id_rol_user;
+    private Integer idtipopago;
+
 
     @Getter
     @Setter
-    private String nombre;
+    private String tipopago;
 
-    @OneToMany(mappedBy = "rol")
+    @Getter
+    @Setter
+    private Integer status;
+
+    @OneToMany(mappedBy = "tipag")
     @Setter@Getter
     @JsonIgnore
-    private List<user_entity> user;
+    private List<pedido_entity> ped;
+
 }
