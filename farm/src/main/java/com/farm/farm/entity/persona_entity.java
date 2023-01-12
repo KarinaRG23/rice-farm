@@ -1,5 +1,6 @@
 package com.farm.farm.entity;
 
+import com.farm.farm.helper.Hashing;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,10 +38,41 @@ public class persona_entity {
 
     @Getter
     @Setter
-    private String email_user;
-    @Getter
-    @Setter
+    @Column(unique = true, length = 128)
+    private String email;
+
+    @Column(length = 128)
     private String password;
+
+    @JsonIgnore
+    public String getPassword(){
+        return password;
+    }
+
+
+    @Column(length = 128)
+    public String salt;
+
+
+    public void setPassword(String passwordToHash){
+        if (passwordToHash != null && !passwordToHash.isEmpty()) {
+            Hashing.HashingResult hashingResult = Hashing.createHash(passwordToHash);
+            password = hashingResult.getHash();
+            salt = hashingResult.getSalt();
+        }
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    @JsonIgnore
+    public String getSalt() {
+        return salt;
+    }
+
+
+
     @Getter
     @Setter
     private String nit;
