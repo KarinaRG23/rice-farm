@@ -1,5 +1,4 @@
 import 'package:farm_rice_flutter_web/vistas/homepage.dart';
-import 'package:farm_rice_flutter_web/vistas/menu_inicial.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 

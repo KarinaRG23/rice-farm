@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class UserPage extends StatefulWidget {
-  const UserPage({Key? key}) : super(key: key);
+class InventoryPage extends StatefulWidget {
+  const InventoryPage({Key? key}) : super(key: key);
 
   @override
-  State<UserPage> createState() => _UserPageState();
+  State<InventoryPage> createState() => _InventoryPageState();
 }
 
-class _UserPageState extends State<UserPage> {
+class _InventoryPageState extends State<InventoryPage> {
 
   @override
   void initState() {
