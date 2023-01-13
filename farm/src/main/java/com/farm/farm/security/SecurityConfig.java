@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     @Bean
-    protected AuthenticationManager authenticationManager() throws Exception {
+    public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 
@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers( "/person/**/").permitAll()
-                //.antMatchers( "/Planes/**/").permitAll()
+                .antMatchers( "/rol/**/").permitAll()
                 //.antMatchers( "/Positions/**/").permitAll()
                 //.antMatchers( "/Events/**/").permitAll()
                 //.antMatchers( "/Devices/**/").permitAll()
@@ -59,4 +59,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.addFilterBefore(jwtFilterRequest, UsernamePasswordAuthenticationFilter.class);
     }
+
+
+
+
 }
