@@ -3,6 +3,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:farm_rice_flutter_web/class/classUserTable.dart';
 import 'package:farm_rice_flutter_web/class/userClass.dart';
 import 'package:farm_rice_flutter_web/temporalClass/sharedPreferences.dart';
 import 'package:http/http.dart' as http;
@@ -41,6 +42,23 @@ class Endpoints{
         listUser.add(User(x['username'], x['correo'], x['token'], x['user_rol']));
       }
       return listUser;
+    }
+  }
+
+  Future<List<UserTable>?> getUserData() async {
+    var token = await preferences.getToken();
+    List<UserTable> listTable = [];
+    var url = 'http://159.223.205.198:8080/person';
+    var dataPerson = {HttpHeaders.authorizationHeader : "Bearer $token"};
+    final response = await http.get(Uri.parse(url), headers: dataPerson);
+    if(response.statusCode == 200){
+      var json = jsonDecode(response.body);
+      for(var x in json['response']){
+        listTable.add(
+          UserTable(x['idpersona'], x['identificacion'], x['nombres'], x['apellidos'], 
+          x['telefono'], x['email'], x['nombrefiscal'], x['direccionfiscal'], x['rolid'], x['status']));
+      }
+      return listTable;
     }
   }
 

@@ -19,6 +19,7 @@ class _ProductionPageState extends State<ProductionPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: const Text("Produccion"),
         backgroundColor: const Color(0xff329437),
       ),
       body: Container(),

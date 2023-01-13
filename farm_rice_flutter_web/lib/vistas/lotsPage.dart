@@ -19,6 +19,7 @@ class _LotsPageState extends State<LotsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: const Text("Lotes"),
         backgroundColor: const Color(0xff329437),
       ),
       body: Container(),

@@ -18,6 +18,7 @@ class _ReportPageState extends State<ReportPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: const Text("Reportes"),
         backgroundColor: const Color(0xff329437),
       ),
       body: Container(),

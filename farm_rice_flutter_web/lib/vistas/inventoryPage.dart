@@ -18,6 +18,7 @@ class _InventoryPageState extends State<InventoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: const Text("Inventario"),
         backgroundColor: const Color(0xff329437),
       ),
       body: Container(),

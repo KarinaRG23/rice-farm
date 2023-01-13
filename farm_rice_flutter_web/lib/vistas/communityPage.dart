@@ -19,6 +19,7 @@ class _CommunityPageState extends State<CommunityPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: const Text("Labores"),
         backgroundColor: const Color(0xff329437),
       ),
       body: Container(),

@@ -18,6 +18,7 @@ class _WorkedPageState extends State<WorkedPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: const Text("Trabajadores"),
         backgroundColor: const Color(0xff329437),
       ),
       body: Container(),
