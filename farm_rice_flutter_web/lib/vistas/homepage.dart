@@ -30,8 +30,8 @@ class _HomePageState extends State<HomePage> {
   int selectedMenuItem = 0;
   bool sideBarOpen = false;
   PageController? pageController;
-
   int month = 0;
+
 
   @override
   void initState() {
@@ -96,7 +96,53 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(width: 20),
         ],
       ),
-      body: Container(),
+      body: Container(
+        padding: const EdgeInsets.only(top: 10, right: 20, left: 20, bottom: 10),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Card(
+                    elevation: 5,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                    child: const SizedBox(
+                      height: 300,
+                      width: 400,
+                      child: Center(
+                          child: CircularProgressIndicator()
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Card(
+                    elevation: 5,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                    child: const SizedBox(
+                      height: 300,
+                      width: 400,
+                      child: Center(child: CircularProgressIndicator()),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 15),
+              Card(
+                elevation: 5,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                child: const SizedBox(
+                  height: 300,
+                  width: 800,
+                  child: Center(
+                      child: CircularProgressIndicator()
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 

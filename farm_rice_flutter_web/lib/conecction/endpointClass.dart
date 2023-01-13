@@ -1,4 +1,4 @@
-// ignore_for_file: missing_return
+// ignore_for_file: missing_return, body_might_complete_normally_nullable, avoid_print
 
 import 'dart:async';
 import 'dart:convert';
@@ -36,6 +36,7 @@ class Endpoints{
     final response = await http.post(Uri.parse(urlLogin), body: dataEncoding, headers: dataHeader);
     if (response.statusCode == 200) {
       var json = jsonDecode(response.body);
+      print(json['response']);
       for(var x in json['response']){
         listUser.add(User(x['username'], x['correo'], x['token'], x['user_rol']));
       }
