@@ -9,7 +9,7 @@ import 'package:farm_rice_flutter_web/vistas/splashAfterLogin.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key key}) : super(key: key);
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -18,7 +18,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   bool obscureText = true;
   String _user = '', _password = '';
-  bool loginSucces;
+  bool? loginSucces;
   Endpoints conect = Endpoints();
   Preferences preferences = Preferences();
 

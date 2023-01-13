@@ -4,7 +4,7 @@ import 'package:farm_rice_flutter_web/componentes/menuItems.dart';
 import 'package:flutter/material.dart';
 
 class InicialPage extends StatefulWidget {
-  const InicialPage({Key key}) : super(key: key);
+  const InicialPage({Key? key}) : super(key: key);
 
   @override
   State<InicialPage> createState() => _InicialPageState();
@@ -20,6 +20,10 @@ class _InicialPageState extends State<InicialPage> {
 
   double xOffset = 60;
   double yOffset = 0;
+
+  double xOnsef = 400;
+  double yOnsef = 0;
+
   bool sideBarOpen = false;
 
   int selectedMenuItem = 0;
@@ -39,7 +43,7 @@ class _InicialPageState extends State<InicialPage> {
         child: Container(
           child: Stack(
             children: <Widget>[
-              SizedBox(
+              Container(
                 width: double.infinity,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -108,14 +112,14 @@ class _InicialPageState extends State<InicialPage> {
                   duration: const Duration(milliseconds: 200),
                   child: Container(
                     transform: Matrix4.translationValues(xOffset, yOffset, 1),
-                    width: double.maxFinite,
+                    width: double.infinity,
                     height: double.infinity,
                     color: Colors.white,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Container(
-                          padding: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(30),
                           child: Row(
                             children: const <Widget>[
                               Expanded(

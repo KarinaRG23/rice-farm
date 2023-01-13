@@ -8,58 +8,58 @@ class Preferences{
   String emailUser = 'email';
   String passwordUser = 'password';
 
-  SharedPreferences preferences;
+  SharedPreferences? preferences;
 
   setName(String name) async{
     preferences = await SharedPreferences.getInstance();
-    preferences.setString(nameUser, name);
+    preferences?.setString(nameUser, name);
   }
 
   setPassword(String password) async{
     preferences = await SharedPreferences.getInstance();
-    preferences.setString(passwordUser, password);
+    preferences?.setString(passwordUser, password);
   }
 
   setToken(String token) async{
     preferences = await SharedPreferences.getInstance();
-    preferences.setString(tokenUser, token);
+    preferences?.setString(tokenUser, token);
   }
   setEmail(String correo) async{
     preferences = await SharedPreferences.getInstance();
-    preferences.setString(emailUser, correo);
+    preferences?.setString(emailUser, correo);
   }
   setRol(String rol) async{
     preferences = await SharedPreferences.getInstance();
-    preferences.setString(rolUser, rol);
+    preferences?.setString(rolUser, rol);
   }
 
-  Future<String> getName() async {
+  Future<String?> getName() async {
     preferences = await SharedPreferences.getInstance();
-    final result = preferences.getString(nameUser);
+    final result = preferences?.getString(nameUser);
     return result;
   }
 
-  Future<String> getPassword() async {
+  Future<String?> getPassword() async {
     preferences = await SharedPreferences.getInstance();
-    final result = preferences.getString(passwordUser);
+    final result = preferences?.getString(passwordUser);
     return result;
   }
 
-  Future<String> getToken() async {
+  Future<String?> getToken() async {
     preferences = await SharedPreferences.getInstance();
-    final result = preferences.getString(tokenUser);
+    final result = preferences?.getString(tokenUser);
     return result;
   }
 
-  Future<String> getEmail() async {
+  Future<String?> getEmail() async {
     preferences = await SharedPreferences.getInstance();
-    final result = preferences.getString(emailUser);
+    final result = preferences?.getString(emailUser);
     return result;
   }
 
-  Future<String> getRol() async {
+  Future<String?> getRol() async {
     preferences = await SharedPreferences.getInstance();
-    final result = preferences.getString(rolUser);
+    final result = preferences?.getString(rolUser);
     return result;
   }
 }

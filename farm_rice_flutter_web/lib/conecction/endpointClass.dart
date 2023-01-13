@@ -11,7 +11,7 @@ class Endpoints{
   Preferences preferences = Preferences();
 
   //CONNECTION LOGIN WITH ENDPOINT SESSION
-  Future<bool> logIn(String email, String password) async {
+  Future<bool?> logIn(String email, String password) async {
     var urlLogin = 'http://159.223.205.198:8080/auth/login';
     var dataLogin = {"email": email, "password": password};
     var dataEncoding = jsonEncode(dataLogin);
@@ -24,7 +24,7 @@ class Endpoints{
     }
   }
 
-  Future<List<User>> dataUser() async {
+  Future<List<User>?> dataUser() async {
     var email = await preferences.getEmail();
     var password = await preferences.getPassword();
     List<User> listUser = [];
