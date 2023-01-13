@@ -1,6 +1,6 @@
 FROM openjdk:11
 
-COPY "./target/prueba-0.0.1-SNAPSHOT.jar" "app.jar"
+COPY "./target/farm-0.0.1-SNAPSHOT.jar" "app.jar"
 
 EXPOSE 8080
 
