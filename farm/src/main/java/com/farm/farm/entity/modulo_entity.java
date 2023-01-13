@@ -28,6 +28,7 @@ public class modulo_entity {
 
     @Getter
     @Setter
+    @Column(columnDefinition="integer default 1")
     private Integer status;
 
     @OneToMany(mappedBy = "modu")

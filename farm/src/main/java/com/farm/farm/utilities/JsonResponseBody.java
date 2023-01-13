@@ -14,8 +14,5 @@ public class JsonResponseBody {
     private int status;
 
     @Getter @Setter
-    private String statusMessage;
-
-    @Getter @Setter
     private Object response;
 }

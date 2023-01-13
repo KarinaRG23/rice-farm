@@ -42,19 +42,20 @@ public class LoginController {
     @PostMapping("/login")
     public ResponseEntity<JsonResponseBody>loginUser(@RequestBody AuthenticationRequest login){
         try {
+
             if(personService.isPasswordValid(login.getEmail(), login.getPassword())){
                 String jwt = jwtUtil.generateToken(login.getEmail());
                 return ResponseEntity.status(HttpStatus.OK)
-                        .body(new JsonResponseBody(HttpStatus.OK.value(), "ok",
-                                jwt));
+                        .body(new JsonResponseBody(HttpStatus.OK.value(),
+                                personService.loginBody(login.getEmail(), jwt)));
             }else{
                 return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                        .body(new JsonResponseBody(HttpStatus.FORBIDDEN.value(), "FORBIDDEN",
+                        .body(new JsonResponseBody(HttpStatus.FORBIDDEN.value(),
                                 "Incorrect password or email"));
             }
         } catch (BadCredentialsException badCredentialsException) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                    .body(new JsonResponseBody(HttpStatus.FORBIDDEN.value(), "ERROR",
+                    .body(new JsonResponseBody(HttpStatus.FORBIDDEN.value(),
                             "Credenciales incorrectas"));
         }
     }
