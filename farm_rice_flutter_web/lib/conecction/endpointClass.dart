@@ -19,7 +19,7 @@ class Endpoints{
     final response = await http.post(Uri.parse(urlLogin), body: dataEncoding, headers: dataHeader);
     if (response.statusCode == 200) {
       return true;
-    } else {
+    } else if(response.statusCode != 200){
       return false;
     }
   }
