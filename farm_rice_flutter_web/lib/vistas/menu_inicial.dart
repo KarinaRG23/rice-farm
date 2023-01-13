@@ -1,6 +1,9 @@
-// ignore_for_file: avoid_unnecessary_containers
+// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace
 
 import 'package:farm_rice_flutter_web/componentes/menuItems.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flutter/material.dart';
 
 class InicialPage extends StatefulWidget {
@@ -18,22 +21,30 @@ class _InicialPageState extends State<InicialPage> {
     Icons.receipt, Icons.warehouse, Icons.engineering, Icons.production_quantity_limits
   ];
 
+  DateTime date = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+
+
   double xOffset = 60;
   double yOffset = 0;
-
-  double xOnsef = 400;
-  double yOnsef = 0;
+  LatLng center = LatLng(-1.8618428155254074, -79.97772697324605);
+  MapController? mapController;
 
   bool sideBarOpen = false;
-
   int selectedMenuItem = 0;
+
+  int month = 0;
 
   void setSidebarState(){
     setState(() {
-      xOffset = sideBarOpen ? 260 : 60;
+      xOffset = sideBarOpen ? 250 : 60;
     });
   }
 
+
+  @override
+  void initState() {
+    print("${date.day} / $month"+"${date.month} / ${date.year}");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +96,7 @@ class _InicialPageState extends State<InicialPage> {
                               itemCount: menuItems.length,
                               itemBuilder: (context, index) => GestureDetector(
                                 onTap: (){
-                                  sideBarOpen = false;
+                                  sideBarOpen =! sideBarOpen;
                                   selectedMenuItem = index;
                                   setSidebarState();
                                 },
@@ -99,54 +110,80 @@ class _InicialPageState extends State<InicialPage> {
                             )
                         )
                     ),
-                    Container(child: const Text("SideBar3")),
                   ],
                 ),
               ),
               GestureDetector(
                 onTap: (){
-                  sideBarOpen =! sideBarOpen;
+                  sideBarOpen = false;
                   setSidebarState();
                 },
                 child: AnimatedContainer(
+                  curve: Curves.easeInOut,
                   duration: const Duration(milliseconds: 200),
-                  child: Container(
-                    transform: Matrix4.translationValues(xOffset, yOffset, 1),
-                    width: double.infinity,
-                    height: double.infinity,
-                    color: Colors.white,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Container(
-                          padding: const EdgeInsets.all(30),
-                          child: Row(
-                            children: const <Widget>[
-                              Expanded(
-                                  child: Card(
-                                    elevation: 10,
-                                    child: SizedBox(
-                                      height: 250,
-                                      width: 200,
-                                      child: Center(child: Text("Canvas")),
-                                    ),
-                                  )
+                  transform: Matrix4.translationValues(xOffset, yOffset, 1),
+                  width: double.infinity,
+                  height: double.infinity,
+                  color: Colors.white,
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        padding: const EdgeInsets.only(top: 20, right: 5, left: 5),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            Card(
+                              elevation: 5,
+                              child: SizedBox(
+                                height: 250,
+                                width: 500,
+                                child: Container(
+                                    child: SfCartesianChart(
+                                        primaryXAxis: CategoryAxis(),
+                                        series: <ChartSeries<ChartData, String>>[
+                                          BarSeries<ChartData, String>(
+                                              dataSource: <ChartData>[
+                                                ChartData('Goldin Finance 117', 597),
+                                                ChartData('Ping An Finance Center', 599),
+                                                ChartData('Makkah Clock Royal Tower', 601),
+                                                ChartData('Shanghai Tower', 632),
+                                                ChartData('Burj Khalifa', 828)],
+                                              xValueMapper: (ChartData data, _) => data.x,
+                                              yValueMapper: (ChartData data, _) => data.y
+                                          ),
+                                        ]
+                                    )
+                                ),
                               ),
-                              Expanded(
-                                  child: Card(
-                                    elevation: 10,
-                                    child: SizedBox(
-                                      height: 250,
-                                      width: 200,
-                                      child: Center(child: Text("Calendar")),
-                                    ),
-                                  )
+                            ),
+                            Card(
+                              elevation: 5,
+                              child: SizedBox(
+                                height: 250,
+                                width: 500,
+                                child: DatePickerDialog(
+                                    initialDate: date,
+                                    firstDate: date,
+                                    lastDate: date,
+                                  initialCalendarMode: DatePickerMode.day,
+                                ),
                               ),
-                            ],
+                            )
+                          ],
+                        ),
+                      ),
+                      Container(
+                        height: 350,
+                        width: 600,
+                        padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+                        child: Card(
+                          elevation: 5,
+                          child: SizedBox(
+                            child: Image.asset("images/img.png"),
                           ),
-                        )
-                      ],
-                    ),
+                        ),
+                      )
+                    ],
                   ),
                 ),
               ),
@@ -156,4 +193,10 @@ class _InicialPageState extends State<InicialPage> {
       ),
     );
   }
+}
+
+class ChartData {
+  ChartData(this.x, this.y);
+  final String x;
+  final double y;
 }

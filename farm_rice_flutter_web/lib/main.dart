@@ -1,3 +1,4 @@
+import 'package:farm_rice_flutter_web/vistas/homepage.dart';
 import 'package:flutter/material.dart';
 import 'vistas/splashBeforeLogin.dart';
 
@@ -17,7 +18,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Splash(),
+      home: const HomePage()
+      //const Splash(),
     );
   }
 }
