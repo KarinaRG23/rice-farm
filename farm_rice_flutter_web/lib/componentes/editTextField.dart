@@ -5,14 +5,14 @@ class EditTextField extends StatelessWidget{
   final TextInputType textInputType;
   final Icon icon;
   final String hintext;
-  final bool obscureText;
+  final bool? obscureText;
 
   const EditTextField({
-    Key key,
-    this.textEditingController,
-    this.textInputType,
-    this.icon,
-    this.hintext,
+    Key? key,
+    required this.textEditingController,
+    required this.textInputType,
+    required this.icon,
+    required this.hintext,
     this.obscureText
   }) : super(key: key);
 

@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 
 class ButtonWidget extends StatelessWidget{
-  final Function function;
+  final VoidCallback? function;
   final Color color;
   final double width;
   final double height;
@@ -11,24 +11,24 @@ class ButtonWidget extends StatelessWidget{
   final String namebutton;
 
   const ButtonWidget({
-    Key key,
+    Key? key,
     this.function,
-    this.color,
-    this.width,
-    this.height,
-    this.circular,
-    this.namebutton
+    required this.color,
+    required this.width,
+    required this.height,
+    required this.circular,
+    required this.namebutton
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: function,
       style: ElevatedButton.styleFrom(
           elevation: 5,
           backgroundColor: color,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(circular)),
           padding: EdgeInsets.symmetric(vertical: height, horizontal: width)),
+      onPressed: function,
       child: Text(namebutton, softWrap: true, style: const TextStyle(fontSize: 20), textAlign: TextAlign.center),
     );
   }
