@@ -51,10 +51,10 @@ class _LoginPageState extends State<LoginPage> {
                     height: 200,
                     child: Column(
                       children: [
-                        const Expanded(
-                            child: Icon(Icons.account_circle, size: 100, color: Color(0xff259128))
+                        Expanded(
+                            child: Image.asset("images/rice.png", height: 120)
                         ),
-                        const SizedBox(height: 10),
+                        const SizedBox(height: 15),
                         Expanded(
                             child: Column(
                               children: const [
@@ -75,9 +75,9 @@ class _LoginPageState extends State<LoginPage> {
                             children: [
                               EditTextField(
                                 textEditingController: user,
-                                textInputType: TextInputType.text,
-                                icon: const Icon(Icons.person),
-                                hintext: "Usuario",
+                                textInputType: TextInputType.emailAddress,
+                                icon: const Icon(Icons.email),
+                                hintext: "Correo electronico",
                               ),
                               const SizedBox(height: 10),
                               TextField(
@@ -139,13 +139,40 @@ class _LoginPageState extends State<LoginPage> {
   logInUser() async {
     _user = user.text;
     _password = password.text;
-    if(_user.isEmpty){
+    if(_user.isEmpty && _password.isEmpty){
       showDialog(
           context: context,
           builder: (ctx)=> AlertDialog(
             title: const TextString(text: "ERROR DE INICIO DE SESION"),
-            content: const Text("Campo usuario vacio, por favor ingresar su usuario e intente nuevamente",
+            content: const Text("Campo vacios, por favor ingresar sus datos e intente nuevamente",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
+            ),
+            actions: [
+              ButtonBar(
+                children: [
+                  ButtonWidget(
+                    height: 15,
+                    width: 25,
+                    circular: 10,
+                    color: Colors.redAccent,
+                    namebutton: "Cerrar",
+                    function: (){
+                      Navigator.pop(context);
+                    },
+                  )
+                ],
+              )
+            ],
+          )
+      );
+    }
+    else if(_user.isEmpty){
+      showDialog(
+          context: context,
+          builder: (ctx)=> AlertDialog(
+            title: const TextString(text: "ERROR DE INICIO DE SESION"),
+            content: const Text("Campo correo vacio, por favor ingresar su correo electronico e intente nuevamente",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal), softWrap: true,
             ),
             actions: [
               ButtonBar(
@@ -193,37 +220,11 @@ class _LoginPageState extends State<LoginPage> {
           )
       );
     }
-    else if(_user.isEmpty && _password.isEmpty){
-      showDialog(
-          context: context,
-          builder: (ctx)=> AlertDialog(
-            title: const TextString(text: "ERROR DE INICIO DE SESION"),
-            content: const Text("Campo vacios, por favor ingresar sus datos e intente nuevamente",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
-            ),
-            actions: [
-              ButtonBar(
-                children: [
-                  ButtonWidget(
-                    height: 15,
-                    width: 25,
-                    circular: 10,
-                    color: Colors.redAccent,
-                    namebutton: "Cerrar",
-                    function: (){
-                      Navigator.pop(context);
-                    },
-                  )
-                ],
-              )
-            ],
-          )
-      );
-    }
     else{
       preferences.setEmail(_user);
       preferences.setPassword(_password);
       loginSucces = await conect.logIn(_user, _password);
+
       if(loginSucces == true){
         Navigator.push(context, MaterialPageRoute(builder: (ctx)=> const SplashPage()));
       }
