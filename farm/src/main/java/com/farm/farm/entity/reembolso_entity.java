@@ -22,7 +22,7 @@ public class reembolso_entity {
     private String idtransaccion;
     @Getter
     @Setter
-    private String datoreembolso;
+    private String datosreembolso;
     @Getter
     @Setter
     private String observacion;
