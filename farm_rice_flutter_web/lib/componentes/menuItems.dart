@@ -20,11 +20,11 @@ class MenuItemOption extends StatelessWidget{
       child: Row(
         children: <Widget>[
           Container(
-              padding: const EdgeInsets.all(15),
+              padding: const EdgeInsets.all(10),
               child: Icon(itemIcon)
           ),
           Container(
-              padding: const EdgeInsets.all(15),
+              padding: const EdgeInsets.all(10),
               child: Text(itemText, style: const TextStyle(fontSize: 20))
           ),
         ],

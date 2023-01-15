@@ -1,5 +1,6 @@
 package com.farm.farm.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,6 +38,7 @@ public class pedido_entity {
 
     @Getter
     @Setter
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
     private Timestamp fecha;
 
     @Getter

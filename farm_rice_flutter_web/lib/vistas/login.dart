@@ -40,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const SizedBox(height: 25),
+              const SizedBox(height: 20),
               Expanded(
                 child: Card(
                   elevation: 10,
@@ -128,7 +128,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
-              const SizedBox(height: 25),
+              const SizedBox(height: 20),
             ],
           ),
         ),

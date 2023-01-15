@@ -1,4 +1,4 @@
-import 'package:farm_rice_flutter_web/vistas/menu_inicial.dart';
+import 'package:farm_rice_flutter_web/vistas/homepage.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -16,7 +16,7 @@ class _SplashPageState extends State<SplashPage> {
     Timer(
         const Duration(seconds: 3),
             () => Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => const InicialPage())));
+            MaterialPageRoute(builder: (context) => const HomePage())));
   }
 
   @override
