@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 // ignore: camel_case_types
 class resourceData extends DataTableSource {
   resourceData(this._listLect);
-  final List<UserTable> _listLect;
+  late List<UserTable> _listLect;
 
   void _sort<T>(Comparable<T> getField(UserTable d), bool ascending) {
     _listLect.sort((UserTable a, UserTable b) {
@@ -31,14 +31,14 @@ class resourceData extends DataTableSource {
       index: index,
       selected: lectura.selected,
       cells: <DataCell>[
-        DataCell(Center(child: Text(lectura.dni, style: const TextStyle(fontWeight: FontWeight.bold)))),
-        DataCell(Center(child: Text(lectura.name, softWrap: true))),
-        DataCell(Center(child: Text(lectura.lastname, softWrap: true))),
-        DataCell(Center(child: Text(lectura.phone, softWrap: true))),
-        DataCell(Center(child: Text(lectura.email, softWrap: true))),
-        DataCell(Center(child: Text(lectura.fiscalName, softWrap: true))),
-        DataCell(Center(child: Text(lectura.direction, softWrap: true))),
-        DataCell(Center(child: Text(lectura.rolId, softWrap: true))),
+        DataCell(Center(child: Text('${lectura.dni}', style: const TextStyle(fontWeight: FontWeight.bold)))),
+        DataCell(Center(child: Text('${lectura.name}', softWrap: true))),
+        DataCell(Center(child: Text('${lectura.lastname}', softWrap: true))),
+        DataCell(Center(child: Text('${lectura.phone}', softWrap: true))),
+        DataCell(Center(child: Text('${lectura.email}', softWrap: true))),
+        DataCell(Center(child: Text('${lectura.fiscalName}', softWrap: true))),
+        DataCell(Center(child: Text('${lectura.direction}', softWrap: true))),
+        DataCell(Center(child: Text('${lectura.rolId}', softWrap: true))),
         DataCell(Center(child: Text(lectura.status.toString(), softWrap: true))),
       ],
     );

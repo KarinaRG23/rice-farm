@@ -39,9 +39,9 @@ class _ListWidgetState extends State<ListWidget>{
           children: [
             const Icon(Icons.account_circle, size: 80),
             const SizedBox(height: 15),
-            Text(x.nombre, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            Text(x.roller, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.normal)),
-            Text(x.correo, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.normal)),
+            Text('${x.nombre}', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            Text('${x.roller}', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.normal)),
+            Text('${x.correo}', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.normal)),
             const Text("__________________________", style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal)),
             const SizedBox(height: 20),
           ],

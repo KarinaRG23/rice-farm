@@ -1,18 +1,18 @@
 // ignore_for_file: file_names
 
 class UserTable{
-  int userID;
-  String dni;
-  String name;
-  String lastname;
-  String phone;
-  String email;
+  int? userID;
+  String? dni;
+  String? name;
+  String? lastname;
+  String? phone;
+  String? email;
   String? salt;
-  String fiscalName;
-  String direction;
-  String rolId;
+  String? fiscalName;
+  String? direction;
+  String? rolId;
   String? decreated;
-  int status;
+  int? status;
 
   bool selected = false;
 

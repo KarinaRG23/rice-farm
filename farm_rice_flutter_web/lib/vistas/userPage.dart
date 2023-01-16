@@ -12,7 +12,7 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> {
-  late final Future<List<UserTable>?> _listTable;
+  late Future<List<UserTable>?> _listTable;
   Endpoints endpoints = Endpoints();
   List itemRolOpen = ['Administrador','Trabajador', 'Usuario'];
   List itemEstadoOpen = ['Activo','Inactivo'];
@@ -82,9 +82,9 @@ class _UserPageState extends State<UserPage> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                TextField(
+                                const TextField(
                                   keyboardType: TextInputType.number,
-                                  decoration: const InputDecoration(
+                                  decoration: InputDecoration(
                                     prefixIcon: Icon(Icons.card_membership_rounded),
                                     hintText: 'Cedula',
                                     contentPadding: EdgeInsets.all(24),
@@ -95,9 +95,9 @@ class _UserPageState extends State<UserPage> {
                                   ),
                                 ),
                                 const SizedBox(height: 15),
-                                TextField(
+                                const TextField(
                                   keyboardType: TextInputType.name,
-                                  decoration: const InputDecoration(
+                                  decoration: InputDecoration(
                                     prefixIcon: Icon(Icons.perm_identity_rounded),
                                     hintText: 'Nombres',
                                     contentPadding: EdgeInsets.all(24),
@@ -108,9 +108,9 @@ class _UserPageState extends State<UserPage> {
                                   ),
                                 ),
                                 const SizedBox(height: 15),
-                                TextField(
+                                const TextField(
                                   keyboardType: TextInputType.name,
-                                  decoration: const InputDecoration(
+                                  decoration: InputDecoration(
                                     prefixIcon: Icon(Icons.perm_identity_rounded),
                                     hintText: 'Apellidos',
                                     contentPadding: EdgeInsets.all(24),
@@ -121,9 +121,9 @@ class _UserPageState extends State<UserPage> {
                                   ),
                                 ),
                                 const SizedBox(height: 15),
-                                TextField(
+                                const TextField(
                                   keyboardType: TextInputType.number,
-                                  decoration: const InputDecoration(
+                                  decoration: InputDecoration(
                                     prefixIcon: Icon(Icons.mobile_friendly_rounded),
                                     hintText: 'Telefono',
                                     contentPadding: EdgeInsets.all(24),
@@ -134,9 +134,9 @@ class _UserPageState extends State<UserPage> {
                                   ),
                                 ),
                                 const SizedBox(height: 15),
-                                TextField(
+                                const TextField(
                                   keyboardType: TextInputType.emailAddress,
-                                  decoration: const InputDecoration(
+                                  decoration: InputDecoration(
                                     prefixIcon: Icon(Icons.email_rounded),
                                     hintText: 'Email',
                                     contentPadding: EdgeInsets.all(24),
@@ -147,9 +147,9 @@ class _UserPageState extends State<UserPage> {
                                   ),
                                 ),
                                 const SizedBox(height: 15),
-                                TextField(
+                                const TextField(
                                   keyboardType: TextInputType.name,
-                                  decoration: const InputDecoration(
+                                  decoration: InputDecoration(
                                     prefixIcon: Icon(Icons.location_on_rounded),
                                     hintText: 'Lugar',
                                     contentPadding: EdgeInsets.all(24),
@@ -160,9 +160,9 @@ class _UserPageState extends State<UserPage> {
                                   ),
                                 ),
                                 const SizedBox(height: 15),
-                                TextField(
+                                const TextField(
                                   keyboardType: TextInputType.name,
-                                  decoration: const InputDecoration(
+                                  decoration: InputDecoration(
                                     prefixIcon: Icon(Icons.location_on_rounded),
                                     hintText: 'Dirección',
                                     contentPadding: EdgeInsets.all(24),

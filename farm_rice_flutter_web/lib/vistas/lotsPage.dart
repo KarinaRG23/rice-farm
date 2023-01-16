@@ -11,7 +11,7 @@ class LotsPage extends StatefulWidget {
 }
 
 class _LotsPageState extends State<LotsPage> {
-  late final Future<List<LotTable>?> _listLotTable;
+  late Future<List<LotTable>?> _listLotTable;
   Endpoints endpoints = Endpoints();
   List itemNumLot = ['1','2','3','4','5'];
   List itemEstadoLot = ['Producción','Sin Producción'];
@@ -80,9 +80,9 @@ class _LotsPageState extends State<LotsPage> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                TextField(
+                                const TextField(
                                   keyboardType: TextInputType.number,
-                                  decoration: const InputDecoration(
+                                  decoration: InputDecoration(
                                     prefixIcon: Icon(Icons.description),
                                     hintText: 'Nombre del lote',
                                     contentPadding: EdgeInsets.all(24),
@@ -93,9 +93,9 @@ class _LotsPageState extends State<LotsPage> {
                                   ),
                                 ),
                                 const SizedBox(height: 15),
-                                TextField(
+                                const TextField(
                                   keyboardType: TextInputType.name,
-                                  decoration: const InputDecoration(
+                                  decoration: InputDecoration(
                                     prefixIcon: Icon(Icons.location_on_rounded),
                                     hintText: 'Area',
                                     contentPadding: EdgeInsets.all(24),
@@ -106,9 +106,9 @@ class _LotsPageState extends State<LotsPage> {
                                   ),
                                 ),
                                 const SizedBox(height: 15),
-                                TextField(
+                                const TextField(
                                   keyboardType: TextInputType.name,
-                                  decoration: const InputDecoration(
+                                  decoration: InputDecoration(
                                     prefixIcon: Icon(Icons.fact_check_sharp),
                                     hintText: 'Etapa',
                                     contentPadding: EdgeInsets.all(24),

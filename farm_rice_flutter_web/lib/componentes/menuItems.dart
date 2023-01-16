@@ -6,7 +6,8 @@ class MenuItemOption extends StatelessWidget{
   final int selected;
   final int position;
 
-  const MenuItemOption({Key? key,
+  const MenuItemOption({
+    Key? key,
     required this.itemText,
     required this.itemIcon,
     required this.selected,

@@ -1,19 +1,19 @@
 // ignore_for_file: file_names
 
 class WorkedTable{
-  int userID;
-  String dni;
-  String name;
-  String lastname;
-  String phone;
-  String email;
+  int? userID;
+  String? dni;
+  String? name;
+  String? lastname;
+  String? phone;
+  String? email;
   String? salt;
-  String fiscalName;
-  String direccion;
-  String salario;
-  String rolId;
+  String? fiscalName;
+  String? direccion;
+  String? salario;
+  String? rolId;
   String? decreated;
-  int status;
+  int? status;
 
   bool selected = false;
 

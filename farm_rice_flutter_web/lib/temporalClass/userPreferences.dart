@@ -1,23 +1,17 @@
 import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Preferences{
+class UserPreferences{
   String nameUser = 'name';
   String tokenUser = 'token';
   String rolUser = 'rol';
   String emailUser = 'email';
-  String passwordUser = 'password';
 
   late SharedPreferences preferences;
 
   setName(String name) async{
     preferences = await SharedPreferences.getInstance();
     preferences.setString(nameUser, name);
-  }
-
-  setPassword(String password) async{
-    preferences = await SharedPreferences.getInstance();
-    preferences.setString(passwordUser, password);
   }
 
   setToken(String token) async{
@@ -36,12 +30,6 @@ class Preferences{
   Future<String?> getName() async {
     preferences = await SharedPreferences.getInstance();
     final result = preferences.getString(nameUser);
-    return result;
-  }
-
-  Future<String?> getPassword() async {
-    preferences = await SharedPreferences.getInstance();
-    final result = preferences.getString(passwordUser);
     return result;
   }
 

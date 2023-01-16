@@ -10,7 +10,7 @@ class WorkedPage extends StatefulWidget {
 }
 
 class _WorkedPageState extends State<WorkedPage> {
-  late final Future<List<WorkedTable>?> _listWorkedTable;
+  late Future<List<WorkedTable>?> _listWorkedTable;
   Endpoints endpoints = Endpoints();
   List itemRolOpen = ['Administrador','Trabajador', 'Usuario'];
   List itemEstadoOpen = ['Activo','Inactivo'];
@@ -80,9 +80,9 @@ class _WorkedPageState extends State<WorkedPage> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                TextField(
+                                const TextField(
                                   keyboardType: TextInputType.number,
-                                  decoration: const InputDecoration(
+                                  decoration: InputDecoration(
                                     prefixIcon: Icon(Icons.card_membership_rounded),
                                     hintText: 'Cedula',
                                     contentPadding: EdgeInsets.all(24),
@@ -93,9 +93,9 @@ class _WorkedPageState extends State<WorkedPage> {
                                   ),
                                 ),
                                 const SizedBox(height: 15),
-                                TextField(
+                                const TextField(
                                   keyboardType: TextInputType.name,
-                                  decoration: const InputDecoration(
+                                  decoration: InputDecoration(
                                     prefixIcon: Icon(Icons.perm_identity_rounded),
                                     hintText: 'Nombres',
                                     contentPadding: EdgeInsets.all(24),
@@ -106,9 +106,9 @@ class _WorkedPageState extends State<WorkedPage> {
                                   ),
                                 ),
                                 const SizedBox(height: 15),
-                                TextField(
+                                const TextField(
                                   keyboardType: TextInputType.name,
-                                  decoration: const InputDecoration(
+                                  decoration: InputDecoration(
                                     prefixIcon: Icon(Icons.perm_identity_rounded),
                                     hintText: 'Apellidos',
                                     contentPadding: EdgeInsets.all(24),
@@ -119,9 +119,9 @@ class _WorkedPageState extends State<WorkedPage> {
                                   ),
                                 ),
                                 const SizedBox(height: 15),
-                                TextField(
+                                const TextField(
                                   keyboardType: TextInputType.number,
-                                  decoration: const InputDecoration(
+                                  decoration: InputDecoration(
                                     prefixIcon: Icon(Icons.mobile_friendly_rounded),
                                     hintText: 'Telefono',
                                     contentPadding: EdgeInsets.all(24),
@@ -132,9 +132,9 @@ class _WorkedPageState extends State<WorkedPage> {
                                   ),
                                 ),
                                 const SizedBox(height: 15),
-                                TextField(
+                                const TextField(
                                   keyboardType: TextInputType.emailAddress,
-                                  decoration: const InputDecoration(
+                                  decoration: InputDecoration(
                                     prefixIcon: Icon(Icons.email_rounded),
                                     hintText: 'Email',
                                     contentPadding: EdgeInsets.all(24),
@@ -145,9 +145,9 @@ class _WorkedPageState extends State<WorkedPage> {
                                   ),
                                 ),
                                 const SizedBox(height: 15),
-                                TextField(
+                                const TextField(
                                   keyboardType: TextInputType.name,
-                                  decoration: const InputDecoration(
+                                  decoration: InputDecoration(
                                     prefixIcon: Icon(Icons.location_on_rounded),
                                     hintText: 'Lugar',
                                     contentPadding: EdgeInsets.all(24),
@@ -158,9 +158,9 @@ class _WorkedPageState extends State<WorkedPage> {
                                   ),
                                 ),
                                 const SizedBox(height: 15),
-                                TextField(
+                                const TextField(
                                   keyboardType: TextInputType.name,
-                                  decoration: const InputDecoration(
+                                  decoration: InputDecoration(
                                     prefixIcon: Icon(Icons.location_on_rounded),
                                     hintText: 'Dirección',
                                     contentPadding: EdgeInsets.all(24),
@@ -171,9 +171,9 @@ class _WorkedPageState extends State<WorkedPage> {
                                   ),
                                 ),
                                 const SizedBox(height: 15),
-                                TextField(
+                                const TextField(
                                   keyboardType: TextInputType.number,
-                                  decoration: const InputDecoration(
+                                  decoration: InputDecoration(
                                     prefixIcon: Icon(Icons.monetization_on_rounded),
                                     hintText: 'Salario',
                                     contentPadding: EdgeInsets.all(24),
