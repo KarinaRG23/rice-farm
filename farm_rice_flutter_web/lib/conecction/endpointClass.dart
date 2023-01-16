@@ -4,6 +4,9 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:farm_rice_flutter_web/class/classUserTable.dart';
+import 'package:farm_rice_flutter_web/class/classWorkedTable.dart';
+import 'package:farm_rice_flutter_web/class/classInventoryTable.dart';
+import 'package:farm_rice_flutter_web/class/classLotTable.dart';
 import 'package:farm_rice_flutter_web/class/userClass.dart';
 import 'package:farm_rice_flutter_web/temporalClass/sharedPreferences.dart';
 import 'package:http/http.dart' as http;
@@ -59,6 +62,55 @@ class Endpoints{
           x['telefono'], x['email'], x['nombrefiscal'], x['direccionfiscal'], x['rolid'], x['status']));
       }
       return listTable;
+    }
+  }
+
+  Future<List<WorkedTable>?> getWorkedData() async {
+    var token = await preferences.getToken();
+    List<WorkedTable> listWorkedTable = [];
+    var url = 'http://159.223.205.198:8080/employee';
+    var dataEmployee = {HttpHeaders.authorizationHeader : "Bearer $token"};
+    final response = await http.get(Uri.parse(url), headers: dataEmployee);
+    if(response.statusCode == 200){
+      var json = jsonDecode(response.body);
+      for(var x in json['response']){
+        listWorkedTable.add(
+            WorkedTable(x['idpersona'], x['identificacion'], x['nombres'], x['apellidos'],
+                x['telefono'], x['email'], x['nombrefiscal'], x['direccionfiscal'], x['salario'], x['rolid'], x['status']));
+      }
+      return listWorkedTable;
+    }
+  }
+
+  Future<List<InventoryTable>?> getInventoryData() async {
+    var token = await preferences.getToken();
+    List<InventoryTable> listInventoryTable = [];
+    var url = 'http://159.223.205.198:8080/supplies';
+    var dataSupplies = {HttpHeaders.authorizationHeader : "Bearer $token"};
+    final response = await http.get(Uri.parse(url), headers: dataSupplies);
+    if(response.statusCode == 200){
+      var json = jsonDecode(response.body);
+      for(var x in json['response']){
+        listInventoryTable.add(
+            InventoryTable(x['idinsumo'], x['nombre'], x['descripcion'], x['costo'], x['fechregistro'], x['status']));
+      }
+      return listInventoryTable;
+    }
+  }
+
+  Future<List<LotTable>?> getLotData() async {
+    var token = await preferences.getToken();
+    List<LotTable> listLotTable = [];
+    var url = 'http://159.223.205.198:8080/lots';
+    var dataLots = {HttpHeaders.authorizationHeader : "Bearer $token"};
+    final response = await http.get(Uri.parse(url), headers: dataLots);
+    if(response.statusCode == 200){
+      var json = jsonDecode(response.body);
+      for(var x in json['response']){
+        listLotTable.add(
+            LotTable(x['idlote'], x['nombrelote'], x['numerolote'], x['area'], x['etapa'], x['status']));
+      }
+      return listLotTable;
     }
   }
 
