@@ -25,7 +25,7 @@ class _ListWidgetState extends State<ListWidget>{
   @override
   void initState() {
     super.initState();
-    listDataUSer = point.dataUser();
+    //listDataUSer = point.dataUser();
   }
 
   Widget datosUser(List<User>? data){
