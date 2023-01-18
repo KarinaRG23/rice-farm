@@ -1,25 +1,24 @@
 // ignore_for_file: file_names
-
 class UserTable{
-  int? userID;
-  String? dni;
-  String? name;
-  String? lastname;
-  String? phone;
-  String? email;
+  final int? userID;
+  final String? dni;
+  final String? name;
+  final String? lastname;
+  final String? phone;
+  final String? email;
   String? salt;
-  String? fiscalName;
-  String? direction;
-  String? rolId;
+  final String? fiscalName;
+  final String? direction;
+  final String? rolId;
   String? decreated;
-  int? status;
+  final int? status;
 
   bool selected = false;
 
   UserTable(
-    this.userID, this.dni, this.name, this.lastname, this.phone, 
-    this.email, this.fiscalName, this.direction, this.rolId, this.status
-    );
+      this.userID, this.dni, this.name, this.lastname, this.phone, this.email,
+      this.fiscalName, this.direction, this.rolId, this.status);
+
 
   Map<String, dynamic> toJson(Map<String, dynamic> json){
     return{

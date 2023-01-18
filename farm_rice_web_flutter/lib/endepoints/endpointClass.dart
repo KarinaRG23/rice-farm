@@ -3,21 +3,21 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'package:farm_rice_flutter_web/class/classUserTable.dart';
-import 'package:farm_rice_flutter_web/class/classWorkedTable.dart';
-import 'package:farm_rice_flutter_web/class/classInventoryTable.dart';
-import 'package:farm_rice_flutter_web/class/classLotTable.dart';
-import 'package:farm_rice_flutter_web/class/userClass.dart';
-import 'package:farm_rice_flutter_web/temporalClass/sharedPreferences.dart';
-import 'package:farm_rice_flutter_web/temporalClass/userPreferences.dart';
+import 'package:farm_rice_web_flutter/class/classInventoryTable.dart';
+import 'package:farm_rice_web_flutter/class/classLotTable.dart';
+import 'package:farm_rice_web_flutter/class/classUserTable.dart';
+import 'package:farm_rice_web_flutter/class/classWorkedTable.dart';
+import 'package:farm_rice_web_flutter/temporalClass/sharedPreferences.dart';
+import 'package:farm_rice_web_flutter/temporalClass/userPreferences.dart';
 import 'package:http/http.dart' as http;
 
 class Endpoints {
+
   Preferences preferences = Preferences();
   UserPreferences userPreferences = UserPreferences();
 
   //CONNECTION LOGIN WITH ENDPOINT SESSION
-  Future<bool?> logIn(String email, String password) async {
+  Future<bool> logIn(String email, String password) async {
     var urlLogin = 'http://159.223.205.198:8080/auth/login';
     var dataLogin = {"email": email, "password": password};
     var dataEncoding = jsonEncode(dataLogin);
@@ -43,7 +43,6 @@ class Endpoints {
     final response = await http.post(Uri.parse(urlLogin), body: dataEncoding, headers: dataHeader);
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonData = jsonDecode(response.body);
-      print(jsonData['response']);
       userPreferences.setEmail(jsonData['response']['correo']);
       userPreferences.setRol(jsonData['response']['user_rol']);
       userPreferences.setName(jsonData['response']['username']);
@@ -54,21 +53,44 @@ class Endpoints {
 
   //
   Future<List<UserTable>> getUserData() async {
-    var token = await preferences.getToken();
     List<UserTable> listTable = [];
     var url = 'http://159.223.205.198:8080/person';
-    var dataPerson = {HttpHeaders.authorizationHeader: "Bearer $token"};
-    final response = await http.get(Uri.parse(url), headers: dataPerson);
+    final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
-      Map<String, dynamic> json = jsonDecode(response.body);
-      for (var x in json['response']) {
-        //listTable.add();
+      Map<String, dynamic> jsonData = jsonDecode(response.body);
+
+      for (var x in jsonData['response']) {
+        print(x);
+        listTable.add(UserTable.fromJson(jsonData));
+        /*listTable.add(UserTable(
+        x['idpersona'], x['identificacion'], x['nombres'], x['apellidos'], x['telefono'],
+            x['email'], x['nombrefiscal'], x['direccionfiscal'], x['rolid'], x['status']));*/
+
       }
       return listTable;
     }
   }
+  
+  static Future<List<UserTable>> fetchData() async {
+    final completer = Completer<List<UserTable>>();
+    try {
+      var url = 'http://159.223.205.198:8080/person';
+      final resp = await http.get(Uri.parse(url));
 
-  Future<List<WorkedTable>?> getWorkedData() async {
+      if (resp.statusCode == 200) {
+        //
+        final data = userTableFromJson(resp.body);
+        completer.complete(data);
+      }
+    } catch (exc) {
+      completer.completeError(<UserTable>[]);
+    }
+
+    return completer.future;
+  }
+
+
+  Future<List<WorkedTable>> getWorkedData() async {
     var token = await preferences.getToken();
     List<WorkedTable> listWorkedTable = [];
     var url = 'http://159.223.205.198:8080/employee';
@@ -94,7 +116,7 @@ class Endpoints {
     }
   }
 
-  Future<List<InventoryTable>?> getInventoryData() async {
+  Future<List<InventoryTable>> getInventoryData() async {
     var token = await preferences.getToken();
     List<InventoryTable> listInventoryTable = [];
     var url = 'http://159.223.205.198:8080/supplies';
@@ -110,7 +132,7 @@ class Endpoints {
     }
   }
 
-  Future<List<LotTable>?> getLotData() async {
+  Future<List<LotTable>> getLotData() async {
     var token = await preferences.getToken();
     List<LotTable> listLotTable = [];
     var url = 'http://159.223.205.198:8080/lots';
