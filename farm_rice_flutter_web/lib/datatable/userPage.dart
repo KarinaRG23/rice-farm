@@ -56,7 +56,30 @@ class _UserPageState extends State<UserPage> {
                   sortAscending: false,
                   actions: [
                     ElevatedButton.icon(
-                        onPressed: (){},
+                        onPressed: (){
+                          showDialog(
+                              context: context,
+                              builder: (context)=> AlertDialog(
+                                title: const Text("REGISTRO DE NUEVO USUARIO"),
+                                titleTextStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                                contentPadding: const EdgeInsets.all(5),
+                                content:SizedBox(
+                                  height: 300,
+                                  width: 600,
+                                  child: Column(
+                                    children: [],
+                                  ),
+                                ),
+                                actions: [
+                                  ButtonBar(
+                                    alignment: MainAxisAlignment.end,
+                                    children: [],
+                                  )
+                                ],
+                              )
+                          );
+                        },
                         style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),

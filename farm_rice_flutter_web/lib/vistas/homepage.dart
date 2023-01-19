@@ -4,6 +4,7 @@ import 'package:farm_rice_flutter_web/class/userClass.dart';
 import 'package:farm_rice_flutter_web/componentes/buttonWidget.dart';
 import 'package:farm_rice_flutter_web/componentes/textWidget.dart';
 import 'package:farm_rice_flutter_web/conecction/endpointClass.dart';
+import 'package:farm_rice_flutter_web/datatable/administratorTable.dart';
 import 'package:farm_rice_flutter_web/datatable/lotsPage.dart';
 import 'package:farm_rice_flutter_web/datatable/productionPage.dart';
 import 'package:farm_rice_flutter_web/datatable/reportPage.dart';
@@ -96,7 +97,6 @@ class _HomePageState extends State<HomePage> {
     return mostrar;
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -167,6 +167,14 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (ctx) => const WorkedPage()));
+              },
+            ),
+            ListTile(
+              title: const Text("Administradores"),
+              leading: const Icon(Icons.work, size: 25),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (ctx) => const AdministradorPage()));
               },
             ),
             ListTile(
