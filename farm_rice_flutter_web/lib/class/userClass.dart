@@ -2,19 +2,25 @@
 
 class User{
   String nombre;
-  String jwt;
   String correo;
   String roller;
 
+  User(this.correo, this.roller, this.nombre);
 
-  User(this.nombre, this.correo, this.jwt, this.roller);
-
-  Map<String, dynamic>toJson(Map<String, dynamic> json){
+  Map<String, dynamic>toJson(){
     return {
-      "username":nombre,
       "correo":correo,
-      "token":jwt,
-      "user_rol":roller
+      "user_rol":roller,
+      "username":nombre
     };
   }
+
+  /*factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      correo: json['correo'],
+      roller: json['user_rol'],
+      nombre: json['username'],
+      jwt: json['token']
+    );
+  }*/
 }

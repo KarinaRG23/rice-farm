@@ -6,11 +6,12 @@ class MenuItemOption extends StatelessWidget{
   final int selected;
   final int position;
 
-  const MenuItemOption({Key? key,
-    required this.itemText,
-    required this.itemIcon,
-    required this.selected,
-    required this.position
+  const MenuItemOption({
+    Key key,
+    @required this.itemText,
+    @required this.itemIcon,
+    @required this.selected,
+    @required this.position
   }) : super(key: key);
 
   @override

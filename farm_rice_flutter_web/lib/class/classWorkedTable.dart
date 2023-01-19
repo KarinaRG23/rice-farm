@@ -7,12 +7,12 @@ class WorkedTable{
   String lastname;
   String phone;
   String email;
-  String? salt;
+  String salt;
   String fiscalName;
   String direccion;
   String salario;
   String rolId;
-  String? decreated;
+  String decreated;
   int status;
 
   bool selected = false;

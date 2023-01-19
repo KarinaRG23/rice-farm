@@ -1,14 +1,13 @@
-
 import 'package:flutter/material.dart';
 
-class ProductionPage extends StatefulWidget {
-  const ProductionPage({Key? key}) : super(key: key);
+class ReportPage extends StatefulWidget {
+  const ReportPage({Key key}) : super(key: key);
 
   @override
-  State<ProductionPage> createState() => _ProductionPageState();
+  State<ReportPage> createState() => _ReportPageState();
 }
 
-class _ProductionPageState extends State<ProductionPage> {
+class _ReportPageState extends State<ReportPage> {
 
   @override
   void initState() {
@@ -19,7 +18,7 @@ class _ProductionPageState extends State<ProductionPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Produccion"),
+        title: const Text("Reportes"),
         backgroundColor: const Color(0xff329437),
       ),
       body: Container(),

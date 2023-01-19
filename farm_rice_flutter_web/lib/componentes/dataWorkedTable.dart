@@ -6,7 +6,7 @@ class resourceWorkedData extends DataTableSource {
   resourceWorkedData(this._listLect);
   final List<WorkedTable> _listLect;
 
-  void _sort<T>(Comparable<T> getField(WorkedTable d), bool ascending) {
+  void _sort<T>(Comparable<T> Function(WorkedTable d) getField, bool ascending) {
     _listLect.sort((WorkedTable a, WorkedTable b) {
       if (!ascending) {
         final WorkedTable c = a;
@@ -23,7 +23,7 @@ class resourceWorkedData extends DataTableSource {
   final int _selectCount = 0;
 
   @override
-  DataRow? getRow(int index) {
+  DataRow getRow(int index) {
     assert(index >= 0);
     if (index >= _listLect.length) return null;
     final WorkedTable lectura = _listLect[index];
@@ -31,15 +31,15 @@ class resourceWorkedData extends DataTableSource {
       index: index,
       selected: lectura.selected,
       cells: <DataCell>[
-        DataCell(Center(child: Text(lectura.dni, style: const TextStyle(fontWeight: FontWeight.bold)))),
-        DataCell(Center(child: Text(lectura.name, softWrap: true))),
-        DataCell(Center(child: Text(lectura.lastname, softWrap: true))),
-        DataCell(Center(child: Text(lectura.phone, softWrap: true))),
-        DataCell(Center(child: Text(lectura.email, softWrap: true))),
-        DataCell(Center(child: Text(lectura.fiscalName, softWrap: true))),
-        DataCell(Center(child: Text(lectura.direccion, softWrap: true))),
-        DataCell(Center(child: Text(lectura.salario, softWrap: true))),
-        DataCell(Center(child: Text(lectura.rolId, softWrap: true))),
+        DataCell(Center(child: Text('${lectura.dni}', style: const TextStyle(fontWeight: FontWeight.bold)))),
+        DataCell(Center(child: Text('${lectura.name}', softWrap: true))),
+        DataCell(Center(child: Text('${lectura.lastname}', softWrap: true))),
+        DataCell(Center(child: Text('${lectura.phone}', softWrap: true))),
+        DataCell(Center(child: Text('${lectura.email}', softWrap: true))),
+        DataCell(Center(child: Text('${lectura.fiscalName}', softWrap: true))),
+        DataCell(Center(child: Text('${lectura.direccion}', softWrap: true))),
+        DataCell(Center(child: Text('${lectura.salario}', softWrap: true))),
+        DataCell(Center(child: Text('${lectura.rolId}', softWrap: true))),
         DataCell(Center(child: Text(lectura.status.toString(), softWrap: true))),
       ],
     );

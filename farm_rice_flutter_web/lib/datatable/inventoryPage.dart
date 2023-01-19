@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:farm_rice_flutter_web/conecction/endpointClass.dart';
-import 'package:farm_rice_flutter_web/componentes/dataInventoryTable.dart';
 import 'package:farm_rice_flutter_web/class/classInventoryTable.dart';
 class InventoryPage extends StatefulWidget {
-  const InventoryPage({Key? key}) : super(key: key);
+  const InventoryPage({Key key}) : super(key: key);
 
   @override
   State<InventoryPage> createState() => _InventoryPageState();
 }
 
 class _InventoryPageState extends State<InventoryPage> {
-  late final Future<List<InventoryTable>?> _listInventoryTable;
+  Future<List<InventoryTable>> _listInventoryTable;
   Endpoints endpoints = Endpoints();
 
   @override
   void initState() {
     super.initState();
-    _listInventoryTable = endpoints.getInventoryData();
+    //_listInventoryTable = endpoints.getInventoryData();
   }
 
   @override
@@ -36,7 +35,7 @@ class _InventoryPageState extends State<InventoryPage> {
               children: [
                 Container(
                   padding: const EdgeInsets.all(15),
-                  child: FutureBuilder<List<InventoryTable>?>(
+                  child: FutureBuilder<List<InventoryTable>>(
                       future: _listInventoryTable,
                       builder: ((context, snapshot) {
                         if(snapshot.hasData){
@@ -49,7 +48,7 @@ class _InventoryPageState extends State<InventoryPage> {
                               DataColumn(label: Text("Fch-Registro")),
                               DataColumn(label: Text("Estado")),
                             ],
-                            source: resourceInventoryData(snapshot.data??[]),
+                            //source: resourceInventoryData(snapshot.data??[]),
                           );
                         }
                         else if(snapshot.hasError){
@@ -73,9 +72,9 @@ class _InventoryPageState extends State<InventoryPage> {
                               child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    TextField(
+                                    const TextField(
                                       keyboardType: TextInputType.name,
-                                      decoration: const InputDecoration(
+                                      decoration: InputDecoration(
                                         prefixIcon: Icon(Icons.paste_rounded),
                                         hintText: 'Nombre Insumo',
                                         contentPadding: EdgeInsets.all(24),
@@ -86,9 +85,9 @@ class _InventoryPageState extends State<InventoryPage> {
                                       ),
                                     ),
                                     const SizedBox(height: 15),
-                                    TextField(
+                                    const TextField(
                                       keyboardType: TextInputType.name,
-                                      decoration: const InputDecoration(
+                                      decoration: InputDecoration(
                                         prefixIcon: Icon(Icons.paste_rounded),
                                         hintText: 'Descripción',
                                         contentPadding: EdgeInsets.all(24),
@@ -99,9 +98,9 @@ class _InventoryPageState extends State<InventoryPage> {
                                       ),
                                     ),
                                     const SizedBox(height: 15),
-                                    TextField(
+                                    const TextField(
                                       keyboardType: TextInputType.datetime,
-                                      decoration: const InputDecoration(
+                                      decoration: InputDecoration(
                                         prefixIcon: Icon(Icons.access_time_filled_rounded),
                                         hintText: 'Fecha de registro',
                                         contentPadding: EdgeInsets.all(24),
@@ -112,9 +111,9 @@ class _InventoryPageState extends State<InventoryPage> {
                                       ),
                                     ),
                                     const SizedBox(height: 15),
-                                    TextField(
+                                    const TextField(
                                       keyboardType: TextInputType.number,
-                                      decoration: const InputDecoration(
+                                      decoration: InputDecoration(
                                         prefixIcon: Icon(Icons.monetization_on_rounded),
                                         hintText: 'Costo',
                                         contentPadding: EdgeInsets.all(24),

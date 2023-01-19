@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 
 class ButtonWidget extends StatelessWidget{
-  final VoidCallback? function;
+  final VoidCallback function;
   final Color color;
   final double width;
   final double height;
@@ -11,13 +11,13 @@ class ButtonWidget extends StatelessWidget{
   final String namebutton;
 
   const ButtonWidget({
-    Key? key,
+    Key key,
     this.function,
-    required this.color,
-    required this.width,
-    required this.height,
-    required this.circular,
-    required this.namebutton
+    @required this.color,
+    @required this.width,
+    @required this.height,
+    @required this.circular,
+    @required this.namebutton
   }) : super(key: key);
 
   @override

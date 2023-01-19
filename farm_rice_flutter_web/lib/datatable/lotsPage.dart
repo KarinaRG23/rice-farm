@@ -1,36 +1,33 @@
-// ignore_for_file: file_names
-import 'package:farm_rice_flutter_web/class/classUserTable.dart';
-import 'package:farm_rice_flutter_web/componentes/dataTable.dart';
-import 'package:farm_rice_flutter_web/conecction/endpointClass.dart';
-import 'package:flutter/material.dart';
 
-class UserPage extends StatefulWidget {
-  const UserPage({Key? key}) : super(key: key);
+import 'package:flutter/material.dart';
+import 'package:farm_rice_flutter_web/conecction/endpointClass.dart';
+import 'package:farm_rice_flutter_web/class/classLotTable.dart';
+class LotsPage extends StatefulWidget {
+  const LotsPage({Key key}) : super(key: key);
 
   @override
-  State<UserPage> createState() => _UserPageState();
+  State<LotsPage> createState() => _LotsPageState();
 }
 
-class _UserPageState extends State<UserPage> {
-  late final Future<List<UserTable>?> _listTable;
+class _LotsPageState extends State<LotsPage> {
+  Future<List<LotTable>> _listLotTable;
   Endpoints endpoints = Endpoints();
-  List itemRolOpen = ['Administrador','Trabajador', 'Usuario'];
-  List itemEstadoOpen = ['Activo','Inactivo'];
+  List itemNumLot = ['1','2','3','4','5'];
+  List itemEstadoLot = ['Producción','Sin Producción'];
 
   @override
   void initState() {
     super.initState();
-    _listTable = endpoints.getUserData();
+    //_listLotTable = endpoints.getLotData();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Usuarios"),
+        title: const Text("Lotes"),
         backgroundColor: const Color(0xff329437),
       ),
-
         body: SingleChildScrollView(
           child: Container(
             padding: EdgeInsets.only(
@@ -41,8 +38,8 @@ class _UserPageState extends State<UserPage> {
               children: [
                 Container(
                   padding: const EdgeInsets.all(15),
-                  child: FutureBuilder<List<UserTable>?>(
-                      future: _listTable,
+                  child: FutureBuilder<List<LotTable>>(
+                      future: _listLotTable,
                       builder: ((context, snapshot) {
                         if(snapshot.hasData){
                           return PaginatedDataTable(
@@ -57,7 +54,7 @@ class _UserPageState extends State<UserPage> {
                               DataColumn(label: Text("Rol")),
                               DataColumn(label: Text("Estado")),
                             ],
-                            source: resourceData(snapshot.data??[]),
+                            //source: resourceLotData(snapshot.data??[]),
                           );
                         }
                         else if(snapshot.hasError){
@@ -74,19 +71,19 @@ class _UserPageState extends State<UserPage> {
                         builder: (context) => AlertDialog(
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                           scrollable: true,
-                          title: const Text("REGISTRAR USUARIO",
+                          title: const Text("REGISTRAR LOTE",
                               textAlign: TextAlign.center, style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)),
                           content: SizedBox(
-                            height: 780,
+                            height: 480,
                             width: 375,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                TextField(
+                                const TextField(
                                   keyboardType: TextInputType.number,
-                                  decoration: const InputDecoration(
-                                    prefixIcon: Icon(Icons.card_membership_rounded),
-                                    hintText: 'Cedula',
+                                  decoration: InputDecoration(
+                                    prefixIcon: Icon(Icons.description),
+                                    hintText: 'Nombre del lote',
                                     contentPadding: EdgeInsets.all(24),
                                     fillColor: Colors.white,
                                     filled: true,
@@ -95,63 +92,11 @@ class _UserPageState extends State<UserPage> {
                                   ),
                                 ),
                                 const SizedBox(height: 15),
-                                TextField(
+                                const TextField(
                                   keyboardType: TextInputType.name,
-                                  decoration: const InputDecoration(
-                                    prefixIcon: Icon(Icons.perm_identity_rounded),
-                                    hintText: 'Nombres',
-                                    contentPadding: EdgeInsets.all(24),
-                                    fillColor: Colors.white,
-                                    filled: true,
-                                    border: OutlineInputBorder(
-                                        borderSide: BorderSide(color: Colors.black, width: 3), borderRadius: BorderRadius.all(Radius.circular(10))),
-                                  ),
-                                ),
-                                const SizedBox(height: 15),
-                                TextField(
-                                  keyboardType: TextInputType.name,
-                                  decoration: const InputDecoration(
-                                    prefixIcon: Icon(Icons.perm_identity_rounded),
-                                    hintText: 'Apellidos',
-                                    contentPadding: EdgeInsets.all(24),
-                                    fillColor: Colors.white,
-                                    filled: true,
-                                    border: OutlineInputBorder(
-                                        borderSide: BorderSide(color: Colors.black, width: 3), borderRadius: BorderRadius.all(Radius.circular(10))),
-                                  ),
-                                ),
-                                const SizedBox(height: 15),
-                                TextField(
-                                  keyboardType: TextInputType.number,
-                                  decoration: const InputDecoration(
-                                    prefixIcon: Icon(Icons.mobile_friendly_rounded),
-                                    hintText: 'Telefono',
-                                    contentPadding: EdgeInsets.all(24),
-                                    fillColor: Colors.white,
-                                    filled: true,
-                                    border: OutlineInputBorder(
-                                        borderSide: BorderSide(color: Colors.black, width: 3), borderRadius: BorderRadius.all(Radius.circular(10))),
-                                  ),
-                                ),
-                                const SizedBox(height: 15),
-                                TextField(
-                                  keyboardType: TextInputType.emailAddress,
-                                  decoration: const InputDecoration(
-                                    prefixIcon: Icon(Icons.email_rounded),
-                                    hintText: 'Email',
-                                    contentPadding: EdgeInsets.all(24),
-                                    fillColor: Colors.white,
-                                    filled: true,
-                                    border: OutlineInputBorder(
-                                        borderSide: BorderSide(color: Colors.black, width: 3), borderRadius: BorderRadius.all(Radius.circular(10))),
-                                  ),
-                                ),
-                                const SizedBox(height: 15),
-                                TextField(
-                                  keyboardType: TextInputType.name,
-                                  decoration: const InputDecoration(
+                                  decoration: InputDecoration(
                                     prefixIcon: Icon(Icons.location_on_rounded),
-                                    hintText: 'Lugar',
+                                    hintText: 'Area',
                                     contentPadding: EdgeInsets.all(24),
                                     fillColor: Colors.white,
                                     filled: true,
@@ -160,11 +105,11 @@ class _UserPageState extends State<UserPage> {
                                   ),
                                 ),
                                 const SizedBox(height: 15),
-                                TextField(
+                                const TextField(
                                   keyboardType: TextInputType.name,
-                                  decoration: const InputDecoration(
-                                    prefixIcon: Icon(Icons.location_on_rounded),
-                                    hintText: 'Dirección',
+                                  decoration: InputDecoration(
+                                    prefixIcon: Icon(Icons.fact_check_sharp),
+                                    hintText: 'Etapa',
                                     contentPadding: EdgeInsets.all(24),
                                     fillColor: Colors.white,
                                     filled: true,
@@ -174,7 +119,7 @@ class _UserPageState extends State<UserPage> {
                                 ),
                                 const SizedBox(height: 15),
                                 DropdownButton(
-                                  hint: const Text("Seleccione el Rol: "),
+                                  hint: const Text("Seleccione el numero del lote: "),
                                   icon: const Icon(Icons.arrow_drop_down),
                                   iconSize: 35,
                                   isExpanded: true,
@@ -184,7 +129,7 @@ class _UserPageState extends State<UserPage> {
                                     setState((){
                                     });
                                   },
-                                  items: itemRolOpen.map((valueItem){
+                                  items: itemNumLot.map((valueItem){
                                     return DropdownMenuItem(
                                         value: valueItem,
                                         child: Text(valueItem)
@@ -203,7 +148,7 @@ class _UserPageState extends State<UserPage> {
                                     setState((){
                                     });
                                   },
-                                  items: itemEstadoOpen.map((valueItem){
+                                  items: itemEstadoLot.map((valueItem){
                                     return DropdownMenuItem(
                                         value: valueItem,
                                         child: Text(valueItem)
@@ -242,7 +187,7 @@ class _UserPageState extends State<UserPage> {
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 12),
                       child: const Text(
-                        'AÑADIR USUARIO',
+                        'AÑADIR LOTE',
                         style: TextStyle(
                             fontSize: 20,
                             fontWeight:
