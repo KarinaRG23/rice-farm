@@ -7,6 +7,7 @@ import 'package:farm_rice_flutter_web/class/classUserTable.dart';
 import 'package:farm_rice_flutter_web/class/classWorkedTable.dart';
 import 'package:farm_rice_flutter_web/class/classInventoryTable.dart';
 import 'package:farm_rice_flutter_web/class/classLotTable.dart';
+import 'package:farm_rice_flutter_web/class/rolClass.dart';
 import 'package:farm_rice_flutter_web/class/userClass.dart';
 import 'package:farm_rice_flutter_web/temporalClass/sharedPreferences.dart';
 import 'package:farm_rice_flutter_web/temporalClass/userPreferences.dart';
@@ -69,6 +70,21 @@ class Endpoints {
             x['email'], x['nombrefiscal'], x['direccionfiscal'], x['rolid'].toString(), x['status'].toString()));
       }
       return listTable;
+    }
+  }
+
+  //
+  Future<List<Rol>> getRolUser() async {
+    List<Rol> listRol = [];
+    var url = 'http://159.223.205.198:8080/rol';
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonData = jsonDecode(response.body);
+      for (var x in jsonData['response']) {
+        print(jsonData['response']);
+        listRol.add(Rol(x['idrol'].toString(), x['nombrerol'], x['descripcion'], x['status'].toString()));
+      }
+      return listRol;
     }
   }
   
