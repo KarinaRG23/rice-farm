@@ -9,6 +9,7 @@ import 'package:farm_rice_flutter_web/class/classInventoryTable.dart';
 import 'package:farm_rice_flutter_web/class/classLotTable.dart';
 import 'package:farm_rice_flutter_web/class/insumosClass.dart';
 import 'package:farm_rice_flutter_web/class/laborsClass.dart';
+import 'package:farm_rice_flutter_web/class/productClass.dart';
 import 'package:farm_rice_flutter_web/class/rolClass.dart';
 import 'package:farm_rice_flutter_web/class/trabajadoresClass.dart';
 import 'package:farm_rice_flutter_web/temporalClass/sharedPreferences.dart';
@@ -126,7 +127,17 @@ class Endpoints {
     }
   }
 
-  //http://159.223.205.198:8080/Producto
+  //
+  Future<List<Produccion>> getProduccion() async {
+    List<Produccion> lisProduccion = [];
+    var url = 'http://159.223.205.198:8080/Produccion';
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonData = jsonDecode(response.body);
+      for (var x in jsonData['response']) {}
+      return lisProduccion;
+    }
+  }
 
   Future<List<Trabajador>> getTrabajador() async {
     List<Trabajador> lisTrabajador = [];
@@ -151,7 +162,7 @@ class Endpoints {
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonData = jsonDecode(response.body);
       for (var x in jsonData['response']) {
-        listLabores.add(Labores(x['codigo'], x['nombre'], x['descripcion']));
+        listLabores.add(Labores(x['codigo'].toString(), x['nombre'], x['descripcion']));
       }
       return listLabores;
     }

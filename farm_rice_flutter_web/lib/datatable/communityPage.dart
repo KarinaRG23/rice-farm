@@ -43,7 +43,7 @@ class _CommunityPageState extends State<CommunityPage> {
                   ],
                   source: resouceDataLab(snapshot.data),
                   rowsPerPage: 8,
-                  columnSpacing: 200,
+                  columnSpacing: 250,
                   header: const Text("Labores", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold), softWrap: true),
                   sortAscending: false,
                   actions: [
