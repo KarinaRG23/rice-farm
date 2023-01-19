@@ -4,9 +4,11 @@ import 'package:farm_rice_flutter_web/class/userClass.dart';
 import 'package:farm_rice_flutter_web/componentes/buttonWidget.dart';
 import 'package:farm_rice_flutter_web/componentes/textWidget.dart';
 import 'package:farm_rice_flutter_web/conecction/endpointClass.dart';
+import 'package:farm_rice_flutter_web/datatable/administratorTable.dart';
 import 'package:farm_rice_flutter_web/datatable/lotsPage.dart';
 import 'package:farm_rice_flutter_web/datatable/productionPage.dart';
 import 'package:farm_rice_flutter_web/datatable/reportPage.dart';
+import 'package:farm_rice_flutter_web/datatable/rolPage.dart';
 import 'package:farm_rice_flutter_web/datatable/userPage.dart';
 import 'package:farm_rice_flutter_web/temporalClass/userPreferences.dart';
 import 'package:farm_rice_flutter_web/datatable/communityPage.dart';
@@ -24,12 +26,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final List<String> menuItems = [
-    "Inicio", "Usuarios", "Trabajadores", "Inventario", "Reportes",
+    "Inicio", "Usuarios", "Roles","Trabajadores", "Inventario", "Reportes",
     "Lotes", "Labores", "Produccion"
   ];
 
   final List<IconData> menuIcons = [
-    Icons.home, Icons.person_rounded, Icons.work, Icons.inventory, Icons.receipt,
+    Icons.home, Icons.person_rounded, Icons.group, Icons.work, Icons.inventory, Icons.receipt,
     Icons.warehouse, Icons.engineering, Icons.production_quantity_limits
   ];
 
@@ -95,7 +97,6 @@ class _HomePageState extends State<HomePage> {
     return mostrar;
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -153,11 +154,27 @@ class _HomePageState extends State<HomePage> {
               },
             ),
             ListTile(
+              title: const Text("Roles"),
+              leading: const Icon(Icons.group, size: 25),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (ctx) => const RolPage()));
+              },
+            ),
+            ListTile(
               title: const Text("Trabajadores"),
               leading: const Icon(Icons.work, size: 25),
               onTap: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (ctx) => const WorkedPage()));
+              },
+            ),
+            ListTile(
+              title: const Text("Administradores"),
+              leading: const Icon(Icons.work, size: 25),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (ctx) => const AdministradorPage()));
               },
             ),
             ListTile(
