@@ -71,7 +71,20 @@ class Endpoints {
       return listTable;
     }
   }
-  
+
+  Future<List<InventoryTable>> getInventoryData() async {
+    List<InventoryTable> listInventoryTable = [];
+    var url = 'http://159.223.205.198:8080/categoria';
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonData = jsonDecode(response.body);
+      for (var x in jsonData['response']) {
+        listInventoryTable.add(InventoryTable(
+            x['idcategoria'].toString(),x['nombre'], x['descripcion'], x['portada'], x['decreated'].toString(), x['ruta'], x['status'].toString()));
+      }
+      return listInventoryTable;
+    }
+  }
   
   /*Future<List<WorkedTable>> getWorkedData() async {
     var token = await preferences.getToken();
@@ -96,22 +109,6 @@ class Endpoints {
             x['status']));
       }
       return listWorkedTable;
-    }
-  }
-
-  Future<List<InventoryTable>> getInventoryData() async {
-    var token = await preferences.getToken();
-    List<InventoryTable> listInventoryTable = [];
-    var url = 'http://159.223.205.198:8080/supplies';
-    var dataSupplies = {HttpHeaders.authorizationHeader: "Bearer $token"};
-    final response = await http.get(Uri.parse(url), headers: dataSupplies);
-    if (response.statusCode == 200) {
-      var json = jsonDecode(response.body);
-      for (var x in json['response']) {
-        listInventoryTable.add(InventoryTable(x['idinsumo'], x['nombre'],
-            x['descripcion'], x['costo'], x['fechregistro'], x['status']));
-      }
-      return listInventoryTable;
     }
   }
 

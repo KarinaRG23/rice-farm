@@ -7,7 +7,6 @@ class LotTable{
   String area;
   String etapa;
   int status;
-
   bool selected = false;
 
   LotTable(

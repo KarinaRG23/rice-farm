@@ -1,25 +1,32 @@
+import 'dart:convert';
+
+String inventoryTableToJson(List<InventoryTable> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
 class InventoryTable{
-  int insumoid;
+  String codigo;
   String name;
   String descripcion;
-  String costo;
+  String portada;
   String fechregistro;
-  int status;
+  String ruta;
+  String status;
 
   bool selected = false;
 
   InventoryTable(
-      this.insumoid, this.name, this.descripcion, this.costo,
-      this.fechregistro, this.status
+      this.codigo, this.name, this.descripcion, this.portada,
+      this.fechregistro, this.ruta, this.status
       );
 
-  Map<String, dynamic> toJson(Map<String, dynamic> json){
+  Map<String, dynamic> toJson(){
     return{
-      "idinsumo": insumoid,
+      "codigo": codigo,
       "nombre": name,
       "descripcion": descripcion,
-      "costo": costo,
+      "portada": portada,
       "fechregistro": fechregistro,
+      "ruta": ruta,
       "status": status,
     };
   }
