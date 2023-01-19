@@ -7,6 +7,7 @@ import 'package:farm_rice_web_flutter/class/classInventoryTable.dart';
 import 'package:farm_rice_web_flutter/class/classLotTable.dart';
 import 'package:farm_rice_web_flutter/class/classUserTable.dart';
 import 'package:farm_rice_web_flutter/class/classWorkedTable.dart';
+import 'package:farm_rice_web_flutter/class/userClass.dart';
 import 'package:farm_rice_web_flutter/temporalClass/sharedPreferences.dart';
 import 'package:farm_rice_web_flutter/temporalClass/userPreferences.dart';
 import 'package:http/http.dart' as http;
@@ -32,22 +33,26 @@ class Endpoints {
     }
   }
 
-  Future<void> dataUser() async {
+  Future<List<User>> dataUser() async {
+    List<User> listUser = [];
     var email = await preferences.getEmail();
     var password = await preferences.getPassword();
-
     var urlLogin = 'http://159.223.205.198:8080/auth/login';
     var dataLogin = {"email": email, "password": password};
     var dataEncoding = jsonEncode(dataLogin);
     var dataHeader = {HttpHeaders.contentTypeHeader: "application/json"};
     final response = await http.post(Uri.parse(urlLogin), body: dataEncoding, headers: dataHeader);
     if (response.statusCode == 200) {
+      print(response.body);
       Map<String, dynamic> jsonData = jsonDecode(response.body);
-      userPreferences.setEmail(jsonData['response']['correo']);
+      for(var x in jsonData['response']){
+        listUser.add(User(x['correo'], x['user_rol'], x['username'], x['token']));
+        userPreferences.setToken(x['token']);
+      }
+      /*userPreferences.setEmail(jsonData['response']['correo']);
       userPreferences.setRol(jsonData['response']['user_rol']);
-      userPreferences.setName(jsonData['response']['username']);
-      userPreferences.setToken(jsonData['response']['token']);
-
+      userPreferences.setName(jsonData['response']['username']);*/
+      return listUser;
     }
   }
 
@@ -58,35 +63,14 @@ class Endpoints {
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonData = jsonDecode(response.body);
-
       for (var x in jsonData['response']) {
-        print(x);
-        listTable.add(UserTable.fromJson(jsonData));
-        /*listTable.add(UserTable(
-        x['idpersona'], x['identificacion'], x['nombres'], x['apellidos'], x['telefono'],
-            x['email'], x['nombrefiscal'], x['direccionfiscal'], x['rolid'], x['status']));*/
-
+        //listTable.add(UserTable.fromJson(jsonData));
+        listTable.add(UserTable(
+        x['idpersona'].toString(), x['identificacion'], x['nombres'], x['apellidos'], x['telefono'],
+            x['email'], x['nombrefiscal'], x['direccionfiscal'], x['rolid'].toString(), x['status'].toString()));
       }
       return listTable;
     }
-  }
-  
-  static Future<List<UserTable>> fetchData() async {
-    final completer = Completer<List<UserTable>>();
-    try {
-      var url = 'http://159.223.205.198:8080/person';
-      final resp = await http.get(Uri.parse(url));
-
-      if (resp.statusCode == 200) {
-        //
-        final data = userTableFromJson(resp.body);
-        completer.complete(data);
-      }
-    } catch (exc) {
-      completer.completeError(<UserTable>[]);
-    }
-
-    return completer.future;
   }
 
 

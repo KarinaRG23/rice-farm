@@ -1,4 +1,5 @@
 import 'package:farm_rice_web_flutter/splash/splashBeforeLogin.dart';
+import 'package:farm_rice_web_flutter/views/userPage.dart';
 import 'package:flutter/material.dart';
 
 void main() {

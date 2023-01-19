@@ -1,159 +1,157 @@
 // ignore_for_file: file_names, camel_case_types
 
-import 'package:farm_rice_web_flutter/app_level/models/data_notifier.dart';
-import 'package:farm_rice_web_flutter/app_level/models/data_table_source.dart';
-import 'package:farm_rice_web_flutter/app_level/widget/custom_dialog.dart';
-import 'package:farm_rice_web_flutter/app_level/widget/custom_scaffold.dart';
-import 'package:farm_rice_web_flutter/app_level/widget/other_details.dart';
 import 'package:farm_rice_web_flutter/class/classUserTable.dart';
-import 'package:farm_rice_web_flutter/components/customDataTable.dart';
+import 'package:farm_rice_web_flutter/endepoints/endpointClass.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-class UserPage extends StatelessWidget {
+class UserPage extends StatefulWidget {
   const UserPage({Key key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context){
-    return CustomScaffold(
-      showAppBar: false,
-      enableDarkMode: false,
-      titleText: "Usuarios",
-      child: ChangeNotifierProvider<UserDataNotifier>(
-        create: (_)=> UserDataNotifier(),
-        child: const _InternalWidget(),
-      ),
+  State<StatefulWidget> createState()=> _UserPageState();
+}
 
+class _UserPageState extends State<UserPage>{
+  Future<List<UserTable>> _lisTableUser;
+  final Endpoints _endpoints = Endpoints();
+
+  @override
+  void initState() {
+    _lisTableUser = _endpoints.getUserData();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+      appBar: AppBar(),
+      body: Container(
+        padding: const EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 5),
+        child: FutureBuilder(
+            future: _lisTableUser,
+            builder: (context, snapshot){
+              if(snapshot.hasData){
+                return PaginatedDataTable(
+                  columns:const <DataColumn>[
+                    DataColumn(label: Text('Id')),
+                    DataColumn(label: Text('Cedula')),
+                    DataColumn(label: Text('Nombres')),
+                    DataColumn(label: Text('Apellidos')),
+                    DataColumn(label: Text('Telefono')),
+                    DataColumn(label: Text('E-mail')),
+                    DataColumn(label: Text('Nombre fiscal')),
+                    DataColumn(label: Text('Direccion fiscal')),
+                    DataColumn(label: Text('Rol')),
+                    DataColumn(label: Text('Estado')),
+                    DataColumn(label: Text('Opciones de usuario', softWrap: true)),
+                  ],
+                  source: resouceData(snapshot.data),
+                  rowsPerPage: 8,
+                  columnSpacing: 40,
+                  header: const Text("Lista de usuarios", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold), softWrap: true),
+                  sortAscending: false,
+                  actions: [
+                    ElevatedButton.icon(
+                        onPressed: (){},
+                        style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5)
+                        ),
+                        icon: const Icon(Icons.person_add, size: 30 ),
+                        label: const Text("")
+                    ),
+                    const SizedBox(width: 5),
+                    ElevatedButton.icon(
+                        onPressed: (){},
+                        style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5)
+                        ),
+                        icon: const Icon(Icons.picture_as_pdf, size: 30),
+                        label: const Text("")
+                    ),
+                    const SizedBox(width: 15),
+                  ],
+                );
+              }else if (snapshot.hasError){
+                return const Center(child: Text("Error en la carga de los datos, espera un momento o reinicia la pagina..."));
+              }
+              return const Center(child: CircularProgressIndicator());
+            }
+        ),
+      ),
     );
   }
 }
 
-class _InternalWidget extends StatelessWidget{
-  const _InternalWidget({Key key}) : super(key: key);
+class resouceData extends DataTableSource{
+  resouceData(this._listLec);
+  final List<UserTable> _listLec;
+
+  void _sort<T>(Comparable<T> Function(UserTable d) getField, bool ascending){
+    _listLec.sort((UserTable a, UserTable b){
+      if(!ascending){
+        final UserTable c = a;
+        a =b; b =c;
+      }
+      final Comparable<T> aValue = getField(a);
+      final Comparable<T> bValue = getField(b);
+      return Comparable.compare(aValue, bValue);
+    });
+    notifyListeners();
+  }
+
+  final int _selectCount = 0;
 
   @override
-  Widget build(BuildContext context) {
-    final _provider = context.watch<UserDataNotifier>();
-    final _model = _provider.userModel;
-
-    if(_model.isEmpty){
-      return const SizedBox.shrink();
-    }
-    final _dtSource = UserDataTableSource(
-      onRowSelect: (index) => _showDetails(context, _model[index]),
-      userData: _model,
-    );
-
-    return CustomPaginatedTable(
-      actions: <IconButton>[
-        IconButton(
-          splashColor: Colors.transparent,
-          icon: const Icon(Icons.refresh),
-          onPressed: () {
-            _provider.fetchData();
-            _showSBar(context, "Refresco exitoso");
-          },
-        ),
-      ],
-      dataColumns: _colGen(_dtSource, _provider),
-      header: const Text("Listado de usuarios"),
-      onRowChanged: (index) => _provider.rowsPerPage = index,
-      rowsPerPage: _provider.rowsPerPage,
-      showActions: true,
-      source: _dtSource,
-      sortColumnIndex: _provider.sortColumnIndex,
-      sortColumnAsc: _provider.sortAscending,
-    );
-
-  }
-
-  List<DataColumn> _colGen(
-      UserDataTableSource _src,
-      UserDataNotifier _provider,
-      ) =>
-      <DataColumn>[
-        DataColumn(
-          label: const Text('Id'),
-          numeric: true,
-          tooltip: 'Id',
-          onSort: (colIndex, asc) {
-            _sort<num>((user) => user.userID, colIndex, asc, _src, _provider);
-          },
-        ),
-        const DataColumn(
-          label: Text('Cedula'),
-          tooltip: 'Cedula',
-        ),
-        DataColumn(
-          label: const Text('Nombres'),
-          tooltip: 'Nombres',
-          onSort: (colIndex, asc) {
-            _sort<String>((user) => user.name, colIndex, asc, _src, _provider);
-          },
-        ),
-        DataColumn(
-          label: const Text('Apellidos'),
-          tooltip: 'Apellidos',
-          onSort: (colIndex, asc) {
-            _sort<String>((user) => user.lastname, colIndex, asc, _src, _provider);
-          },
-        ),
-        const DataColumn(
-          label: Text('Telefono'),
-          tooltip: 'Telefono',
-        ),
-        DataColumn(
-          label: const Text('E-mail'),
-          tooltip: 'E-mail',
-          onSort: (colIndex, asc) {
-            _sort<String>((user) => user.email, colIndex, asc, _src, _provider);
-          },
-        ),
-        const DataColumn(
-          label: Text('Localidad fiscal'),
-          tooltip: 'Localidad fiscal',
-        ),
-        const DataColumn(
-          label: Text('Direccion fiscal'),
-          tooltip: 'Direccion fiscal',
-        ),
-        const DataColumn(
-          label: Text('RolId'),
-          tooltip: 'RolId',
-        ),
-        const DataColumn(
-          label: Text('Estado'),
-          tooltip: 'Estado',
-        ),
-      ];
-
-  void _sort<T>(
-      Comparable<T> Function(UserTable user) getField,
-      int colIndex,
-      bool asc,
-      UserDataTableSource _src,
-      UserDataNotifier _provider,
-      ) {
-    _src.sort<T>(getField, asc);
-    _provider.sortAscending = asc;
-    _provider.sortColumnIndex = colIndex;
-  }
-
-  void _showSBar(BuildContext c, String textToShow) {
-    ScaffoldMessenger.of(c).showSnackBar(
-      SnackBar(
-        content: Text(textToShow),
-        duration: const Duration(milliseconds: 2000),
-      ),
+  DataRow getRow(int index) {
+    assert(index >= 0);
+    if(index >= _listLec.length) return null;
+    final UserTable user = _listLec[index];
+    return DataRow.byIndex(
+        index: index,
+        selected: user.selected,
+        cells: <DataCell>[
+          DataCell(Center(child: Text(user.userID))),
+          DataCell(Center(child: Text(user.dni))),
+          DataCell(Center(child: Text(user.name))),
+          DataCell(Center(child: Text(user.lastname))),
+          DataCell(Center(child: Text(user.phone))),
+          DataCell(Center(child: Text(user.email))),
+          DataCell(Center(child: Text(user.fiscalName))),
+          DataCell(Center(child: Text(user.direction))),
+          DataCell(Center(child: Text(user.rolId))),
+          DataCell(Center(child: Text(user.status))),
+          DataCell(Center(child: ButtonBar(
+            alignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                    shape: const CircleBorder(), backgroundColor: Colors.blue,
+                    padding: const EdgeInsets.all(15),
+                    alignment: Alignment.center),
+                    child: const Icon(Icons.remove_red_eye_rounded,
+                    )),
+              ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                    shape: const CircleBorder(), backgroundColor: Colors.red,
+                    padding: const EdgeInsets.all(15),
+                    alignment: Alignment.center),
+                child: const Icon(Icons.delete,
+                )),
+          ],))),
+        ],
     );
   }
 
-  void _showDetails(BuildContext c, UserTable data) async =>
-      await showDialog<bool>(
-        context: c,
-        builder: (_) => CustomDialog(
-          showPadding: false,
-          child: OtherDetails(data: data),
-        ),
-      );
+  @override
+  bool get isRowCountApproximate => false;
+
+  @override
+  int get rowCount => _listLec.length;
+
+  @override
+  int get selectedRowCount => _selectCount;
 }

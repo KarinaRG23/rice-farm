@@ -1,13 +1,13 @@
 // ignore_for_file: file_names
 
 class User{
-  final String nombre;
-  final String jwt;
   final String correo;
   final String roller;
+  final String nombre;
+  final String jwt;
 
 
-  User({this.nombre, this.correo, this.jwt, this.roller});
+  User(this.correo, this.roller, this.nombre, this.jwt);
 
   Map<String, dynamic>toJson(Map<String, dynamic> json){
     return {
@@ -18,12 +18,12 @@ class User{
     };
   }
 
-  factory User.fromJson(Map<String, dynamic> json) {
+  /*factory User.fromJson(Map<String, dynamic> json) {
     return User(
       correo: json['correo'],
       roller: json['user_rol'],
       nombre: json['username'],
       jwt: json['token']
     );
-  }
+  }*/
 }
