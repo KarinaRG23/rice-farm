@@ -40,9 +40,18 @@ class _HomePageState extends State<HomePage> {
   bool sideBarOpen = false;
   PageController pageController;
   int month = 0;
-  //Future<List<User>> listDataUSer;
+  Future<List<User>> _listDataUSer;
   final Endpoints _endpoints = Endpoints();
   UserPreferences preferences = UserPreferences();
+
+  @override
+  void initState() {
+    //_listDataUSer =_endpoints.dataUser();
+    getDataName();
+    getDataRol();
+    getDataEmail();
+    super.initState();
+  }
 
   String name ='', correo ='', rol = '';
 
@@ -59,7 +68,7 @@ class _HomePageState extends State<HomePage> {
     setState(() => name = n);
   }
 
-  Widget datosUser(List<User> data) {
+  Widget _datosUser(List<User> data) {
     Widget mostrar;
     for (var x in data) {
       mostrar = SizedBox(
@@ -70,15 +79,12 @@ class _HomePageState extends State<HomePage> {
           children: [
             const Icon(Icons.account_circle, size: 80),
             const SizedBox(height: 15),
-            Text('${x.nombre}',
-                style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            Text('${x.roller}',
-                style: const TextStyle(
-                    fontSize: 16, fontWeight: FontWeight.normal)),
-            Text('${x.correo}',
-                style: const TextStyle(
-                    fontSize: 16, fontWeight: FontWeight.normal)),
+            Text(x.nombre,
+                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            Text(x.roller,
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.normal)),
+            Text(x.correo,
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.normal)),
             const Text("__________________________",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal)),
             const SizedBox(height: 20),
@@ -89,15 +95,6 @@ class _HomePageState extends State<HomePage> {
     return mostrar;
   }
 
-  @override
-  void initState() {
-    super.initState();
-    //listDataUSer = point.dataUser();
-    getDataName();
-    getDataRol();
-    getDataEmail();
-    //print("${date.day} / $month${date.month} / ${date.year}");
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -105,13 +102,14 @@ class _HomePageState extends State<HomePage> {
       drawer: Drawer(
           backgroundColor: const Color(0xff329437),
           child: ListView(padding: const EdgeInsets.all(0), children: [
-            /*FutureBuilder<List<User>>(
-                future: listDataUSer,
-                builder: (ctx, snapshot) {
+            const SizedBox(height: 10),
+            /*FutureBuilder(
+                future: _listDataUSer,
+                builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    return datosUser(snapshot.data);
+                    return _datosUser(snapshot.data);
                   } else if (snapshot.hasError) {
-                    return const Center(child: CircularProgressIndicator());
+                    return const Center(child: Text("Cargando datos del usuario o refresque la pagina", softWrap: true));
                   }
                   return const Center(child: CircularProgressIndicator());
                 }),*/
@@ -119,18 +117,17 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               height: 200,
               width: 200,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+              child: Column(mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Icon(Icons.account_circle, size: 80),
                   const SizedBox(height: 15),
-                  Text('$name',
+                  Text(name,
                       style:
                       const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                  Text('$rol',
+                  Text(rol,
                       style: const TextStyle(
                           fontSize: 16, fontWeight: FontWeight.normal)),
-                  Text('$correo',
+                  Text(correo,
                       style: const TextStyle(
                           fontSize: 16, fontWeight: FontWeight.normal)),
                   const Text("__________________________",
@@ -139,6 +136,7 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
+            const SizedBox(height: 10),
             ListTile(
               title: const Text("Inicio"),
               leading: const Icon(Icons.home, size: 25),
@@ -302,10 +300,5 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 }

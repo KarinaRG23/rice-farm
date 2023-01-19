@@ -32,8 +32,8 @@ class Endpoints {
     }
   }
 
-  Future<List<User>> dataUser() async {
-    List<User> listUser = [];
+  Future<void> dataUser() async {
+    //List<User> listUser = [];
     var email = await preferences.getEmail();
     var password = await preferences.getPassword();
     var urlLogin = 'http://159.223.205.198:8080/auth/login';
@@ -43,16 +43,16 @@ class Endpoints {
     final response = await http.post(Uri.parse(urlLogin), body: dataEncoding, headers: dataHeader);
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonData = jsonDecode(response.body);
-      print(response.body);
-      for(var x in jsonData['response']){
-        listUser.add(User(x['correo'], x['rolid'], x['username'], x['token']));
+      print(jsonData);
+      /*for(var x in jsonData){
+        listUser.add(User(x['correo'], x['user_rol'], x['username']));
         userPreferences.setToken(x['token']);
-      }
-      /*userPreferences.setEmail(jsonData['response']['correo']);
+      }*/
+      userPreferences.setEmail(jsonData['response']['correo']);
       userPreferences.setRol(jsonData['response']['user_rol']);
       userPreferences.setName(jsonData['response']['username']);
-      userPreferences.setToken(jsonData['response']['token']);*/
-      return listUser;
+      userPreferences.setToken(jsonData['response']['token']);
+      //return listUser;
     }
   }
 
@@ -64,7 +64,6 @@ class Endpoints {
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonData = jsonDecode(response.body);
       for (var x in jsonData['response']) {
-        //listTable.add(UserTable.fromJson(jsonData));
         listTable.add(UserTable(
             x['idpersona'].toString(), x['identificacion'], x['nombres'], x['apellidos'], x['telefono'],
             x['email'], x['nombrefiscal'], x['direccionfiscal'], x['rolid'].toString(), x['status'].toString()));
