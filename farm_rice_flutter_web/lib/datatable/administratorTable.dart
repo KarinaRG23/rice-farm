@@ -50,55 +50,8 @@ class _AdministradorPageState extends State<AdministradorPage>{
                 source: resouceData(snapshot.data),
                 rowsPerPage: 8,
                 columnSpacing: 25,
-                header: const Text("Lista de usuarios", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold), softWrap: true),
+                header: const Text("Administradores", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold), softWrap: true),
                 sortAscending: false,
-                actions: [
-                  ElevatedButton.icon(
-                      onPressed: (){
-                        showDialog(
-                            context: context,
-                            builder: (context)=> AlertDialog(
-                              title: const Text("REGISTRO DE NUEVO USUARIO"),
-                              titleTextStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                              contentPadding: const EdgeInsets.all(5),
-                              content:SizedBox(
-                                height: 300,
-                                width: 600,
-                                child: Column(
-                                  children: [],
-                                ),
-                              ),
-                              actions: const [
-                                ButtonBar(
-                                  alignment: MainAxisAlignment.end,
-                                  children: [],
-                                )
-                              ],
-                            )
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                          backgroundColor: const Color(0xff329437)
-                      ),
-                      icon: const Icon(Icons.person_add, size: 30 ),
-                      label: const Text("")
-                  ),
-                  const SizedBox(width: 5),
-                  ElevatedButton.icon(
-                      onPressed: (){},
-                      style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                          backgroundColor: Colors.red
-                      ),
-                      icon: const Icon(Icons.picture_as_pdf, size: 30),
-                      label: const Text("")
-                  ),
-                  const SizedBox(width: 15),
-                ],
               );
             } else if(snapshot.hasError){
               return const Center(child: Text("Error en la carga de los datos, espera un momento o reinicia la pagina..."));
@@ -153,14 +106,20 @@ class resouceData extends DataTableSource {
           alignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-                onPressed: () {
-
-                },
+                onPressed: () {},
                 style: ElevatedButton.styleFrom(
                     shape: const CircleBorder(), backgroundColor: const Color(0xff329437),
                     padding: const EdgeInsets.all(15),
                     alignment: Alignment.center),
                 child: const Icon(Icons.remove_red_eye_rounded,
+                )),
+            ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                    shape: const CircleBorder(), backgroundColor: Colors.blue,
+                    padding: const EdgeInsets.all(15),
+                    alignment: Alignment.center),
+                child: const Icon(Icons.edit,
                 )),
             ElevatedButton(
                 onPressed: () {},

@@ -7,7 +7,6 @@ import 'package:farm_rice_flutter_web/conecction/endpointClass.dart';
 import 'package:farm_rice_flutter_web/datatable/administratorTable.dart';
 import 'package:farm_rice_flutter_web/datatable/lotsPage.dart';
 import 'package:farm_rice_flutter_web/datatable/productionPage.dart';
-import 'package:farm_rice_flutter_web/datatable/reportPage.dart';
 import 'package:farm_rice_flutter_web/datatable/rolPage.dart';
 import 'package:farm_rice_flutter_web/datatable/userPage.dart';
 import 'package:farm_rice_flutter_web/temporalClass/userPreferences.dart';
@@ -183,14 +182,6 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (ctx) => const InventoryPage()));
-              },
-            ),
-            ListTile(
-              title: const Text("Reportes"),
-              leading: const Icon(Icons.info_sharp, size: 25),
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (ctx) => const ReportPage()));
               },
             ),
             ListTile(
