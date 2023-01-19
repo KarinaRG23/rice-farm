@@ -41,6 +41,7 @@ class _InventoryPageState extends State<InventoryPage> {
                     DataColumn(label: Text("Fch-Registro")),
                     DataColumn(label: Text("ruta")),
                     DataColumn(label: Text('Estado', softWrap: true)),
+                    DataColumn(label: Text('Acciones', softWrap: true)),
                   ],
                   source: resouceData(snapshot.data),
                   rowsPerPage: 8,

@@ -74,34 +74,28 @@ class Endpoints {
     }
   }
 
-<<<<<<< HEAD
   Future<List<InventoryTable>> getInventoryData() async {
+    //var token = await userPreferences.getToken();
     List<InventoryTable> listInventoryTable = [];
     var url = 'http://159.223.205.198:8080/categoria';
+    //var dataHeader = {HttpHeaders.authorizationHeader: "Bearer $token"};
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonData = jsonDecode(response.body);
       for (var x in jsonData['response']) {
         listInventoryTable.add(InventoryTable(
-            x['idcategoria'].toString(),x['nombre'], x['descripcion'], x['portada'], x['decreated'].toString(), x['ruta'], x['status'].toString()));
+            x['idcategoria'].toString(), x['nombre'], x['descripcion'],
+            x['portada'], x['decreated'].toString(), x['ruta'], x['status'].toString()));
       }
       return listInventoryTable;
     }
   }
-  
-  /*Future<List<WorkedTable>> getWorkedData() async {
-    var token = await preferences.getToken();
-    List<WorkedTable> listWorkedTable = [];
-    var url = 'http://159.223.205.198:8080/employee';
-    var dataEmployee = {HttpHeaders.authorizationHeader: "Bearer $token"};
-    final response = await http.get(Uri.parse(url), headers: dataEmployee);
-=======
+
   //
   Future<List<Rol>> getRolUser() async {
     List<Rol> listRol = [];
     var url = 'http://159.223.205.198:8080/rol';
     final response = await http.get(Uri.parse(url));
->>>>>>> d37bbd2d2529edc0f95a13e414e88d9c682dada2
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonData = jsonDecode(response.body);
       for (var x in jsonData['response']) {
@@ -111,24 +105,6 @@ class Endpoints {
       return listRol;
     }
   }
-
-<<<<<<< HEAD
-  Future<List<LotTable>> getLotData() async {
-    var token = await preferences.getToken();
-    List<LotTable> listLotTable = [];
-    var url = 'http://159.223.205.198:8080/lots';
-    var dataLots = {HttpHeaders.authorizationHeader: "Bearer $token"};
-    final response = await http.get(Uri.parse(url), headers: dataLots);
-    if (response.statusCode == 200) {
-      var json = jsonDecode(response.body);
-      for (var x in json['response']) {
-        listLotTable.add(LotTable(x['idlote'], x['nombrelote'], x['numerolote'],
-            x['area'], x['etapa'], x['status']));
-      }
-      return listLotTable;
-    }
-  }*/
-=======
   Future<List<Administrador>> getAdministrador() async {
     List<Administrador> listAdministrador = [];
     var url = 'http://159.223.205.198:8080/person/admin';
@@ -139,7 +115,7 @@ class Endpoints {
         print(jsonData['response']);
         listAdministrador.add(
             Administrador(x['idpersona'].toString(), x['identificacion'], x['nombres'], x['apellidos'], x['telefono'],
-            x['email'], x['nombrefiscal'], x['direccionfiscal'], x['rolid'].toString(), x['status'].toString()));
+                x['email'], x['nombrefiscal'], x['direccionfiscal'], x['rolid'].toString(), x['status'].toString()));
       }
       return listAdministrador;
     }
@@ -147,5 +123,4 @@ class Endpoints {
 
   //http://159.223.205.198:8080/Producto
 
->>>>>>> d37bbd2d2529edc0f95a13e414e88d9c682dada2
 }
