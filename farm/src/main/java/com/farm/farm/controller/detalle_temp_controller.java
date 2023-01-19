@@ -2,7 +2,10 @@ package com.farm.farm.controller;
 
 import com.farm.farm.entity.detalle_temp_entity;
 import com.farm.farm.service.detalle_temp_service;
+import com.farm.farm.utilities.JsonResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -16,13 +19,22 @@ public class detalle_temp_controller {
     detalle_temp_service detalle_temp_service;
 
     @GetMapping()
-    public ArrayList<detalle_temp_entity> getAlldetalle_temp(){
-
-        return detalle_temp_service.getAlldetalle_temp();
+    public ResponseEntity<JsonResponseBody> getAlldetalle_temp(){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new JsonResponseBody(HttpStatus.OK.value(), detalle_temp_service.getAlldetalle_temp()));
     }
     @PostMapping
-    public detalle_temp_entity savedetalle_temp(@RequestBody detalle_temp_entity name) {
-        return this.detalle_temp_service.savedetalle_temp(name);
+    public ResponseEntity<JsonResponseBody> savedetalle_temp(@RequestBody detalle_temp_entity data){
+        try {
+            ArrayList<Object> response = new ArrayList<>();
+            response.add(detalle_temp_service.savedetalle_temp(data));
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new JsonResponseBody(HttpStatus.OK.value(),response ));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new JsonResponseBody(HttpStatus.BAD_REQUEST.value(),
+                            "Error"));
+        }
     }
     @GetMapping(path="/{id}")
     public Optional<detalle_temp_entity> getAttributesById(@PathVariable("id") int id){

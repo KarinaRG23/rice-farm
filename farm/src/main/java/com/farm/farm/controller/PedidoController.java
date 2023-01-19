@@ -36,13 +36,22 @@ public class PedidoController {
      */
 
     @GetMapping()
-    public ArrayList<pedido_entity> getAllpedido(){
-
-        return pedidoService.getAllpedido();
+    public ResponseEntity<JsonResponseBody> getAllpedido(){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new JsonResponseBody(HttpStatus.OK.value(), pedidoService.getAllpedido()));
     }
     @PostMapping
-    public pedido_entity savepedido(@RequestBody pedido_entity name) {
-        return this.pedidoService.savepedido(name);
+    public ResponseEntity<JsonResponseBody> savepedido(@RequestBody pedido_entity data){
+        try {
+            ArrayList<Object> response = new ArrayList<>();
+            response.add(pedidoService.savepedido(data));
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new JsonResponseBody(HttpStatus.OK.value(),response ));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new JsonResponseBody(HttpStatus.BAD_REQUEST.value(),
+                            "Error"));
+        }
     }
     @GetMapping(path="/{id}")
     public Optional<pedido_entity> getAttributesById(@PathVariable("id") int id){

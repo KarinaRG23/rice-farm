@@ -2,7 +2,10 @@ package com.farm.farm.controller;
 
 import com.farm.farm.entity.reembolso_entity;
 import com.farm.farm.service.reembolso_service;
+import com.farm.farm.utilities.JsonResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -16,13 +19,22 @@ public class reembolso_controller {
     reembolso_service reembolso_service;
 
     @GetMapping()
-    public ArrayList<reembolso_entity> getAllreembolso(){
-
-        return reembolso_service.getAllreembolso();
+    public ResponseEntity<JsonResponseBody> getAllreembolso(){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new JsonResponseBody(HttpStatus.OK.value(), reembolso_service.getAllreembolso()));
     }
     @PostMapping
-    public reembolso_entity savereembolso(@RequestBody reembolso_entity name) {
-        return this.reembolso_service.savereembolso(name);
+    public ResponseEntity<JsonResponseBody> savereembolso(@RequestBody reembolso_entity data){
+        try {
+            ArrayList<Object> response = new ArrayList<>();
+            response.add(reembolso_service.savereembolso(data));
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new JsonResponseBody(HttpStatus.OK.value(),response ));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new JsonResponseBody(HttpStatus.BAD_REQUEST.value(),
+                            "Error"));
+        }
     }
     @GetMapping(path="/{id}")
     public Optional<reembolso_entity> getAttributesById(@PathVariable("id") int id){

@@ -2,7 +2,10 @@ package com.farm.farm.controller;
 
 import com.farm.farm.entity.post_entity;
 import com.farm.farm.service.post_service;
+import com.farm.farm.utilities.JsonResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -16,13 +19,22 @@ public class post_controller {
     post_service post_service;
 
     @GetMapping()
-    public ArrayList<post_entity> getAllpost(){
-
-        return post_service.getAllpost();
+    public ResponseEntity<JsonResponseBody> getAllpost(){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new JsonResponseBody(HttpStatus.OK.value(), post_service.getAllpost()));
     }
     @PostMapping
-    public post_entity savepost(@RequestBody post_entity name) {
-        return this.post_service.savepost(name);
+    public ResponseEntity<JsonResponseBody> savepost(@RequestBody post_entity data){
+        try {
+            ArrayList<Object> response = new ArrayList<>();
+            response.add(post_service.savepost(data));
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new JsonResponseBody(HttpStatus.OK.value(),response ));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new JsonResponseBody(HttpStatus.BAD_REQUEST.value(),
+                            "Error"));
+        }
     }
     @GetMapping(path="/{id}")
     public Optional<post_entity> getAttributesById(@PathVariable("id") int id){

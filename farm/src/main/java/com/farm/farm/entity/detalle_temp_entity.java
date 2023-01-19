@@ -33,9 +33,9 @@ public class detalle_temp_entity {
     @Setter
     private Integer cantidad;
 
-    @Getter
-    @Setter
-    private String transccionid;
+    //@Getter
+    //@Setter
+    //private String transaccionid;
 
     @ManyToOne
     @JoinColumn (name = "productoid", insertable = false, updatable = false)
