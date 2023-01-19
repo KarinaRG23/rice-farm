@@ -1,8 +1,12 @@
 package com.farm.farm.controller;
 
 import com.farm.farm.entity.detalle_pedido_entity;
+import com.farm.farm.entity.detalle_pedido_entity;
 import com.farm.farm.service.detalle_pedido_service;
+import com.farm.farm.utilities.JsonResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -15,13 +19,22 @@ public class detalle_pedido_controller {
     detalle_pedido_service detalle_pedido_service;
 
     @GetMapping()
-    public ArrayList<detalle_pedido_entity> getAlldetalle_pedido(){
-
-        return detalle_pedido_service.getAlldetalle_pedido();
+    public ResponseEntity<JsonResponseBody> getAlldetalle_pedido(){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new JsonResponseBody(HttpStatus.OK.value(), detalle_pedido_service.getAlldetalle_pedido()));
     }
     @PostMapping
-    public detalle_pedido_entity savedetalle_pedido(@RequestBody detalle_pedido_entity name) {
-        return this.detalle_pedido_service.savedetalle_pedido(name);
+    public ResponseEntity<JsonResponseBody> savedetalle_pedido(@RequestBody detalle_pedido_entity data){
+        try {
+            ArrayList<Object> response = new ArrayList<>();
+            response.add(detalle_pedido_service.savedetalle_pedido(data));
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new JsonResponseBody(HttpStatus.OK.value(),response ));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new JsonResponseBody(HttpStatus.BAD_REQUEST.value(),
+                            "Error"));
+        }
     }
     @GetMapping(path="/{id}")
     public Optional<detalle_pedido_entity> getAttributesById(@PathVariable("id") int id){

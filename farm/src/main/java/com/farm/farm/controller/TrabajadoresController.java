@@ -1,7 +1,7 @@
 package com.farm.farm.controller;
 
-import com.farm.farm.entity.reembolso_entity;
-import com.farm.farm.service.reembolso_service;
+import com.farm.farm.entity.TrabajadoresEntity;
+import com.farm.farm.service.TrabajadoresService;
 import com.farm.farm.utilities.JsonResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,22 +12,22 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/Reembolso")
-public class reembolso_controller {
+@RequestMapping("/Trabajadores")
+public class TrabajadoresController {
 
     @Autowired
-    reembolso_service reembolso_service;
+    TrabajadoresService TrabajadoresService;
 
     @GetMapping()
-    public ResponseEntity<JsonResponseBody> getAllreembolso(){
+    public ResponseEntity<JsonResponseBody> getAllTrabajadores(){
         return ResponseEntity.status(HttpStatus.OK)
-                .body(new JsonResponseBody(HttpStatus.OK.value(), reembolso_service.getAllreembolso()));
+                .body(new JsonResponseBody(HttpStatus.OK.value(), TrabajadoresService.getAllTrabajadores()));
     }
     @PostMapping
-    public ResponseEntity<JsonResponseBody> savereembolso(@RequestBody reembolso_entity data){
+    public ResponseEntity<JsonResponseBody> saveTrabajadores(@RequestBody TrabajadoresEntity data){
         try {
             ArrayList<Object> response = new ArrayList<>();
-            response.add(reembolso_service.savereembolso(data));
+            response.add(TrabajadoresService.saveTrabajadores(data));
             return ResponseEntity.status(HttpStatus.OK)
                     .body(new JsonResponseBody(HttpStatus.OK.value(),response ));
         }catch (Exception e){
@@ -37,16 +37,16 @@ public class reembolso_controller {
         }
     }
     @GetMapping(path="/{id}")
-    public Optional<reembolso_entity> getAttributesById(@PathVariable("id") int id){
-        return this.reembolso_service.getreembolsoById(id);
+    public Optional<TrabajadoresEntity> getTrabajadoresById(@PathVariable("id") int id){
+        return this.TrabajadoresService.getTrabajadoresById(id);
     }
     @DeleteMapping("/{id}")
-    public String deleteAttributeById(@PathVariable("id") int id) {
-        boolean ok = this.reembolso_service.deletereembolsoById(id);
+    public String deleteTrabajadoresById(@PathVariable("id") int id) {
+        boolean ok = this.TrabajadoresService.deleteTrabajadoresById(id);
         if (ok) {
-            return "Se ha eliminado el reembolso con el Id: " + id;
+            return "Se ha eliminado el Trabajadores con el Id: " + id;
         } else {
-            return "Algo ha salido mal, el reembolso no ha sido eliminado";
+            return "Algo ha salido mal, el Trabajadores no ha sido eliminado";
         }
     }
 }

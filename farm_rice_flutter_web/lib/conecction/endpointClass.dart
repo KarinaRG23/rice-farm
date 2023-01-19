@@ -3,10 +3,12 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:farm_rice_flutter_web/class/administratorClass.dart';
 import 'package:farm_rice_flutter_web/class/classUserTable.dart';
 import 'package:farm_rice_flutter_web/class/classWorkedTable.dart';
 import 'package:farm_rice_flutter_web/class/classInventoryTable.dart';
 import 'package:farm_rice_flutter_web/class/classLotTable.dart';
+import 'package:farm_rice_flutter_web/class/rolClass.dart';
 import 'package:farm_rice_flutter_web/class/userClass.dart';
 import 'package:farm_rice_flutter_web/temporalClass/sharedPreferences.dart';
 import 'package:farm_rice_flutter_web/temporalClass/userPreferences.dart';
@@ -72,6 +74,7 @@ class Endpoints {
     }
   }
 
+<<<<<<< HEAD
   Future<List<InventoryTable>> getInventoryData() async {
     List<InventoryTable> listInventoryTable = [];
     var url = 'http://159.223.205.198:8080/categoria';
@@ -92,26 +95,24 @@ class Endpoints {
     var url = 'http://159.223.205.198:8080/employee';
     var dataEmployee = {HttpHeaders.authorizationHeader: "Bearer $token"};
     final response = await http.get(Uri.parse(url), headers: dataEmployee);
+=======
+  //
+  Future<List<Rol>> getRolUser() async {
+    List<Rol> listRol = [];
+    var url = 'http://159.223.205.198:8080/rol';
+    final response = await http.get(Uri.parse(url));
+>>>>>>> d37bbd2d2529edc0f95a13e414e88d9c682dada2
     if (response.statusCode == 200) {
-      var json = jsonDecode(response.body);
-      for (var x in json['response']) {
-        listWorkedTable.add(WorkedTable(
-            x['idpersona'],
-            x['identificacion'],
-            x['nombres'],
-            x['apellidos'],
-            x['telefono'],
-            x['email'],
-            x['nombrefiscal'],
-            x['direccionfiscal'],
-            x['salario'],
-            x['rolid'],
-            x['status']));
+      Map<String, dynamic> jsonData = jsonDecode(response.body);
+      for (var x in jsonData['response']) {
+        print(jsonData['response']);
+        listRol.add(Rol(x['idrol'].toString(), x['nombrerol'], x['descripcion'], x['status'].toString()));
       }
-      return listWorkedTable;
+      return listRol;
     }
   }
 
+<<<<<<< HEAD
   Future<List<LotTable>> getLotData() async {
     var token = await preferences.getToken();
     List<LotTable> listLotTable = [];
@@ -127,4 +128,24 @@ class Endpoints {
       return listLotTable;
     }
   }*/
+=======
+  Future<List<Administrador>> getAdministrador() async {
+    List<Administrador> listAdministrador = [];
+    var url = 'http://159.223.205.198:8080/person/admin';
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonData = jsonDecode(response.body);
+      for (var x in jsonData['response']) {
+        print(jsonData['response']);
+        listAdministrador.add(
+            Administrador(x['idpersona'].toString(), x['identificacion'], x['nombres'], x['apellidos'], x['telefono'],
+            x['email'], x['nombrefiscal'], x['direccionfiscal'], x['rolid'].toString(), x['status'].toString()));
+      }
+      return listAdministrador;
+    }
+  }
+
+  //http://159.223.205.198:8080/Producto
+
+>>>>>>> d37bbd2d2529edc0f95a13e414e88d9c682dada2
 }

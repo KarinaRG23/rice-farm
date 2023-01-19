@@ -2,7 +2,10 @@ package com.farm.farm.controller;
 
 import com.farm.farm.entity.producto_entity;
 import com.farm.farm.service.producto_service;
+import com.farm.farm.utilities.JsonResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -16,13 +19,22 @@ public class producto_controller {
     producto_service producto_service;
 
     @GetMapping()
-    public ArrayList<producto_entity> getAllproducto(){
-
-        return producto_service.getAllproducto();
+    public ResponseEntity<JsonResponseBody> getAllproducto(){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new JsonResponseBody(HttpStatus.OK.value(), producto_service.getAllproducto()));
     }
     @PostMapping
-    public producto_entity saveproducto(@RequestBody producto_entity name) {
-        return this.producto_service.saveproducto(name);
+    public ResponseEntity<JsonResponseBody> saveproducto(@RequestBody producto_entity data){
+        try {
+            ArrayList<Object> response = new ArrayList<>();
+            response.add(producto_service.saveproducto(data));
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new JsonResponseBody(HttpStatus.OK.value(),response ));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new JsonResponseBody(HttpStatus.BAD_REQUEST.value(),
+                            "Error"));
+        }
     }
     @GetMapping(path="/{id}")
     public Optional<producto_entity> getAttributesById(@PathVariable("id") int id){

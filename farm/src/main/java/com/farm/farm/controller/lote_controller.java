@@ -2,7 +2,10 @@ package com.farm.farm.controller;
 
 import com.farm.farm.entity.lote_entity;
 import com.farm.farm.service.lote_service;
+import com.farm.farm.utilities.JsonResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -16,13 +19,22 @@ public class lote_controller {
     lote_service lote_service;
 
     @GetMapping()
-    public ArrayList<lote_entity> getAlllote(){
-
-        return lote_service.getAlllote();
+    public ResponseEntity<JsonResponseBody> getAlllote(){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new JsonResponseBody(HttpStatus.OK.value(), lote_service.getAlllote()));
     }
     @PostMapping
-    public lote_entity savelote(@RequestBody lote_entity name) {
-        return this.lote_service.savelote(name);
+    public ResponseEntity<JsonResponseBody> savelote(@RequestBody lote_entity data){
+        try {
+            ArrayList<Object> response = new ArrayList<>();
+            response.add(lote_service.savelote(data));
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new JsonResponseBody(HttpStatus.OK.value(),response ));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new JsonResponseBody(HttpStatus.BAD_REQUEST.value(),
+                            "Error"));
+        }
     }
     @GetMapping(path="/{id}")
     public Optional<lote_entity> getAttributesById(@PathVariable("id") int id){

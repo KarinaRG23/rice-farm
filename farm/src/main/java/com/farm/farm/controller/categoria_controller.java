@@ -1,8 +1,12 @@
 package com.farm.farm.controller;
 
 import com.farm.farm.entity.categoria_entity;
+import com.farm.farm.entity.rol_entity;
 import com.farm.farm.service.categoria_service;
+import com.farm.farm.utilities.JsonResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -16,13 +20,22 @@ public class categoria_controller {
     categoria_service categoria_service;
 
     @GetMapping()
-    public ArrayList<categoria_entity> getAllCategoria(){
-
-        return categoria_service.getAllCategoria();
+    public ResponseEntity<JsonResponseBody> getAllcat(){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new JsonResponseBody(HttpStatus.OK.value(), categoria_service.getAllCategoria()));
     }
     @PostMapping
-    public categoria_entity saveCategoria(@RequestBody categoria_entity name) {
-        return this.categoria_service.saveCategoria(name);
+    public ResponseEntity<JsonResponseBody> savecat(@RequestBody categoria_entity cat){
+        try {
+            ArrayList<Object> response = new ArrayList<>();
+            response.add(categoria_service.saveCategoria(cat));
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new JsonResponseBody(HttpStatus.OK.value(),response ));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new JsonResponseBody(HttpStatus.BAD_REQUEST.value(),
+                            "Error"));
+        }
     }
     @GetMapping(path="/{id}")
     public Optional<categoria_entity> getAttributesById(@PathVariable("id") int id){

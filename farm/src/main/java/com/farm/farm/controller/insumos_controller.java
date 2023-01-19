@@ -2,7 +2,10 @@ package com.farm.farm.controller;
 
 import com.farm.farm.entity.insumos_entity;
 import com.farm.farm.service.insumos_service;
+import com.farm.farm.utilities.JsonResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -16,13 +19,22 @@ public class insumos_controller {
     insumos_service insumos_service;
 
     @GetMapping()
-    public ArrayList<insumos_entity> getAllinsumos(){
-
-        return insumos_service.getAllinsumos();
+    public ResponseEntity<JsonResponseBody> getAllinsumos(){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new JsonResponseBody(HttpStatus.OK.value(), insumos_service.getAllinsumos()));
     }
     @PostMapping
-    public insumos_entity saveinsumos(@RequestBody insumos_entity name) {
-        return this.insumos_service.saveinsumos(name);
+    public ResponseEntity<JsonResponseBody> saveinsumos(@RequestBody insumos_entity data){
+        try {
+            ArrayList<Object> response = new ArrayList<>();
+            response.add(insumos_service.saveinsumos(data));
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new JsonResponseBody(HttpStatus.OK.value(),response ));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new JsonResponseBody(HttpStatus.BAD_REQUEST.value(),
+                            "Error"));
+        }
     }
     @GetMapping(path="/{id}")
     public Optional<insumos_entity> getAttributesById(@PathVariable("id") int id){

@@ -37,4 +37,15 @@ public class PersonController {
                             "Error guardando creando persona"));
         }
     }
+
+    @GetMapping("/admin")
+    public ResponseEntity<JsonResponseBody> getAdministrators(){
+        try {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new JsonResponseBody(HttpStatus.OK.value(),personService.getAllAdministrators()));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new JsonResponseBody(HttpStatus.BAD_REQUEST.value(), "no hay administradores"));
+        }
+    }
 }
