@@ -4,21 +4,19 @@ import 'package:farm_rice_flutter_web/class/userClass.dart';
 import 'package:farm_rice_flutter_web/componentes/buttonWidget.dart';
 import 'package:farm_rice_flutter_web/componentes/textWidget.dart';
 import 'package:farm_rice_flutter_web/conecction/endpointClass.dart';
+import 'package:farm_rice_flutter_web/datatable/lotsPage.dart';
+import 'package:farm_rice_flutter_web/datatable/productionPage.dart';
+import 'package:farm_rice_flutter_web/datatable/reportPage.dart';
+import 'package:farm_rice_flutter_web/datatable/userPage.dart';
 import 'package:farm_rice_flutter_web/temporalClass/userPreferences.dart';
-import 'package:farm_rice_flutter_web/vistas/communityPage.dart';
-import 'package:farm_rice_flutter_web/vistas/inventoryPage.dart';
+import 'package:farm_rice_flutter_web/datatable/communityPage.dart';
+import 'package:farm_rice_flutter_web/datatable/inventoryPage.dart';
 import 'package:farm_rice_flutter_web/vistas/login.dart';
-import 'package:farm_rice_flutter_web/vistas/lotsPage.dart';
-import 'package:farm_rice_flutter_web/vistas/productionPage.dart';
-import 'package:farm_rice_flutter_web/vistas/reportPage.dart';
-import 'package:farm_rice_flutter_web/vistas/userPage.dart';
-import 'package:farm_rice_flutter_web/vistas/workedPage.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart';
+import 'package:farm_rice_flutter_web/datatable/workedPage.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({Key key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -26,41 +24,27 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final List<String> menuItems = [
-    "Inicio",
-    "Usuarios",
-    "Trabajadores",
-    "Inventario",
-    "Reportes",
-    "Lotes",
-    "Labores",
-    "Produccion"
+    "Inicio", "Usuarios", "Trabajadores", "Inventario", "Reportes",
+    "Lotes", "Labores", "Produccion"
   ];
 
   final List<IconData> menuIcons = [
-    Icons.home,
-    Icons.person_rounded,
-    Icons.work,
-    Icons.inventory,
-    Icons.receipt,
-    Icons.warehouse,
-    Icons.engineering,
-    Icons.production_quantity_limits
+    Icons.home, Icons.person_rounded, Icons.work, Icons.inventory, Icons.receipt,
+    Icons.warehouse, Icons.engineering, Icons.production_quantity_limits
   ];
 
   DateTime date =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
-  LatLng center = LatLng(-1.8618428155254074, -79.97772697324605);
-  late MapController mapController;
   int selectedMenuItem = 0;
   bool sideBarOpen = false;
-  late PageController pageController;
+  PageController pageController;
   int month = 0;
   //Future<List<User>> listDataUSer;
-  Endpoints point = Endpoints();
+  final Endpoints _endpoints = Endpoints();
   UserPreferences preferences = UserPreferences();
 
-  String? name ='', correo ='', rol = '';
+  String name ='', correo ='', rol = '';
 
   Future<void> getDataEmail() async{
     final e = await preferences.getEmail();
@@ -75,9 +59,9 @@ class _HomePageState extends State<HomePage> {
     setState(() => name = n);
   }
 
-  Widget datosUser(List<User>? data) {
-    late Widget mostrar;
-    for (var x in data!) {
+  Widget datosUser(List<User> data) {
+    Widget mostrar;
+    for (var x in data) {
       mostrar = SizedBox(
         height: 200,
         width: 200,

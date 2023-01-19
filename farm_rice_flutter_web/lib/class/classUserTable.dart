@@ -1,17 +1,25 @@
 // ignore_for_file: file_names
+import 'dart:convert';
+
+/*List<UserTable> userTableFromJson(String str) =>
+    List<UserTable>.from(json.decode(str).map((x) => UserTable.fromJson(x)));*/
+
+String userTableToJson(List<UserTable> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
 class UserTable{
-  final int? userID;
-  final String? dni;
-  final String? name;
-  final String? lastname;
-  final String? phone;
-  final String? email;
-  String? salt;
-  final String? fiscalName;
-  final String? direction;
-  final String? rolId;
-  String? decreated;
-  final int? status;
+  String userID;
+  String dni;
+  String name;
+  String lastname;
+  String phone;
+  String email;
+  String salt;
+  String fiscalName;
+  String direction;
+  String rolId;
+  String decreated;
+  String status;
 
   bool selected = false;
 
@@ -20,7 +28,7 @@ class UserTable{
       this.fiscalName, this.direction, this.rolId, this.status);
 
 
-  Map<String, dynamic> toJson(Map<String, dynamic> json){
+  Map<String, dynamic> toJson(){
     return{
       "idpersona": userID,
       "identificacion":dni,

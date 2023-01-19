@@ -7,7 +7,7 @@ class UserPreferences{
   String rolUser = 'rol';
   String emailUser = 'email';
 
-  late SharedPreferences preferences;
+  SharedPreferences preferences;
 
   setName(String name) async{
     preferences = await SharedPreferences.getInstance();
@@ -27,25 +27,25 @@ class UserPreferences{
     preferences.setString(rolUser, rol);
   }
 
-  Future<String?> getName() async {
+  Future<String> getName() async {
     preferences = await SharedPreferences.getInstance();
     final result = preferences.getString(nameUser);
     return result;
   }
 
-  Future<String?> getToken() async {
+  Future<String> getToken() async {
     preferences = await SharedPreferences.getInstance();
     final result = preferences.getString(tokenUser);
     return result;
   }
 
-  Future<String?> getEmail() async {
+  Future<String> getEmail() async {
     preferences = await SharedPreferences.getInstance();
     final result = preferences.getString(emailUser);
     return result;
   }
 
-  Future<String?> getRol() async {
+  Future<String> getRol() async {
     preferences = await SharedPreferences.getInstance();
     final result = preferences.getString(rolUser);
     return result;

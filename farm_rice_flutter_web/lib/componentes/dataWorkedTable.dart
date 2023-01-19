@@ -6,7 +6,7 @@ class resourceWorkedData extends DataTableSource {
   resourceWorkedData(this._listLect);
   final List<WorkedTable> _listLect;
 
-  void _sort<T>(Comparable<T> getField(WorkedTable d), bool ascending) {
+  void _sort<T>(Comparable<T> Function(WorkedTable d) getField, bool ascending) {
     _listLect.sort((WorkedTable a, WorkedTable b) {
       if (!ascending) {
         final WorkedTable c = a;
@@ -23,7 +23,7 @@ class resourceWorkedData extends DataTableSource {
   final int _selectCount = 0;
 
   @override
-  DataRow? getRow(int index) {
+  DataRow getRow(int index) {
     assert(index >= 0);
     if (index >= _listLect.length) return null;
     final WorkedTable lectura = _listLect[index];

@@ -17,7 +17,7 @@ class Endpoints {
   UserPreferences userPreferences = UserPreferences();
 
   //CONNECTION LOGIN WITH ENDPOINT SESSION
-  Future<bool?> logIn(String email, String password) async {
+  Future<bool> logIn(String email, String password) async {
     var urlLogin = 'http://159.223.205.198:8080/auth/login';
     var dataLogin = {"email": email, "password": password};
     var dataEncoding = jsonEncode(dataLogin);
@@ -32,10 +32,10 @@ class Endpoints {
     }
   }
 
-  Future<void> dataUser() async {
+  Future<List<User>> dataUser() async {
+    List<User> listUser = [];
     var email = await preferences.getEmail();
     var password = await preferences.getPassword();
-
     var urlLogin = 'http://159.223.205.198:8080/auth/login';
     var dataLogin = {"email": email, "password": password};
     var dataEncoding = jsonEncode(dataLogin);
@@ -43,32 +43,38 @@ class Endpoints {
     final response = await http.post(Uri.parse(urlLogin), body: dataEncoding, headers: dataHeader);
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonData = jsonDecode(response.body);
-      print(jsonData['response']);
-      userPreferences.setEmail(jsonData['response']['correo']);
+      print(response.body);
+      for(var x in jsonData['response']){
+        listUser.add(User(x['correo'], x['rolid'], x['username'], x['token']));
+        userPreferences.setToken(x['token']);
+      }
+      /*userPreferences.setEmail(jsonData['response']['correo']);
       userPreferences.setRol(jsonData['response']['user_rol']);
       userPreferences.setName(jsonData['response']['username']);
-      userPreferences.setToken(jsonData['response']['token']);
-
+      userPreferences.setToken(jsonData['response']['token']);*/
+      return listUser;
     }
   }
 
   //
   Future<List<UserTable>> getUserData() async {
-    var token = await preferences.getToken();
     List<UserTable> listTable = [];
     var url = 'http://159.223.205.198:8080/person';
-    var dataPerson = {HttpHeaders.authorizationHeader: "Bearer $token"};
-    final response = await http.get(Uri.parse(url), headers: dataPerson);
+    final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
-      Map<String, dynamic> json = jsonDecode(response.body);
-      for (var x in json['response']) {
-        //listTable.add();
+      Map<String, dynamic> jsonData = jsonDecode(response.body);
+      for (var x in jsonData['response']) {
+        //listTable.add(UserTable.fromJson(jsonData));
+        listTable.add(UserTable(
+            x['idpersona'].toString(), x['identificacion'], x['nombres'], x['apellidos'], x['telefono'],
+            x['email'], x['nombrefiscal'], x['direccionfiscal'], x['rolid'].toString(), x['status'].toString()));
       }
       return listTable;
     }
   }
-
-  Future<List<WorkedTable>?> getWorkedData() async {
+  
+  
+  /*Future<List<WorkedTable>> getWorkedData() async {
     var token = await preferences.getToken();
     List<WorkedTable> listWorkedTable = [];
     var url = 'http://159.223.205.198:8080/employee';
@@ -94,7 +100,7 @@ class Endpoints {
     }
   }
 
-  Future<List<InventoryTable>?> getInventoryData() async {
+  Future<List<InventoryTable>> getInventoryData() async {
     var token = await preferences.getToken();
     List<InventoryTable> listInventoryTable = [];
     var url = 'http://159.223.205.198:8080/supplies';
@@ -110,7 +116,7 @@ class Endpoints {
     }
   }
 
-  Future<List<LotTable>?> getLotData() async {
+  Future<List<LotTable>> getLotData() async {
     var token = await preferences.getToken();
     List<LotTable> listLotTable = [];
     var url = 'http://159.223.205.198:8080/lots';
@@ -124,5 +130,5 @@ class Endpoints {
       }
       return listLotTable;
     }
-  }
+  }*/
 }
