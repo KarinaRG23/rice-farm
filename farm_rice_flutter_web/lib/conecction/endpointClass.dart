@@ -5,13 +5,12 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:farm_rice_flutter_web/class/administratorClass.dart';
 import 'package:farm_rice_flutter_web/class/classUserTable.dart';
-import 'package:farm_rice_flutter_web/class/classWorkedTable.dart';
 import 'package:farm_rice_flutter_web/class/classInventoryTable.dart';
 import 'package:farm_rice_flutter_web/class/classLotTable.dart';
+import 'package:farm_rice_flutter_web/class/insumosClass.dart';
 import 'package:farm_rice_flutter_web/class/laborsClass.dart';
 import 'package:farm_rice_flutter_web/class/rolClass.dart';
 import 'package:farm_rice_flutter_web/class/trabajadoresClass.dart';
-import 'package:farm_rice_flutter_web/class/userClass.dart';
 import 'package:farm_rice_flutter_web/temporalClass/sharedPreferences.dart';
 import 'package:farm_rice_flutter_web/temporalClass/userPreferences.dart';
 import 'package:http/http.dart' as http;
@@ -46,7 +45,6 @@ class Endpoints {
     final response = await http.post(Uri.parse(urlLogin), body: dataEncoding, headers: dataHeader);
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonData = jsonDecode(response.body);
-      print(jsonData);
       userPreferences.setEmail(jsonData['response']['correo']);
       userPreferences.setRol(jsonData['response']['user_rol']);
       userPreferences.setName(jsonData['response']['username']);
@@ -85,6 +83,21 @@ class Endpoints {
     }
   }
 
+  Future<List<Insumos>> getInsumos() async {
+    var token = await userPreferences.getToken();
+    List<Insumos> listInsumos = [];
+    var url = 'http://159.223.205.198:8080/insumos';
+    var dataHeader ={HttpHeaders.authorizationHeader: "Bearer $token"};
+    final response = await http.get(Uri.parse(url), headers: dataHeader);
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonData = jsonDecode(response.body);
+      for (var x in jsonData['response']){
+        listInsumos.add(Insumos(x['codigo'].toString(), x['nombre'], x['descripcion'], x['costo'], x['f_registro']));
+      }
+      return listInsumos;
+    }
+  }
+
   //
   Future<List<Rol>> getRolUser() async {
     List<Rol> listRol = [];
@@ -93,7 +106,6 @@ class Endpoints {
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonData = jsonDecode(response.body);
       for (var x in jsonData['response']) {
-        print(jsonData['response']);
         listRol.add(Rol(x['idrol'].toString(), x['nombrerol'], x['descripcion'], x['status'].toString()));
       }
       return listRol;
@@ -106,7 +118,6 @@ class Endpoints {
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonData = jsonDecode(response.body);
       for (var x in jsonData['response']) {
-        print(jsonData['response']);
         listAdministrador.add(
             Administrador(x['idpersona'].toString(), x['identificacion'], x['nombres'], x['apellidos'], x['telefono'],
                 x['email'], x['nombrefiscal'], x['direccionfiscal'], x['rolid'].toString(), x['status'].toString()));
@@ -124,7 +135,6 @@ class Endpoints {
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonData = jsonDecode(response.body);
       for (var x in jsonData['response']) {
-        print(jsonData['response']);
         lisTrabajador.add(Trabajador(x['codigo'].toString(), x['dni'], x['nombres'],
             x['email'], x['telefono'], x['direccion'], x['salario']));
       }
@@ -141,10 +151,25 @@ class Endpoints {
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonData = jsonDecode(response.body);
       for (var x in jsonData['response']) {
-        print(jsonData['response']);
         listLabores.add(Labores(x['codigo'], x['nombre'], x['descripcion']));
       }
       return listLabores;
+    }
+  }
+
+  Future<List<LoteTable>> getLotes() async {
+    var token = await userPreferences.getToken();
+    List<LoteTable> listLote = [];
+    var url = 'http://159.223.205.198:8080/lote';
+    var headers = {HttpHeaders.authorizationHeader: "Bearer $token"};
+    final response = await http.get(Uri.parse(url), headers: headers);
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonData = jsonDecode(response.body);
+      for (var x in jsonData['response']) {
+        listLote.add(LoteTable(x['codigo'].toString(), x['nombre'],
+            x['numero'], x['area']));
+      }
+      return listLote;
     }
   }
 }

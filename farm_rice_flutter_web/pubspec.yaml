@@ -12,6 +12,7 @@ environment:
 
 dependencies:
   latlong2:
+  intl:
   flutter_map:
   syncfusion_flutter_charts:
   http:

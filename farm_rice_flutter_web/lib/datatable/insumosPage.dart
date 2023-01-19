@@ -1,22 +1,23 @@
-import 'package:farm_rice_flutter_web/componentes/dataInventoryTable.dart';
+import 'package:farm_rice_flutter_web/class/insumosClass.dart';
+import 'package:farm_rice_flutter_web/componentes/dataInsumsTable.dart';
 import 'package:flutter/material.dart';
 import 'package:farm_rice_flutter_web/conecction/endpointClass.dart';
-import 'package:farm_rice_flutter_web/class/classInventoryTable.dart';
-class InventoryPage extends StatefulWidget {
-  const InventoryPage({Key key}) : super(key: key);
+
+class InsumosPage extends StatefulWidget {
+  const InsumosPage({Key key}) : super(key: key);
 
   @override
-  State<InventoryPage> createState() => _InventoryPageState();
+  State<InsumosPage> createState() => _InsumosPageState();
 }
 
-class _InventoryPageState extends State<InventoryPage> {
-  Future<List<InventoryTable>> _listInventoryTable;
-  final Endpoints endpoints = Endpoints();
+class _InsumosPageState extends State<InsumosPage> {
+  Future<List<Insumos>> _listInsumosTable;
+  final Endpoints _endpoints = Endpoints();
 
 
   @override
   void initState() {
-    _listInventoryTable = endpoints.getInventoryData();
+    _listInsumosTable = _endpoints.getInsumos();
     super.initState();
   }
 
@@ -24,30 +25,28 @@ class _InventoryPageState extends State<InventoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Inventario"),
+        title: const Text("Insumos"),
         backgroundColor: const Color(0xff329437),
       ),
         body: Container(
           padding: const EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 5),
           child: FutureBuilder(
-            future: _listInventoryTable,
+            future: _listInsumosTable,
             builder: (context, snapshot){
               if(snapshot.hasData){
                 return PaginatedDataTable(
                   columns: const<DataColumn>[
-                    DataColumn(label: Text("Código")),
-                    DataColumn(label: Text("Nombre")),
-                    DataColumn(label: Text("Descripción")),
-                    DataColumn(label: Text("Portada")),
-                    DataColumn(label: Text("Fch-Registro")),
-                    DataColumn(label: Text("ruta")),
-                    DataColumn(label: Text('Estado', softWrap: true)),
-                    DataColumn(label: Text('Acciones', softWrap: true)),
+                    DataColumn(label: Text("Código", style: TextStyle(fontWeight: FontWeight.bold))),
+                    DataColumn(label: Text("Nombre", style: TextStyle(fontWeight: FontWeight.bold))),
+                    DataColumn(label: Text("Descripción", style: TextStyle(fontWeight: FontWeight.bold))),
+                    DataColumn(label: Text("Costo", style: TextStyle(fontWeight: FontWeight.bold))),
+                    DataColumn(label: Text("Registro", style: TextStyle(fontWeight: FontWeight.bold))),
+                    DataColumn(label: Text("Acciones", style: TextStyle(fontWeight: FontWeight.bold))),
                   ],
-                  source: resouceDataInv(snapshot.data),
+                  source: resouceDataIns(snapshot.data),
                   rowsPerPage: 8,
-                  columnSpacing: 40,
-                  header: const Text("Lista de Insumos", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold), softWrap: true),
+                  columnSpacing: 150,
+                  header: const Text("Insumos", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold), softWrap: true),
                   sortAscending: false,
                   actions: [
                     ElevatedButton.icon(
@@ -59,7 +58,7 @@ class _InventoryPageState extends State<InventoryPage> {
                               title: const Text("REGISTRAR INSUMO",
                                   textAlign: TextAlign.center, style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)),
                               content: SizedBox(
-                                height: 480,
+                                height: 400,
                                 width: 375,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -115,25 +114,20 @@ class _InventoryPageState extends State<InventoryPage> {
                                             borderSide: BorderSide(color: Colors.black, width: 3), borderRadius: BorderRadius.all(Radius.circular(10))),
                                       ),
                                     ),
-                                    Container(
-                                      padding: const EdgeInsets.only(left: 10, top: 30),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          const Text("GUARDAR", style: TextStyle(fontSize: 33, fontWeight: FontWeight.w700, color: Colors.green)),
-                                          ElevatedButton.icon(
+                                    ButtonBar(
+                                      alignment: MainAxisAlignment.end,
+                                      children: [
+                                        ElevatedButton.icon(
                                             onPressed: (){},
-                                            icon: const Icon(Icons.save_rounded, size: 50),
-                                            label:const Text(""),
                                             style: ElevatedButton.styleFrom(
-                                                backgroundColor: Colors.green,
-                                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
-                                                padding: const EdgeInsets.all(8)
+                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                                              backgroundColor: const Color(0xff329437)
                                             ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
+                                            icon: const Icon(Icons.save),
+                                            label: const Text("Guardar"))
+                                      ],
+                                    )
                                   ],
                                 ),
                               ),
@@ -141,7 +135,8 @@ class _InventoryPageState extends State<InventoryPage> {
                           );},
                         style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5)
+                            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                            backgroundColor: const Color(0xff329437)
                         ),
                         icon: const Icon(Icons.paste_rounded, size: 30 ),
                         label: const Text("")
@@ -151,7 +146,8 @@ class _InventoryPageState extends State<InventoryPage> {
                         onPressed: (){},
                         style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5)
+                            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                            backgroundColor: Colors.red
                         ),
                         icon: const Icon(Icons.picture_as_pdf, size: 30),
                         label: const Text("")

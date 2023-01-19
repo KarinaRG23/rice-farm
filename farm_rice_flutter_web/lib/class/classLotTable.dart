@@ -1,26 +1,22 @@
 // ignore_for_file: file_names
 
-class LotTable{
-  int idlote;
+class LoteTable{
+  String idlote;
   String nombrelote;
   String numerolote;
   String area;
-  String etapa;
-  int status;
+
+
   bool selected = false;
 
-  LotTable(
-      this.idlote, this.nombrelote, this.numerolote, this.area, this.etapa, this.status
-      );
+  LoteTable(this.idlote, this.nombrelote, this.numerolote, this.area);
 
-  Map<String, dynamic> toJson(Map<String, dynamic> json){
+  Map<String, dynamic> toJson(){
     return{
       "idlote": idlote,
       "nomlote":nombrelote,
       "numlote": numerolote,
-      "area": area,
-      "etapa": etapa,
-      "status": status,
+      "area": area
     };
   }
 }

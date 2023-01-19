@@ -11,7 +11,7 @@ import 'package:farm_rice_flutter_web/datatable/rolPage.dart';
 import 'package:farm_rice_flutter_web/datatable/userPage.dart';
 import 'package:farm_rice_flutter_web/temporalClass/userPreferences.dart';
 import 'package:farm_rice_flutter_web/datatable/communityPage.dart';
-import 'package:farm_rice_flutter_web/datatable/inventoryPage.dart';
+import 'package:farm_rice_flutter_web/datatable/insumosPage.dart';
 import 'package:farm_rice_flutter_web/vistas/login.dart';
 import 'package:farm_rice_flutter_web/datatable/workedPage.dart';
 import 'package:flutter/material.dart';
@@ -103,17 +103,6 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: const Color(0xff329437),
           child: ListView(padding: const EdgeInsets.all(0), children: [
             const SizedBox(height: 10),
-            /*FutureBuilder(
-                future: _listDataUSer,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return _datosUser(snapshot.data);
-                  } else if (snapshot.hasError) {
-                    return const Center(child: Text("Cargando datos del usuario o refresque la pagina", softWrap: true));
-                  }
-                  return const Center(child: CircularProgressIndicator());
-                }),*/
-            const SizedBox(height: 10),
             SizedBox(
               height: 200,
               width: 200,
@@ -132,7 +121,6 @@ class _HomePageState extends State<HomePage> {
                           fontSize: 16, fontWeight: FontWeight.normal)),
                   const Text("__________________________",
                       style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal)),
-                  const SizedBox(height: 20),
                 ],
               ),
             ),
@@ -177,11 +165,11 @@ class _HomePageState extends State<HomePage> {
               },
             ),
             ListTile(
-              title: const Text("Inventario"),
+              title: const Text("Insumos"),
               leading: const Icon(Icons.inventory, size: 25),
               onTap: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (ctx) => const InventoryPage()));
+                    MaterialPageRoute(builder: (ctx) => const InsumosPage()));
               },
             ),
             ListTile(
