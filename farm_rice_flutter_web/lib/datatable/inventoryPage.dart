@@ -1,3 +1,4 @@
+import 'package:farm_rice_flutter_web/componentes/dataInventoryTable.dart';
 import 'package:flutter/material.dart';
 import 'package:farm_rice_flutter_web/conecction/endpointClass.dart';
 import 'package:farm_rice_flutter_web/class/classInventoryTable.dart';
@@ -27,7 +28,7 @@ class _InventoryPageState extends State<InventoryPage> {
         backgroundColor: const Color(0xff329437),
       ),
         body: Container(
-          padding: EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 5),
+          padding: const EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 5),
           child: FutureBuilder(
             future: _listInventoryTable,
             builder: (context, snapshot){
@@ -43,7 +44,7 @@ class _InventoryPageState extends State<InventoryPage> {
                     DataColumn(label: Text('Estado', softWrap: true)),
                     DataColumn(label: Text('Acciones', softWrap: true)),
                   ],
-                  source: resouceData(snapshot.data),
+                  source: resouceDataInv(snapshot.data),
                   rowsPerPage: 8,
                   columnSpacing: 40,
                   header: const Text("Lista de Insumos", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold), softWrap: true),
@@ -125,7 +126,7 @@ class _InventoryPageState extends State<InventoryPage> {
                                             icon: const Icon(Icons.save_rounded, size: 50),
                                             label:const Text(""),
                                             style: ElevatedButton.styleFrom(
-                                                primary: Colors.green,
+                                                backgroundColor: Colors.green,
                                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
                                                 padding: const EdgeInsets.all(8)
                                             ),
@@ -168,72 +169,8 @@ class _InventoryPageState extends State<InventoryPage> {
     );
   }
 
-}
-class resouceData extends DataTableSource {
-  resouceData(this._listLec);
-  final List<InventoryTable> _listLec;
-
-  void _sort<T>(Comparable<T> Function(InventoryTable d) getField, bool ascending){
-    _listLec.sort((InventoryTable a, InventoryTable b){
-      if(!ascending){
-        final InventoryTable c = a;
-        a =b; b =c;
-      }
-      final Comparable<T> aValue = getField(a);
-      final Comparable<T> bValue = getField(b);
-      return Comparable.compare(aValue, bValue);
-    });
-    notifyListeners();
+  @override
+  void dispose() {
+    super.dispose();
   }
-
-  final int _selectCount = 0;
-
-  @override
-  DataRow getRow(int index) {
-    assert(index >= 0);
-    if(index >= _listLec.length) return null;
-    final InventoryTable inv = _listLec[index];
-    return DataRow.byIndex(
-      index: index,
-      selected: inv.selected,
-      cells: <DataCell>[
-        DataCell(Center(child: Text(inv.codigo))),
-        DataCell(Center(child: Text(inv.name))),
-        DataCell(Center(child: Text(inv.descripcion))),
-        DataCell(Center(child: Text(inv.portada))),
-        DataCell(Center(child: Text(inv.fechregistro))),
-        DataCell(Center(child: Text(inv.ruta))),
-        DataCell(Center(child: Text(inv.status))),
-        DataCell(Center(child: ButtonBar(
-          alignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-                onPressed: () {
-
-                },
-                style: ElevatedButton.styleFrom(
-                    shape: const CircleBorder(), backgroundColor: Colors.blue,
-                    padding: const EdgeInsets.all(15),
-                    alignment: Alignment.center),
-                child: const Icon(Icons.remove_red_eye_rounded,
-                )),
-            ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                    shape: const CircleBorder(), backgroundColor: Colors.red,
-                    padding: const EdgeInsets.all(15),
-                    alignment: Alignment.center),
-                child: const Icon(Icons.delete,
-                )),
-          ],))),
-      ],
-    );
-  }
-
-  @override
-  bool get isRowCountApproximate => false;
-  @override
-  int get rowCount => _listLec.length;
-  @override
-  int get selectedRowCount => _selectCount;
 }

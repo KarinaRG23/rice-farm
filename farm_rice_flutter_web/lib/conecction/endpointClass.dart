@@ -8,7 +8,9 @@ import 'package:farm_rice_flutter_web/class/classUserTable.dart';
 import 'package:farm_rice_flutter_web/class/classWorkedTable.dart';
 import 'package:farm_rice_flutter_web/class/classInventoryTable.dart';
 import 'package:farm_rice_flutter_web/class/classLotTable.dart';
+import 'package:farm_rice_flutter_web/class/laborsClass.dart';
 import 'package:farm_rice_flutter_web/class/rolClass.dart';
+import 'package:farm_rice_flutter_web/class/trabajadoresClass.dart';
 import 'package:farm_rice_flutter_web/class/userClass.dart';
 import 'package:farm_rice_flutter_web/temporalClass/sharedPreferences.dart';
 import 'package:farm_rice_flutter_web/temporalClass/userPreferences.dart';
@@ -35,7 +37,6 @@ class Endpoints {
   }
 
   Future<void> dataUser() async {
-    //List<User> listUser = [];
     var email = await preferences.getEmail();
     var password = await preferences.getPassword();
     var urlLogin = 'http://159.223.205.198:8080/auth/login';
@@ -46,15 +47,10 @@ class Endpoints {
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonData = jsonDecode(response.body);
       print(jsonData);
-      /*for(var x in jsonData){
-        listUser.add(User(x['correo'], x['user_rol'], x['username']));
-        userPreferences.setToken(x['token']);
-      }*/
       userPreferences.setEmail(jsonData['response']['correo']);
       userPreferences.setRol(jsonData['response']['user_rol']);
       userPreferences.setName(jsonData['response']['username']);
       userPreferences.setToken(jsonData['response']['token']);
-      //return listUser;
     }
   }
 
@@ -75,10 +71,8 @@ class Endpoints {
   }
 
   Future<List<InventoryTable>> getInventoryData() async {
-    //var token = await userPreferences.getToken();
     List<InventoryTable> listInventoryTable = [];
     var url = 'http://159.223.205.198:8080/categoria';
-    //var dataHeader = {HttpHeaders.authorizationHeader: "Bearer $token"};
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonData = jsonDecode(response.body);
@@ -123,4 +117,34 @@ class Endpoints {
 
   //http://159.223.205.198:8080/Producto
 
+  Future<List<Trabajador>> getTrabajador() async {
+    List<Trabajador> lisTrabajador = [];
+    var url = 'http://159.223.205.198:8080/Trabajadores';
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonData = jsonDecode(response.body);
+      for (var x in jsonData['response']) {
+        print(jsonData['response']);
+        lisTrabajador.add(Trabajador(x['codigo'].toString(), x['dni'], x['nombres'],
+            x['email'], x['telefono'], x['direccion'], x['salario']));
+      }
+      return lisTrabajador;
+    }
+  }
+
+  Future<List<Labores>> getLabores() async {
+    var token = await userPreferences.getToken();
+    List<Labores> listLabores = [];
+    var url = 'http://159.223.205.198:8080/Labores';
+    var headers = {HttpHeaders.authorizationHeader: "Bearer $token"};
+    final response = await http.get(Uri.parse(url), headers: headers);
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonData = jsonDecode(response.body);
+      for (var x in jsonData['response']) {
+        print(jsonData['response']);
+        listLabores.add(Labores(x['codigo'], x['nombre'], x['descripcion']));
+      }
+      return listLabores;
+    }
+  }
 }

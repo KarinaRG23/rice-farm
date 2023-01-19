@@ -1,17 +1,16 @@
-import 'package:farm_rice_flutter_web/class/trabajadoresClass.dart';
+import 'package:farm_rice_flutter_web/class/classInventoryTable.dart';
 import 'package:flutter/material.dart';
 
 // ignore: camel_case_types
-class resourceWorkedData extends DataTableSource {
-  resourceWorkedData(this._listLect);
-  final List<Trabajador> _listLect;
+class resouceDataInv extends DataTableSource {
+  resouceDataInv(this._listLec);
+  final List<InventoryTable> _listLec;
 
-  void _sort<T>(Comparable<T> Function(Trabajador d) getField, bool ascending) {
-    _listLect.sort((Trabajador a, Trabajador b) {
-      if (!ascending) {
-        final Trabajador c = a;
-        a = b;
-        b = c;
+  void _sort<T>(Comparable<T> Function(InventoryTable d) getField, bool ascending){
+    _listLec.sort((InventoryTable a, InventoryTable b){
+      if(!ascending){
+        final InventoryTable c = a;
+        a =b; b =c;
       }
       final Comparable<T> aValue = getField(a);
       final Comparable<T> bValue = getField(b);
@@ -25,19 +24,19 @@ class resourceWorkedData extends DataTableSource {
   @override
   DataRow getRow(int index) {
     assert(index >= 0);
-    if (index >= _listLect.length) return null;
-    final Trabajador trabajador = _listLect[index];
+    if(index >= _listLec.length) return null;
+    final InventoryTable inv = _listLec[index];
     return DataRow.byIndex(
       index: index,
-      selected: trabajador.selected,
+      selected: inv.selected,
       cells: <DataCell>[
-        DataCell(Center(child: Text(trabajador.id, style: const TextStyle(fontWeight: FontWeight.bold)))),
-        DataCell(Center(child: Text(trabajador.dni, softWrap: true))),
-        DataCell(Center(child: Text(trabajador.nombre, softWrap: true))),
-        DataCell(Center(child: Text(trabajador.email, softWrap: true))),
-        DataCell(Center(child: Text(trabajador.telefono, softWrap: true))),
-        DataCell(Center(child: Text(trabajador.direccion, softWrap: true))),
-        DataCell(Center(child: Text(trabajador.salarario, softWrap: true))),
+        DataCell(Center(child: Text(inv.codigo))),
+        DataCell(Center(child: Text(inv.name))),
+        DataCell(Center(child: Text(inv.descripcion))),
+        DataCell(Center(child: Text(inv.portada))),
+        DataCell(Center(child: Text(inv.fechregistro))),
+        DataCell(Center(child: Text(inv.ruta))),
+        DataCell(Center(child: Text(inv.status))),
         DataCell(Center(child: ButtonBar(
           alignment: MainAxisAlignment.center,
           children: [
@@ -67,7 +66,7 @@ class resourceWorkedData extends DataTableSource {
   @override
   bool get isRowCountApproximate => false;
   @override
-  int get rowCount => _listLect.length;
+  int get rowCount => _listLec.length;
   @override
   int get selectedRowCount => _selectCount;
 }

@@ -1,17 +1,15 @@
-import 'package:farm_rice_flutter_web/class/trabajadoresClass.dart';
+import 'package:farm_rice_flutter_web/class/classUserTable.dart';
 import 'package:flutter/material.dart';
 
-// ignore: camel_case_types
-class resourceWorkedData extends DataTableSource {
-  resourceWorkedData(this._listLect);
-  final List<Trabajador> _listLect;
+class resouceDataUser extends DataTableSource {
+  resouceDataUser(this._listLec);
+  final List<UserTable> _listLec;
 
-  void _sort<T>(Comparable<T> Function(Trabajador d) getField, bool ascending) {
-    _listLect.sort((Trabajador a, Trabajador b) {
-      if (!ascending) {
-        final Trabajador c = a;
-        a = b;
-        b = c;
+  void _sort<T>(Comparable<T> Function(UserTable d) getField, bool ascending){
+    _listLec.sort((UserTable a, UserTable b){
+      if(!ascending){
+        final UserTable c = a;
+        a =b; b =c;
       }
       final Comparable<T> aValue = getField(a);
       final Comparable<T> bValue = getField(b);
@@ -25,19 +23,22 @@ class resourceWorkedData extends DataTableSource {
   @override
   DataRow getRow(int index) {
     assert(index >= 0);
-    if (index >= _listLect.length) return null;
-    final Trabajador trabajador = _listLect[index];
+    if(index >= _listLec.length) return null;
+    final UserTable user = _listLec[index];
     return DataRow.byIndex(
       index: index,
-      selected: trabajador.selected,
+      selected: user.selected,
       cells: <DataCell>[
-        DataCell(Center(child: Text(trabajador.id, style: const TextStyle(fontWeight: FontWeight.bold)))),
-        DataCell(Center(child: Text(trabajador.dni, softWrap: true))),
-        DataCell(Center(child: Text(trabajador.nombre, softWrap: true))),
-        DataCell(Center(child: Text(trabajador.email, softWrap: true))),
-        DataCell(Center(child: Text(trabajador.telefono, softWrap: true))),
-        DataCell(Center(child: Text(trabajador.direccion, softWrap: true))),
-        DataCell(Center(child: Text(trabajador.salarario, softWrap: true))),
+        DataCell(Center(child: Text(user.userID))),
+        DataCell(Center(child: Text(user.dni))),
+        DataCell(Center(child: Text(user.name))),
+        DataCell(Center(child: Text(user.lastname))),
+        DataCell(Center(child: Text(user.phone))),
+        DataCell(Center(child: Text(user.email))),
+        DataCell(Center(child: Text(user.fiscalName))),
+        DataCell(Center(child: Text(user.direction))),
+        DataCell(Center(child: Text(user.rolId))),
+        DataCell(Center(child: Text(user.status))),
         DataCell(Center(child: ButtonBar(
           alignment: MainAxisAlignment.center,
           children: [
@@ -46,7 +47,7 @@ class resourceWorkedData extends DataTableSource {
 
                 },
                 style: ElevatedButton.styleFrom(
-                    shape: const CircleBorder(), backgroundColor: Colors.blue,
+                    shape: const CircleBorder(), backgroundColor: const Color(0xff329437),
                     padding: const EdgeInsets.all(15),
                     alignment: Alignment.center),
                 child: const Icon(Icons.remove_red_eye_rounded,
@@ -67,7 +68,7 @@ class resourceWorkedData extends DataTableSource {
   @override
   bool get isRowCountApproximate => false;
   @override
-  int get rowCount => _listLect.length;
+  int get rowCount => _listLec.length;
   @override
   int get selectedRowCount => _selectCount;
 }
