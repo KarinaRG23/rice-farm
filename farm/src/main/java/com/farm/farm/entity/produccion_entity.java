@@ -33,6 +33,14 @@ public class produccion_entity {
     @Setter
     private String estado;
 
+    @Getter
+    @Setter
+    private String sacas;
+
+    @Getter
+    @Setter
+    private String tipodearroz;
+    
     @ManyToOne
     @JoinColumn (name = "loteid", insertable = false, updatable = false)
     private lote_entity lote;
