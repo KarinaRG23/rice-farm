@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element, camel_case_types
+
 import 'package:farm_rice_flutter_web/class/classUserTable.dart';
 import 'package:flutter/material.dart';
 
@@ -30,25 +32,23 @@ class resouceDataUser extends DataTableSource {
       selected: user.selected,
       cells: <DataCell>[
         DataCell(Center(child: Text(user.userID))),
-        DataCell(Center(child: Text(user.dni))),
-        DataCell(Center(child: Text(user.name))),
-        DataCell(Center(child: Text(user.lastname))),
-        DataCell(Center(child: Text(user.phone))),
-        DataCell(Center(child: Text(user.email))),
-        DataCell(Center(child: Text(user.fiscalName))),
-        DataCell(Center(child: Text(user.direction))),
-        DataCell(Center(child: Text(user.rolId))),
-        DataCell(Center(child: Text(user.status))),
-        DataCell(Center(child: ButtonBar(
+        DataCell(Text(user.dni)),
+        DataCell(Text(user.name)),
+        DataCell(Text(user.lastname)),
+        DataCell(Text(user.phone)),
+        DataCell(Text(user.email)),
+        DataCell(Text(user.fiscalName)),
+        DataCell(Text(user.direction)),
+        DataCell(Text(user.rolId)),
+        DataCell(Text(user.status)),
+        DataCell(ButtonBar(
+          buttonPadding: const EdgeInsets.all(0.5),
           alignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-                onPressed: () {
-
-                },
+                onPressed: () {},
                 style: ElevatedButton.styleFrom(
                     shape: const CircleBorder(), backgroundColor: const Color(0xff329437),
-                    padding: const EdgeInsets.all(15),
                     alignment: Alignment.center),
                 child: const Icon(Icons.remove_red_eye_rounded,
                 )),
@@ -56,11 +56,17 @@ class resouceDataUser extends DataTableSource {
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
                     shape: const CircleBorder(), backgroundColor: Colors.red,
-                    padding: const EdgeInsets.all(15),
+                    alignment: Alignment.center),
+                child: const Icon(Icons.edit,
+                )),
+            ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                    shape: const CircleBorder(), backgroundColor: Colors.red,
                     alignment: Alignment.center),
                 child: const Icon(Icons.delete,
                 )),
-          ],))),
+          ],)),
       ],
     );
   }

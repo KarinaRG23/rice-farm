@@ -84,8 +84,6 @@ class _HomePageState extends State<HomePage> {
                 style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             Text(x.roller,
                 style: const TextStyle(fontSize: 16, fontWeight: FontWeight.normal)),
-            Text(x.correo,
-                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.normal)),
             const Text("__________________________",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal)),
             const SizedBox(height: 20),
@@ -131,7 +129,7 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 Navigator.pop(context, (ctx) => const HomePage());
               },
-            ),
+            ), //1
             ListTile(
               title: const Text("Usuarios"),
               leading: const Icon(Icons.account_circle, size: 25),
@@ -139,7 +137,7 @@ class _HomePageState extends State<HomePage> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (ctx) => const UserPage()));
               },
-            ),
+            ), //2
             ListTile(
               title: const Text("Roles"),
               leading: const Icon(Icons.group, size: 25),
@@ -147,7 +145,7 @@ class _HomePageState extends State<HomePage> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (ctx) => const RolPage()));
               },
-            ),
+            ), //3
             ListTile(
               title: const Text("Trabajadores"),
               leading: const Icon(Icons.work, size: 25),
@@ -155,7 +153,7 @@ class _HomePageState extends State<HomePage> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (ctx) => const WorkedPage()));
               },
-            ),
+            ), //4
             ListTile(
               title: const Text("Administradores"),
               leading: const Icon(Icons.work, size: 25),
@@ -163,7 +161,7 @@ class _HomePageState extends State<HomePage> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (ctx) => const AdministradorPage()));
               },
-            ),
+            ), //5
             ListTile(
               title: const Text("Insumos"),
               leading: const Icon(Icons.inventory, size: 25),
@@ -171,7 +169,7 @@ class _HomePageState extends State<HomePage> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (ctx) => const InsumosPage()));
               },
-            ),
+            ), //6
             ListTile(
               title: const Text("Lotes"),
               leading: const Icon(Icons.warehouse, size: 25),
@@ -179,15 +177,15 @@ class _HomePageState extends State<HomePage> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (ctx) => const LotsPage()));
               },
-            ),
+            ), //7
             ListTile(
               title: const Text("Labores"),
               leading: const Icon(Icons.engineering, size: 25),
               onTap: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (ctx) => const CommunityPage()));
+                    MaterialPageRoute(builder: (ctx) => const LaboresPage()));
               },
-            ),
+            ), //8
             ListTile(
               title: const Text("Produccion"),
               leading: const Icon(Icons.production_quantity_limits_outlined,
@@ -198,7 +196,7 @@ class _HomePageState extends State<HomePage> {
                     MaterialPageRoute(
                         builder: (ctx) => const ProductionPage()));
               },
-            ),
+            ), //9
           ])),
       appBar: AppBar(
         title: const Text("Farm Rice"),

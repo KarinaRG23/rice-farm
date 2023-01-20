@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class EditTextField extends StatelessWidget{
   final TextEditingController textEditingController;
   final TextInputType textInputType;
+  final List<TextInputFormatter> formatter;
   final Icon icon;
   final String hintext;
   final bool obscureText;
@@ -11,6 +13,7 @@ class EditTextField extends StatelessWidget{
     Key key,
     @required this.textEditingController,
     @required this.textInputType,
+    this.formatter,
     @required this.icon,
     @required this.hintext,
     this.obscureText
@@ -23,6 +26,7 @@ class EditTextField extends StatelessWidget{
       controller: textEditingController,
       obscureText: obscureText != null,
       keyboardType: textInputType,
+      inputFormatters: formatter,
       decoration: InputDecoration(
         prefixIcon: icon,
         hintText: hintext,

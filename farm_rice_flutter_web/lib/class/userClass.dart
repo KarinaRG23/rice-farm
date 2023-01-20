@@ -2,14 +2,12 @@
 
 class User{
   String nombre;
-  String correo;
   String roller;
 
-  User(this.correo, this.roller, this.nombre);
+  User(this.roller, this.nombre);
 
   Map<String, dynamic>toJson(){
     return {
-      "correo":correo,
       "user_rol":roller,
       "username":nombre
     };

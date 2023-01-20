@@ -3,14 +3,14 @@ import 'package:farm_rice_flutter_web/componentes/dataLaborsTable.dart';
 import 'package:farm_rice_flutter_web/conecction/endpointClass.dart';
 import 'package:flutter/material.dart';
 
-class CommunityPage extends StatefulWidget {
-  const CommunityPage({Key key}) : super(key: key);
+class LaboresPage extends StatefulWidget {
+  const LaboresPage({Key key}) : super(key: key);
 
   @override
-  State<CommunityPage> createState() => _CommunityPageState();
+  State<LaboresPage> createState() => _LaboresPageState();
 }
 
-class _CommunityPageState extends State<CommunityPage> {
+class _LaboresPageState extends State<LaboresPage> {
 
   Future<List<Labores>> _listLabores;
   final Endpoints _endpoints = Endpoints();

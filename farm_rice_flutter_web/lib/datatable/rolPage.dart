@@ -31,6 +31,11 @@ class _RolPageState extends State<RolPage>{
       ),
       body: Container(
         padding: const EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 5),
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('images/fondo_de_pantalla.jpg'),
+              fit: BoxFit.fill),
+        ),
         child: FutureBuilder(
           future: _listRolUser,
             builder: (context, snapshot){

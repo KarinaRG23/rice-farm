@@ -12,6 +12,7 @@ import 'package:farm_rice_flutter_web/class/laborsClass.dart';
 import 'package:farm_rice_flutter_web/class/productClass.dart';
 import 'package:farm_rice_flutter_web/class/rolClass.dart';
 import 'package:farm_rice_flutter_web/class/trabajadoresClass.dart';
+import 'package:farm_rice_flutter_web/class/userClass.dart';
 import 'package:farm_rice_flutter_web/temporalClass/sharedPreferences.dart';
 import 'package:farm_rice_flutter_web/temporalClass/userPreferences.dart';
 import 'package:http/http.dart' as http;
@@ -36,21 +37,26 @@ class Endpoints {
     }
   }
 
-  Future<void> dataUser() async {
+  Future<List<User>> dataUser() async {
+    List<User> listUser = [];
     var email = await preferences.getEmail();
     var password = await preferences.getPassword();
+
     var urlLogin = 'http://159.223.205.198:8080/auth/login';
     var dataLogin = {"email": email, "password": password};
     var dataEncoding = jsonEncode(dataLogin);
     var dataHeader = {HttpHeaders.contentTypeHeader: "application/json"};
+
     final response = await http.post(Uri.parse(urlLogin), body: dataEncoding, headers: dataHeader);
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonData = jsonDecode(response.body);
-      userPreferences.setEmail(jsonData['response']['correo']);
+      listUser.add(User(jsonData['response']['user_rol'], jsonData['response']['username']));
+      /*userPreferences.setEmail(jsonData['response']['correo']);
       userPreferences.setRol(jsonData['response']['user_rol']);
-      userPreferences.setName(jsonData['response']['username']);
+      userPreferences.setName(jsonData['response']['username']);*/
       userPreferences.setToken(jsonData['response']['token']);
     }
+    return listUser;
   }
 
   //
