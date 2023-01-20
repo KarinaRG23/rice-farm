@@ -24,11 +24,16 @@ class _InsumosPageState extends State<InsumosPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+        appBar: AppBar(
         title: const Text("Insumos"),
         backgroundColor: const Color(0xff329437),
       ),
         body: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('images/fondo_de_pantalla.jpg'),
+                fit: BoxFit.fill),
+          ),
           padding: const EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 5),
           child: FutureBuilder(
             future: _listInsumosTable,

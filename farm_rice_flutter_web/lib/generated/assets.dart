@@ -10,8 +10,16 @@ class Assets {
   static const String iconsSuitcase = 'images/icons/suitcase.png';
   static const String iconsUser = 'images/icons/user.png';
   static const String iconsWarehouse = 'images/icons/warehouse.png';
+  static const String imagesAdministrator = 'images/administrator.png';
   static const String imagesFondoDePantalla = 'images/fondo_de_pantalla.jpg';
   static const String imagesImg = 'images/img.png';
+  static const String imagesInsumos = 'images/insumos.png';
+  static const String imagesLabores = 'images/labores.png';
+  static const String imagesLotes = 'images/lotes.png';
+  static const String imagesProduccion = 'images/produccion.png';
   static const String imagesRice = 'images/rice.png';
+  static const String imagesRoles = 'images/roles.png';
+  static const String imagesTrabajadores = 'images/trabajadores.png';
+  static const String imagesUsuario = 'images/usuario.png';
 
 }

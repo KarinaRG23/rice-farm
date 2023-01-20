@@ -1,4 +1,3 @@
-import 'package:farm_rice_flutter_web/vistas/homepage.dart';
 import 'package:farm_rice_flutter_web/splash/splashBeforeLogin.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Farm Rice',
+      title: "Hacienda La Esperanza",
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
