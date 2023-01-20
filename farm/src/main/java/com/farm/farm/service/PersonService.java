@@ -36,6 +36,7 @@ public class PersonService {
 
     public persona_entity save(persona_entity person){
         if(isNotUserCreated(person.getEmail())){
+            person.setStatus(1);
             return persona_repository.save(person);
         }
         return null;
