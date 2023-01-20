@@ -98,6 +98,16 @@ class Endpoints {
     }
   }
 
+  Future<bool> deleteUserData(int idUser)async{
+    var url ="http://159.223.205.198:8080/person/delete/$idUser";
+    final response = await http.get(Uri.parse(url));
+    if(response.statusCode ==200){
+      return true;
+    }else if(response.statusCode != 200){
+      return false;
+    }
+  }
+
   Future<List<InventoryTable>> getInventoryData() async {
     List<InventoryTable> listInventoryTable = [];
     var url = 'http://159.223.205.198:8080/categoria';
@@ -179,6 +189,16 @@ class Endpoints {
             x['email'], x['telefono'], x['direccion'], x['salario']));
       }
       return lisTrabajador;
+    }
+  }
+
+  Future<bool> deleteUserDataTrabajador(int idUser)async{
+    var url ="http://159.223.205.198:8080/Trabajadores/delete/$idUser";
+    final response = await http.get(Uri.parse(url));
+    if(response.statusCode ==200){
+      return true;
+    }else if(response.statusCode != 200){
+      return false;
     }
   }
 

@@ -1,11 +1,16 @@
 // ignore_for_file: camel_case_types
 
 import 'package:farm_rice_flutter_web/class/rolClass.dart';
+import 'package:farm_rice_flutter_web/conecction/endpointClass.dart';
 import 'package:flutter/material.dart';
+import 'package:toast/toast.dart';
 
 class resouceDataRol extends DataTableSource {
-  resouceDataRol(this._listLec);
+  resouceDataRol(this._listLec, this.context);
   final List<Rol> _listLec;
+  final BuildContext context;
+
+  final Endpoints _endpoints = Endpoints();
 
   void _sort<T>(Comparable<T> Function(Rol d) getField, bool ascending){
     _listLec.sort((Rol a, Rol b){
@@ -48,15 +53,13 @@ class resouceDataRol extends DataTableSource {
                 child: const Icon(Icons.remove_red_eye_rounded,
                 )),
             ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                    shape: const CircleBorder(), backgroundColor: Colors.blue,
-                    padding: const EdgeInsets.all(15),
-                    alignment: Alignment.center),
-                child: const Icon(Icons.edit,
-                )),
-            ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text("Fila eliminada. Actualizar pagina"),
+                    behavior: SnackBarBehavior.floating,
+                    margin: EdgeInsets.only(bottom: 30),
+                  ));
+                },
                 style: ElevatedButton.styleFrom(
                     shape: const CircleBorder(), backgroundColor: Colors.red,
                     padding: const EdgeInsets.all(15),

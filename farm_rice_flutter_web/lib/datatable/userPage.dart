@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:toast/toast.dart';
 
+import '../vistas/dashboard.dart';
+
 class UserPage extends StatefulWidget {
   const UserPage({Key key}) : super(key: key);
 
@@ -95,11 +97,11 @@ class _UserPageState extends State<UserPage> {
                                 content:StatefulBuilder(
                                   builder: (BuildContext context, StateSetter setState){
                                     return SizedBox(
-                                      height: 400,
+                                      height: 350,
                                       width: 600,
                                       child: Column(
                                         children: [
-                                          const SizedBox(height: 10),
+                                          const SizedBox(height: 20),
                                           Row(
                                             children: [
                                               Expanded(
@@ -264,6 +266,17 @@ class _UserPageState extends State<UserPage> {
                                           icon: const Icon(Icons.save),
                                           label: const Text("Agregar usuario", softWrap: true,)
                                       ),
+                                      const SizedBox(width: 5),
+                                      ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.push(context, MaterialPageRoute(builder: (ctx)=> const Dashboard()));
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                              shape: const CircleBorder(), backgroundColor: const Color(
+                                              0xFF1869C0),
+                                              alignment: Alignment.center),
+                                          child: const Icon(Icons.change_circle_rounded)),
+                                      SizedBox(width: MediaQuery.of(context).size.width*0.015),
                                     ],
                                   )
                                 ],

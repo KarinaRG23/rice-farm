@@ -1,12 +1,16 @@
 // ignore_for_file: unused_element, camel_case_types
 
 import 'package:farm_rice_flutter_web/class/classUserTable.dart';
+import 'package:farm_rice_flutter_web/conecction/endpointClass.dart';
 import 'package:flutter/material.dart';
+import 'package:toast/toast.dart';
 
 class resouceDataUser extends DataTableSource {
   resouceDataUser(this._listLec, this.context);
   final List<UserTable> _listLec;
   final BuildContext context;
+
+  final Endpoints _endpoints = Endpoints();
 
   void _sort<T>(Comparable<T> Function(UserTable d) getField, bool ascending){
     _listLec.sort((UserTable a, UserTable b){
@@ -51,8 +55,26 @@ class resouceDataUser extends DataTableSource {
                   showDialog(
                       context: context,
                       builder: (context)=>AlertDialog(
-                        title: Text("Datos personales"),
-                        content: SizedBox(),
+                        title: const Text("Datos personales"),
+                        content: SizedBox(
+                          height: 200,
+                          width: 400,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              const SizedBox(height: 15),
+                              Text('Nombres completos: ${user.name} ${user.lastname}'),
+                              const SizedBox(height: 5),
+                              Text('Email: ${user.email}'),
+                              const SizedBox(height: 5),
+                              Text('C.I.: ${user.dni}  | Telefono: ${user.phone}'),
+                              const SizedBox(height: 5),
+                              Text('Direccion.: ${user.direction}'),
+                              const SizedBox(height: 5),
+                              Text('Rol.: ${user.rolId}  |  Estado: ${user.status}'),
+                            ],
+                          ),
+                        ),
                         actions: [],
                       )
                   );
@@ -62,16 +84,16 @@ class resouceDataUser extends DataTableSource {
                     alignment: Alignment.center),
                 child: const Icon(Icons.remove_red_eye_rounded,
                 )),
-            /*ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                    shape: const CircleBorder(), backgroundColor: const Color(
-                    0xFF1869C0),
-                    alignment: Alignment.center),
-                child: const Icon(Icons.edit,
-                )),*/
             ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  int n = int.parse(user.userID);
+                  _endpoints.deleteUserData(n);
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text("Fila eliminada. Actualizar pagina"),
+                    behavior: SnackBarBehavior.floating,
+                    margin: EdgeInsets.only(bottom: 30),
+                  ));
+                },
                 style: ElevatedButton.styleFrom(
                     shape: const CircleBorder(), backgroundColor: Colors.red,
                     alignment: Alignment.center),

@@ -51,11 +51,10 @@ class _AdministradorPageState extends State<AdministradorPage>{
                   DataColumn(label: Text('Direccion fiscal', style: TextStyle(fontWeight: FontWeight.bold))),
                   DataColumn(label: Text('Rol', style: TextStyle(fontWeight: FontWeight.bold))),
                   DataColumn(label: Text('Estado', style: TextStyle(fontWeight: FontWeight.bold))),
-                  DataColumn(label: Text('Opciones de usuario', softWrap: true, style: TextStyle(fontWeight: FontWeight.bold))),
                 ],
                 source: resouceDataAdmin(snapshot.data),
                 rowsPerPage: 8,
-                columnSpacing: 25,
+                columnSpacing: 50,
                 header: const Text("Administradores", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold), softWrap: true),
                 sortAscending: false,
               );

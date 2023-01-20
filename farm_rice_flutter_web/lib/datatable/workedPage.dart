@@ -1,4 +1,5 @@
 import 'package:farm_rice_flutter_web/class/trabajadoresClass.dart';
+import 'package:farm_rice_flutter_web/vistas/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:farm_rice_flutter_web/conecction/endpointClass.dart';
 import 'package:farm_rice_flutter_web/componentes/dataWorkedTable.dart';
@@ -48,23 +49,23 @@ class _WorkedPageState extends State<WorkedPage> {
                       DataColumn(label: Text("Salario", style: TextStyle(fontWeight: FontWeight.bold))),
                       DataColumn(label: Text("Acciones", style: TextStyle(fontWeight: FontWeight.bold))),
                     ],
-                    source: resourceWorkedData(snapshot.data),
+                    source: resourceWorkedData(snapshot.data, context),
                     rowsPerPage: 8,
-                    columnSpacing: 150,
+                    columnSpacing: 80,
                     header: const Text("Lista de trabajadores", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold), softWrap: true),
                     sortAscending: false,
                     actions: [
-                      ElevatedButton.icon(
-                          onPressed: (){},
-                          style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                              backgroundColor: const Color(0xff329437)
-                          ),
-                          icon: const Icon(Icons.group_add, size: 30 ),
-                          label: const Text("")
-                      ),
                       const SizedBox(width: 5),
+                      ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (ctx)=> const Dashboard()));
+                          },
+                          style: ElevatedButton.styleFrom(
+                              shape: const CircleBorder(), backgroundColor: const Color(
+                              0xFF1869C0),
+                              alignment: Alignment.center),
+                          child: const Icon(Icons.change_circle_rounded)),
+                      SizedBox(width: MediaQuery.of(context).size.width*0.015),
                     ],
                   );
                 }

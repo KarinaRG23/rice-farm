@@ -40,35 +40,7 @@ class resouceDataAdmin extends DataTableSource {
         DataCell(Center(child: Text(user.fiscalName))),
         DataCell(Center(child: Text(user.direction))),
         DataCell(Center(child: Text(user.rolId))),
-        DataCell(Center(child: Text(user.status))),
-        DataCell(Center(child: ButtonBar(
-          alignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                    shape: const CircleBorder(), backgroundColor: const Color(0xff329437),
-                    padding: const EdgeInsets.all(15),
-                    alignment: Alignment.center),
-                child: const Icon(Icons.remove_red_eye_rounded,
-                )),
-            ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                    shape: const CircleBorder(), backgroundColor: Colors.blue,
-                    padding: const EdgeInsets.all(15),
-                    alignment: Alignment.center),
-                child: const Icon(Icons.edit,
-                )),
-            ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                    shape: const CircleBorder(), backgroundColor: Colors.red,
-                    padding: const EdgeInsets.all(15),
-                    alignment: Alignment.center),
-                child: const Icon(Icons.delete,
-                )),
-          ],))),
+        DataCell(Center(child: Text(user.status, style: const TextStyle(backgroundColor: Colors.green)))),
       ],
     );
   }
