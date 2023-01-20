@@ -40,7 +40,7 @@ public class produccion_entity {
     @Getter
     @Setter
     private String tipodearroz;
-    
+
     @ManyToOne
     @JoinColumn (name = "loteid", insertable = false, updatable = false)
     private lote_entity lote;
