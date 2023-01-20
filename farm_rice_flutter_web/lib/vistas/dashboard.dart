@@ -13,7 +13,7 @@ import 'package:farm_rice_flutter_web/datatable/rolPage.dart';
 import 'package:farm_rice_flutter_web/datatable/userPage.dart';
 import 'package:farm_rice_flutter_web/datatable/workedPage.dart';
 import 'package:farm_rice_flutter_web/vistas/login.dart';
-import 'package:farm_rice_flutter_web/vistas/notification.dart';
+import 'package:farm_rice_flutter_web/DontUsed/notification.dart';
 import 'package:farm_rice_flutter_web/vistas/shoppingCart.dart';
 import 'package:flutter/material.dart';
 
@@ -84,10 +84,6 @@ class _DashboardState extends State<Dashboard>{
           IconButton(onPressed: () {
             Navigator.push(context, MaterialPageRoute(builder: (ctx)=> const ShoppingCart()));
           }, icon: const Icon(Icons.shopping_cart)),
-          const SizedBox(width: 15),
-          IconButton(onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (ctx)=> const NotificationPage()));
-          }, icon: const Icon(Icons.notifications)),
           const SizedBox(width: 15),
           IconButton(
               onPressed: () {

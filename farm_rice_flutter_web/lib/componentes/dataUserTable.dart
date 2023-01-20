@@ -4,8 +4,9 @@ import 'package:farm_rice_flutter_web/class/classUserTable.dart';
 import 'package:flutter/material.dart';
 
 class resouceDataUser extends DataTableSource {
-  resouceDataUser(this._listLec);
+  resouceDataUser(this._listLec, this.context);
   final List<UserTable> _listLec;
+  final BuildContext context;
 
   void _sort<T>(Comparable<T> Function(UserTable d) getField, bool ascending){
     _listLec.sort((UserTable a, UserTable b){
@@ -46,19 +47,29 @@ class resouceDataUser extends DataTableSource {
           alignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (context)=>AlertDialog(
+                        title: Text("Datos personales"),
+                        content: SizedBox(),
+                        actions: [],
+                      )
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                     shape: const CircleBorder(), backgroundColor: const Color(0xff329437),
                     alignment: Alignment.center),
                 child: const Icon(Icons.remove_red_eye_rounded,
                 )),
-            ElevatedButton(
+            /*ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
-                    shape: const CircleBorder(), backgroundColor: Colors.red,
+                    shape: const CircleBorder(), backgroundColor: const Color(
+                    0xFF1869C0),
                     alignment: Alignment.center),
                 child: const Icon(Icons.edit,
-                )),
+                )),*/
             ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(

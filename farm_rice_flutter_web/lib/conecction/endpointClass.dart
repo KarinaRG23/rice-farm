@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'dart:convert';
+import 'dart:html';
 import 'dart:io';
 import 'package:farm_rice_flutter_web/class/administratorClass.dart';
 import 'package:farm_rice_flutter_web/class/classUserTable.dart';
@@ -51,9 +52,6 @@ class Endpoints {
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonData = jsonDecode(response.body);
       listUser.add(User(jsonData['response']['user_rol'], jsonData['response']['username']));
-      /*userPreferences.setEmail(jsonData['response']['correo']);
-      userPreferences.setRol(jsonData['response']['user_rol']);
-      userPreferences.setName(jsonData['response']['username']);*/
       userPreferences.setToken(jsonData['response']['token']);
     }
     return listUser;
@@ -72,6 +70,31 @@ class Endpoints {
             x['email'], x['nombrefiscal'], x['direccionfiscal'], x['rolid'].toString(), x['status'].toString()));
       }
       return listTable;
+    }
+  }
+
+  Future<bool> setUserData(String dni, String name, String password,String lastname, String phone,
+      String email, String namef, String direction, int rol) async {
+    var url = 'http://159.223.205.198:8080/person';
+    var dataBody = {
+      "identificacion": dni,
+      "nombres": name,
+      "apellidos": lastname,
+      "telefono": phone,
+      "email": email,
+      "nombrefiscal": namef,
+      "direccionfiscal": direction,
+      "password":password,
+      "rolid": rol,
+    };
+    var dataEncoding = jsonEncode(dataBody);
+    var dataHeader = {HttpHeaders.contentTypeHeader: "application/json"};
+    final response = await http.post(Uri.parse(url), body: dataEncoding, headers: dataHeader);
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      return true;
+    }else{
+      return false;
     }
   }
 
