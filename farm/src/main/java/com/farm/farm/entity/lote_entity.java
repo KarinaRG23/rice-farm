@@ -20,13 +20,26 @@ public class lote_entity {
 
     @Getter
     @Setter
-    private String nombre;
-    @Getter
-    @Setter
-    private String numero;
+    private String numero_lote;
     @Getter
     @Setter
     private String area;
+
+    @Getter
+    @Setter
+    private String etapa;
+
+    @Getter
+    @Setter
+    private Double inversion;
+
+    @Getter
+    @Setter
+    private Double costo;
+
+    @Getter
+    @Setter
+    private Double Total;
 
     @OneToMany(mappedBy = "lote")
     @Setter@Getter
