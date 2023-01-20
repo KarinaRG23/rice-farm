@@ -35,4 +35,9 @@ public class TrabajadoresEntity {
     @Getter
     @Setter
     private String salario;
+
+    @Getter
+    @Setter
+    @Column(columnDefinition = "integer default 1")
+    private Integer status;
 }

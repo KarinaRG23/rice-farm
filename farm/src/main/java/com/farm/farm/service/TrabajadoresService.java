@@ -1,5 +1,6 @@
 package com.farm.farm.service;
 import com.farm.farm.entity.TrabajadoresEntity;
+import com.farm.farm.entity.TrabajadoresEntity;
 import com.farm.farm.repository.TrabajadoresRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,8 +13,18 @@ public class TrabajadoresService {
     @Autowired
     TrabajadoresRepository TrabajadoresRepository;
 
+
+
     public ArrayList<TrabajadoresEntity> getAllTrabajadores(){
-        return (ArrayList<TrabajadoresEntity>) TrabajadoresRepository.findAll();
+        ArrayList<TrabajadoresEntity> trabajadores = new ArrayList<>();
+        for(TrabajadoresEntity trabajadoresEntity: TrabajadoresRepository.findAll()){
+            if(trabajadoresEntity.getStatus() == 1){
+                trabajadores.add(trabajadoresEntity);
+            }else{
+                continue;
+            }
+        }
+        return trabajadores;
     }
     public TrabajadoresEntity saveTrabajadores(TrabajadoresEntity data){
         return TrabajadoresRepository.save(data);
@@ -24,13 +35,10 @@ public class TrabajadoresService {
 
     }
 
-    public boolean deleteTrabajadoresById (int id){
-        try{
-            TrabajadoresRepository.deleteById(id);
-            return true;
-        }
-        catch(Exception err){
-            return false;
-        }
+    public void deleteTrabajadoresById (int id){
+        TrabajadoresEntity trabajador = TrabajadoresRepository.findById(id).get();
+        trabajador.setStatus(0);
+        TrabajadoresRepository.save(trabajador);
     }
+
 }

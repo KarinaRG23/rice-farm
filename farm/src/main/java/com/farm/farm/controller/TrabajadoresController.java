@@ -40,13 +40,10 @@ public class TrabajadoresController {
     public Optional<TrabajadoresEntity> getTrabajadoresById(@PathVariable("id") int id){
         return this.TrabajadoresService.getTrabajadoresById(id);
     }
-    @DeleteMapping("/{id}")
-    public String deleteTrabajadoresById(@PathVariable("id") int id) {
-        boolean ok = this.TrabajadoresService.deleteTrabajadoresById(id);
-        if (ok) {
-            return "Se ha eliminado el Trabajadores con el Id: " + id;
-        } else {
-            return "Algo ha salido mal, el Trabajadores no ha sido eliminado";
-        }
+    @GetMapping("/delete/{id}")
+    public ResponseEntity<JsonResponseBody> deleteTrabajadoresById(@PathVariable("id") int id) {
+        TrabajadoresService.deleteTrabajadoresById(id);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new JsonResponseBody(HttpStatus.OK.value(),"trabajador borrado" ));
     }
 }
