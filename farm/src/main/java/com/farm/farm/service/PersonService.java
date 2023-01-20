@@ -58,21 +58,21 @@ public class PersonService {
         ArrayList<persona_entity> persons = (ArrayList<persona_entity>) persona_repository.findAll();
         for(persona_entity person: persons){
             HashMap<Object,Object> personsBody = new HashMap<>();
-            personsBody.put("idpersona", person.getIdpersona());
-            personsBody.put("identificacion", person.getIdentificacion());
-            personsBody.put("nombres", person.getNombres());
-            personsBody.put("apellidos", person.getApellidos());
-            personsBody.put("telefono", person.getTelefono());
-            personsBody.put("email", person.getEmail());
-            personsBody.put("nombrefiscal", person.getNombrefiscal());
-            personsBody.put("direccionfiscal", person.getDireccionfiscal());
-            personsBody.put("rolid", repository.findById(person.getRolid()).get().getNombrerol());
             if (person.getStatus() == 1){
+                personsBody.put("idpersona", person.getIdpersona());
+                personsBody.put("identificacion", person.getIdentificacion());
+                personsBody.put("nombres", person.getNombres());
+                personsBody.put("apellidos", person.getApellidos());
+                personsBody.put("telefono", person.getTelefono());
+                personsBody.put("email", person.getEmail());
+                personsBody.put("nombrefiscal", person.getNombrefiscal());
+                personsBody.put("direccionfiscal", person.getDireccionfiscal());
+                personsBody.put("rolid", repository.findById(person.getRolid()).get().getNombrerol());
                 personsBody.put("status", "activo");
-            }else{
-                personsBody.put("status", "inactivo");
+                personObject.add(personsBody);
+            }else {
+                continue;
             }
-            personObject.add(personsBody);
         }
 
         return personObject;
@@ -120,5 +120,11 @@ public class PersonService {
         }
 
         return personObject;
+    }
+
+    public void deleteUser(Integer idPerson){
+        persona_entity person = persona_repository.findById(idPerson).get();
+        person.setStatus(0);
+        persona_repository.save(person);
     }
 }

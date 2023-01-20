@@ -48,4 +48,10 @@ public class PersonController {
                     .body(new JsonResponseBody(HttpStatus.BAD_REQUEST.value(), "no hay administradores"));
         }
     }
+    @GetMapping("/delete/{idPersona}")
+    public ResponseEntity<JsonResponseBody> deleteUser(@PathVariable("idPersona") Integer idPersona){
+        personService.deleteUser(idPersona);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new JsonResponseBody(HttpStatus.OK.value(), "Usuario borrado de manera correcta"));
+    }
 }
