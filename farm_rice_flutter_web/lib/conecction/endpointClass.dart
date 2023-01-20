@@ -138,6 +138,39 @@ class Endpoints {
     }
   }
 
+  Future<bool> setInsumos(String descripcion, String costo, String date, String nombre) async {
+    var token = await userPreferences.getToken();
+    var url = 'http://159.223.205.198:8080/insumos';
+    var dataHeader ={HttpHeaders.authorizationHeader: "Bearer $token"};
+    var dataBody = {
+      "descripcion": descripcion,
+      "costo": costo,
+      "f_registro": date,
+      "nombre": nombre
+    };
+    var dataEncoding = jsonEncode(dataBody);
+    final response = await http.post(Uri.parse(url), body: dataEncoding, headers: dataHeader);
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  Future<bool> deleteInsumos(int id) async {
+    var token = await userPreferences.getToken();
+    var dataheader = {HttpHeaders.authorizationHeader: "Bearer $token"};
+    var url = 'http://159.223.205.198:8080/insumos/delete/$id';
+    final response = await http.get(Uri.parse(url), headers: dataheader);
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      return true;
+    }else{
+      return false;
+    }
+  }
+
   //
   Future<List<Rol>> getRolUser() async {
     List<Rol> listRol = [];
@@ -226,10 +259,22 @@ class Endpoints {
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonData = jsonDecode(response.body);
       for (var x in jsonData['response']) {
-        listLote.add(LoteTable(x['codigo'].toString(), x['nombre'],
-            x['numero'], x['area']));
+        listLote.add(LoteTable(x['codigo'].toString(), x['numero_lote'], x['area'],
+            x['etapa'], x['inversion'].toString(), x['costo'].toString(), x['total'].toString()));
       }
       return listLote;
+    }
+  }
+
+  Future<bool> deleteLotes(int id) async {
+    var token = await userPreferences.getToken();
+    var url = 'http://159.223.205.198:8080/lote/delete/$id';
+    var headers = {HttpHeaders.authorizationHeader: "Bearer $token"};
+    final response = await http.get(Uri.parse(url), headers: headers);
+    if (response.statusCode == 200) {
+      return true;
+    }else{
+      return false;
     }
   }
 }

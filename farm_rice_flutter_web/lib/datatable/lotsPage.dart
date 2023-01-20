@@ -1,5 +1,6 @@
 
 import 'package:farm_rice_flutter_web/componentes/dataLoteTable.dart';
+import 'package:farm_rice_flutter_web/vistas/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:farm_rice_flutter_web/conecction/endpointClass.dart';
 import 'package:farm_rice_flutter_web/class/classLotTable.dart';
@@ -41,14 +42,17 @@ class _LotsPageState extends State<LotsPage> {
                   return PaginatedDataTable(
                     columns: const [
                       DataColumn(label: Text("Codigo", style: TextStyle(fontWeight: FontWeight.bold))),
-                      DataColumn(label: Text("Nombre", style: TextStyle(fontWeight: FontWeight.bold))),
                       DataColumn(label: Text("Lote", style: TextStyle(fontWeight: FontWeight.bold))),
                       DataColumn(label: Text("Area", style: TextStyle(fontWeight: FontWeight.bold))),
+                      DataColumn(label: Text("Etapa", style: TextStyle(fontWeight: FontWeight.bold))),
+                      DataColumn(label: Text("Inversion", style: TextStyle(fontWeight: FontWeight.bold))),
+                      DataColumn(label: Text("Coste", style: TextStyle(fontWeight: FontWeight.bold))),
+                      DataColumn(label: Text("Total", style: TextStyle(fontWeight: FontWeight.bold))),
                       DataColumn(label: Text("Acciones", style: TextStyle(fontWeight: FontWeight.bold))),
                     ],
-                    source: resouceDataLote(snapshot.data),
+                    source: resouceDataLote(snapshot.data, context),
                     rowsPerPage: 8,
-                    columnSpacing: 150,
+                    columnSpacing: 110,
                     header: const Text("Lotes", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold), softWrap: true),
                     sortAscending: false,
                     actions: [
@@ -63,6 +67,16 @@ class _LotsPageState extends State<LotsPage> {
                           label: const Text("")
                       ),
                       const SizedBox(width: 5),
+                      ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (ctx)=> const Dashboard()));
+                          },
+                          style: ElevatedButton.styleFrom(
+                              shape: const CircleBorder(), backgroundColor: const Color(
+                              0xFF1869C0),
+                              alignment: Alignment.center),
+                          child: const Icon(Icons.change_circle_rounded)),
+                      SizedBox(width: MediaQuery.of(context).size.width*0.015),
                     ],
                   );
                 }

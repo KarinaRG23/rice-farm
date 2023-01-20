@@ -2,21 +2,16 @@
 
 class LoteTable{
   String idlote;
-  String nombrelote;
   String numerolote;
   String area;
+  String etapa;
+  String inversion;
+  String coste;
+  String total;
 
 
   bool selected = false;
 
-  LoteTable(this.idlote, this.nombrelote, this.numerolote, this.area);
+  LoteTable(this.idlote, this.numerolote, this.area, this.etapa, this.inversion, this.coste, this.total);
 
-  Map<String, dynamic> toJson(){
-    return{
-      "idlote": idlote,
-      "nomlote":nombrelote,
-      "numlote": numerolote,
-      "area": area
-    };
-  }
 }
